@@ -16,18 +16,27 @@
 package org.tdwg.dwca.wikipedia;
 
 import org.gbif.dwc.terms.ConceptTerm;
+import org.gbif.dwc.terms.DcTerm;
 import org.gbif.dwc.terms.DwcTerm;
+import org.gbif.dwc.terms.GbifTerm;
 import org.gbif.dwc.text.Archive;
 import org.gbif.dwc.text.ArchiveField;
 import org.gbif.dwc.text.ArchiveFile;
 import org.gbif.dwc.text.ArchiveWriter;
+import org.gbif.file.CSVReader;
 import org.gbif.file.TabWriter;
 import org.gbif.metadata.eml.Eml;
 import org.gbif.metadata.eml.EmlWriter;
+import org.gbif.utils.file.FileUtils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 import freemarker.template.TemplateException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +62,11 @@ public class DwcaWriter {
   private Eml eml;
 
 
+  private DwcaWriter(File dir, ConceptTerm coreRowType) throws IOException {
+    this.dir = dir;
+    this.coreRowType = coreRowType;
+  }
+
   public DwcaWriter(ConceptTerm coreRowType, File dir) throws IOException {
     this.dir = dir;
     this.coreRowType= coreRowType;
@@ -63,7 +78,7 @@ public class DwcaWriter {
 
     String dfn = rowType.simpleNormalisedName().toLowerCase()+".txt";
     dataFileNames.put(rowType, dfn);
-    File df = new File(dir, dfn);
+    File df = new File(dir, dfn+"-1st_pass");
     org.apache.commons.io.FileUtils.forceMkdir(df.getParentFile());
     OutputStream out = new FileOutputStream(df);
     TabWriter wr = new TabWriter(out);
@@ -85,8 +100,8 @@ public class DwcaWriter {
     }
   }
   private void writeRow(Map<ConceptTerm, String> rowMap, ConceptTerm rowType) throws IOException {
-    TabWriter writer = writers.get(rowType);
-    List<ConceptTerm> coreTerms = terms.get(rowType);
+      TabWriter writer = writers.get(rowType);
+      List<ConceptTerm> coreTerms = terms.get(rowType);
     String[] row = new String[coreTerms.size()+1];
     row[0] = coreId;
     for (ConceptTerm term : rowMap.keySet()) {
@@ -136,8 +151,72 @@ public class DwcaWriter {
     for (TabWriter w : writers.values()){
       w.close();
     }
+    // add missing columns in second iteration
+    addMissingColumns();
   }
 
+  public static void main (String[] args) throws IOException {
+    DwcaWriter dw = new DwcaWriter(new File("/Users/markus/Desktop/wikipedia-es-dwca"), DwcTerm.Taxon);
+
+    Map<ConceptTerm, Integer> exts = new HashMap<ConceptTerm, Integer>();
+    exts.put(DwcTerm.Taxon, 18);
+    exts.put(GbifTerm.Description, 3);
+    exts.put(GbifTerm.Distribution, 3);
+    exts.put(GbifTerm.Image, 3);
+    exts.put(GbifTerm.SpeciesProfile, 1);
+    exts.put(GbifTerm.VernacularName, 3);
+
+    for (ConceptTerm rt : exts.keySet()){
+      String dfn = rt.simpleNormalisedName().toLowerCase() + ".txt";
+      dw.terms.put(rt, new ArrayList<ConceptTerm>());
+      dw.dataFileNames.put(rt, dfn);
+      while (dw.terms.get(rt).size() < exts.get(rt)) {
+        dw.terms.get(rt).add(DwcTerm.Taxon);
+      }
+    }
+
+    dw.addMissingColumns();
+  }
+
+  private void addMissingColumns() {
+    for (ConceptTerm rowType : terms.keySet()) {
+      int columns = terms.get(rowType).size()+1; // +1 for the coreID
+      String dfn = this.dataFileNames.get(rowType);
+      log.debug("Adding missing columns {} for data file {}", columns, dfn);
+      File f1stPass = new File(dir, dfn + "-1st_pass");
+      File fFinal = new File(dir, dfn);
+      BufferedReader reader= null;
+      FileWriter out=null;
+      try {
+        reader = new BufferedReader(new InputStreamReader(new FileInputStream(f1stPass), "UTF-8"));
+        out = new FileWriter(fFinal);
+
+        String line = reader.readLine();
+        while (line!=null){
+          // If we haven't reached EOF yet
+          int missingCols = columns - StringUtils.countMatches(line,"\t") - 1;
+          if (missingCols>0){
+            line += StringUtils.repeat('\t', missingCols);
+          }
+          out.write(line + "\n");
+          // get new line
+          line = reader.readLine();
+        }
+      } catch (IOException e) {
+        log.error("IOException", e);
+      } finally {
+        // close reader/writer
+        try {
+          if (out!=null) out.close();
+          if (reader!= null) reader.close();
+        } catch (IOException e) {
+          log.error("IOException", e);
+        }
+      }
+      // remove first pass file
+      f1stPass.delete();
+    }
+  }
   private void addEml() throws IOException{
     if (eml!=null){
       File emlFile = new File(dir, "eml.xml");

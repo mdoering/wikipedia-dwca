@@ -20,16 +20,10 @@ import org.gbif.dwc.terms.DcTerm;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.terms.GbifTerm;
 import org.gbif.dwc.terms.TermFactory;
+import org.gbif.dwc.text.DwcaWriter;
 import org.gbif.metadata.handler.SimpleSaxHandler;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.net.URLEncoder;
-import java.security.DigestException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +33,8 @@ import de.tudarmstadt.ukp.wikipedia.parser.Link;
 import de.tudarmstadt.ukp.wikipedia.parser.Paragraph;
 import de.tudarmstadt.ukp.wikipedia.parser.ParsedPage;
 import de.tudarmstadt.ukp.wikipedia.parser.Section;
-import de.tudarmstadt.ukp.wikipedia.parser.SectionContainer;
-import de.tudarmstadt.ukp.wikipedia.parser.Template;
 import de.tudarmstadt.ukp.wikipedia.parser.mediawiki.MediaWikiParserFactory;
 import de.tudarmstadt.ukp.wikipedia.parser.mediawiki.ModularParser;
-import de.tudarmstadt.ukp.wikipedia.parser.mediawiki.ResolvedTemplate;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,11 +46,13 @@ import org.xml.sax.SAXException;
  * and delegates to text parser
  * writes immediately every taxon to the dwca writer
  */
-public class WikipediaSaxHandler extends SimpleSaxHandler{
+public class WikipediaSaxHandler extends SimpleSaxHandler {
+
   private final Logger log = LoggerFactory.getLogger(getClass());
   private final String lang;
   private Integer taxonCount = 0;
   private final DwcaWriter writer;
+  private boolean ignore = false;
   private Integer pageID;
   private String title;
   private String text;
@@ -76,9 +69,14 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
   private final ConceptTerm wikipediaThumb;
 
   private static final Pattern NON_TEXT = Pattern.compile("^(#|\\{\\{)(redirect|weiterleitung)]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern IGNORE_TITLES = Pattern.compile(":|%3A", Pattern.CASE_INSENSITIVE);
+
+  public static boolean ignoreTitle(String title) {
+    return IGNORE_TITLES.matcher(title).find();
+  }
 
   public WikipediaSaxHandler(DwcaWriter writer, String lang) {
-    this.lang=lang.toLowerCase();
+    this.lang = lang.toLowerCase();
     pf = new MediaWikiParserFactory();
     parser = (ModularParser) pf.createParser();
     taxonParser = new TaxonTemplateParser();
@@ -97,69 +95,82 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
     // start new page?
     if (localName.equalsIgnoreCase("page")) {
       // reset props
-      pageID = null;
-      title = null;
-      text = null;
+      reset();
     }
+    // a redirect?
+    if (localName.equalsIgnoreCase("redirect")) {
+      ignore = true;
+    }
+  }
+
+  private void reset() {
+    ignore = false;
+    pageID = null;
+    title = null;
+    text = null;
+    taxonParser.reset();
   }
 
   @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
     super.endElement(uri, localName, qName);
     // end page?
-    if (pageID==null && localName.equalsIgnoreCase("id")){
-      // reset id
-      try {
-        pageID=Integer.parseInt(this.content);
-      } catch (NumberFormatException e) {
-        // swallow
-      }
-    } else if (localName.equalsIgnoreCase("title")) {
-      // reset id
-      title = content;
-    } else if (localName.equalsIgnoreCase("timestamp")) {
-      // <timestamp > 2010 - 08 - 26T22:38:36Z</timestamp >
-      timestamp = StringUtils.trimToNull(content);
-    }
-    else if (localName.equalsIgnoreCase("text")) {
-      // text to parse
-      text = content;
-    }
-
-    else if (localName.equalsIgnoreCase("page")) {
-      // get a ParsedPage object
-      if (text!=null){
-        ParsedPage pp = null;
-        if (!NON_TEXT.matcher(text).find()){
-          try {
-            pp = parser.parse(text);
-          } catch (Exception e) {
-            // catch parser errors - library isn't 100% fail proof it seems
-            log.warn("Failed to parse page {}-{}: " + e.getMessage(), pageID, title);
-          }
+    if (!ignore) {
+      if (localName.equalsIgnoreCase("id") && pageID == null) {
+        // reset id
+        try {
+          pageID = Integer.parseInt(this.content);
+        } catch (NumberFormatException e) {
+          // swallow
         }
-        if (pp != null) {
-          TaxonInfo taxon = taxonParser.getLastTaxon();
-          if (taxon != null) {
-            // this is a taxon page !!!
-            try {
-              processTaxonPage(pp, taxon);
-            } catch (IOException e) {
-              log.error("IOException when processing taxon page", e);
+      } else if (localName.equalsIgnoreCase("title")) {
+        // a real, public page or some draft/user/discussion page?
+        if (ignoreTitle(content)) {
+          ignore = true;
+        } else {
+          title = content;
+        }
+      } else if (localName.equalsIgnoreCase("timestamp")) {
+        // <timestamp > 2010 - 08 - 26T22:38:36Z</timestamp >
+        timestamp = StringUtils.trimToNull(content);
+      } else if (localName.equalsIgnoreCase("text")) {
+        // text to parse
+        if (content == null || NON_TEXT.matcher(content).find()) {
+          ignore = true;
+        } else {
+          text = content;
+        }
+      } else if (localName.equalsIgnoreCase("page") && text != null) {
+        // get a ParsedPage object
+        try {
+          ParsedPage pp = parser.parse(text);
+          if (pp != null) {
+            TaxonInfo taxon = taxonParser.getLastTaxon();
+            if (taxon != null) {
+              // this is a taxon page !!!
+              try {
+                processTaxonPage(pp, taxon);
+              } catch (IOException e) {
+                log.error("IOException when processing taxon page", e);
+              }
             }
           }
+        } catch (Exception e) {
+          // catch parser errors - library isn't 100% fail proof it seems
+          log.warn("Failed to parse page {}-{}: " + e.getMessage(), pageID, title);
         }
       }
     }
   }
 
   private void processTaxonPage(ParsedPage pp, TaxonInfo taxon) throws IOException {
-    if (taxon.getScientificName()==null){
+    if (taxon.getScientificName() == null) {
       log.warn("No scientific name found for taxon page {}", WikipediaUtils.getWikiLink(lang, title));
       return;
     }
     taxonCount++;
-    log.debug("Processing #"+taxonCount+" {} : {}", WikipediaUtils.getWikiLink(lang, title), taxon.getScientificName());
+    log.debug("Processing #" + taxonCount + " {} : {}", WikipediaUtils.getWikiLink(lang, title),
+      taxon.getScientificName());
     // write core record
     writer.newRecord(pageID.toString());
     writer.addCoreColumn(DcTerm.source, WikipediaUtils.getWikiLink(lang, title));
@@ -182,7 +193,7 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
     Map<ConceptTerm, String> row;
 
     // vernacular name extension
-    if (!StringUtils.isBlank(taxon.getName()) && !taxon.getName().equalsIgnoreCase(taxon.getScientificName())){
+    if (!StringUtils.isBlank(taxon.getName()) && !taxon.getName().equalsIgnoreCase(taxon.getScientificName())) {
       row = new HashMap<ConceptTerm, String>();
       row.put(DwcTerm.vernacularName, taxon.getName());
       row.put(DcTerm.language, lang);
@@ -190,13 +201,14 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
       writer.addExtensionRecord(GbifTerm.VernacularName, row);
     }
     // also use language links as common names
-    if (pp.getLanguagesElement()!=null){
+    if (pp.getLanguagesElement() != null) {
       for (Link l : pp.getLanguages()) {
         // de:Puma
         String vern = l.getText();
-        if (vern!=null && vern.contains(":")){
+        if (vern != null && vern.contains(":")) {
           String[] splitVern = StringUtils.split(org.apache.commons.lang3.StringUtils.trimToEmpty(vern), ":", 2);
-          if (splitVern.length==2 && splitVern[0].length()==2 && !splitVern[1].equalsIgnoreCase(taxon.getScientificName())){
+          if (splitVern.length == 2 && splitVern[0].length() == 2 && !splitVern[1]
+            .equalsIgnoreCase(taxon.getScientificName())) {
             row = new HashMap<ConceptTerm, String>();
             row.put(DwcTerm.vernacularName, splitVern[1]);
             row.put(DcTerm.language, splitVern[0]);
@@ -208,14 +220,14 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
 
     // species profile extension
     String fr = taxon.getFossilRange();
-    if (fr!=null) {
+    if (fr != null) {
       row = new HashMap<ConceptTerm, String>();
       row.put(GbifTerm.livingPeriod, fr);
       writer.addExtensionRecord(GbifTerm.SpeciesProfile, row);
     }
 
     // distribution extension
-    for (Image image : taxon.getRangeMaps()){
+    for (Image image : taxon.getRangeMaps()) {
       if (!StringUtils.isBlank(image.getImage())) {
         row = new HashMap<ConceptTerm, String>();
         row.put(wikipediaImage, WikipediaUtils.getImageLink(image.getImage()));
@@ -240,22 +252,22 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
     for (Section section : pp.getSections()) {
       row = new HashMap<ConceptTerm, String>();
 
-      boolean isFirst=true;
+      boolean isFirst = true;
       StringBuilder description = new StringBuilder();
       List<Paragraph> paras = section.getParagraphs();
       for (Paragraph p : paras) {
-        if (!isFirst){
+        if (!isFirst) {
           description.append("\\n");
         }
         String paraText = StringUtils.trimToNull(p.getText());
-        if (paraText!=null){
-          paraText.replaceAll(" thumb\\|"," ");
+        if (paraText != null) {
+          paraText.replaceAll(" thumb\\|", " ");
           description.append(paraText);
-          isFirst=false;
+          isFirst = false;
         }
       }
 
-      row.put(DcTerm.type, section.getTitle()==null ? "General": section.getTitle());
+      row.put(DcTerm.type, section.getTitle() == null ? "General" : section.getTitle());
       row.put(DcTerm.description, description.toString());
       row.put(DcTerm.language, lang);
       writer.addExtensionRecord(GbifTerm.Description, row);
@@ -265,8 +277,8 @@ public class WikipediaSaxHandler extends SimpleSaxHandler{
 
     // create individual records for each synonym
     int synIdx = 1;
-    for (String synonym : taxon.getSynonyms()){
-      String synID = pageID+"-syn"+ synIdx;
+    for (String synonym : taxon.getSynonyms()) {
+      String synID = pageID + "-syn" + synIdx;
       writer.newRecord(synID);
 
       writer.addCoreColumn(DwcTerm.scientificName, synonym);

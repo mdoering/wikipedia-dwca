@@ -27,8 +27,7 @@ import de.tudarmstadt.ukp.wikipedia.parser.Template;
 import de.tudarmstadt.ukp.wikipedia.parser.mediawiki.MediaWikiTemplateParser;
 import de.tudarmstadt.ukp.wikipedia.parser.mediawiki.ResolvedTemplate;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.omg.CORBA.PRIVATE_MEMBER;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +65,10 @@ public class TaxonTemplateParser implements MediaWikiTemplateParser {
 
   public TaxonInfo getLastTaxon() {
     return lastTaxon;
+  }
+
+  public void reset() {
+    lastTaxon = null;
   }
 
   public String configurationInfo(){

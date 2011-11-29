@@ -22,11 +22,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class WikipediaSaxHandlerTest {
 
+  @Test
+  @Ignore
   public void testParser() throws IOException {
     String wikiText = inputStreamToString(FileUtils.classpathStream("puma-en.xml"));
     // WikipediaSaxHandler handler = new WikipediaSaxHandler();
+  }
+
+  @Test
+  public void testIgnoreTitle() throws IOException {
+    assertTrue(WikipediaSaxHandler.ignoreTitle("Benutzer%3AMarkus"));
+    assertTrue(WikipediaSaxHandler.ignoreTitle("Benutzer:Markus"));
+    assertFalse(WikipediaSaxHandler.ignoreTitle("Abies alba"));
   }
 
   private String inputStreamToString(InputStream in) throws IOException {

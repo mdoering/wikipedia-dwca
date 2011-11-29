@@ -15,7 +15,7 @@
  */
 package org.tdwg.dwca.wikipedia;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @See http://en.wikipedia.org/wiki/Template:Taxobox#Complete_blank_template

@@ -16,6 +16,7 @@
 package org.tdwg.dwca.wikipedia;
 
 import org.gbif.dwc.terms.DwcTerm;
+import org.gbif.dwc.text.DwcaWriter;
 import org.gbif.metadata.eml.Eml;
 import org.gbif.utils.HttpUtil;
 import org.gbif.utils.file.CompressionUtil;
@@ -34,7 +35,6 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -47,7 +47,7 @@ public class WikipediaParser {
   private DwcaWriter writer;
 
   @Parameter(names = {"-dump"}, description = "Local wikipedia xml dump file to parse")
-  public File dumpFile=new File("/Volumes/Scratch/wikipedia-data/enwiki-20110620-pages-articles.xml");
+  public File dumpFile=new File("/Users/mdoering/Desktop/wikipedia-data/enwiki.xml");
 
   @Parameter(names = {"-repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia")
   public File repo = new File("/tmp/wikipedia");

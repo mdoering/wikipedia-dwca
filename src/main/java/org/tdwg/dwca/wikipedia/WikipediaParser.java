@@ -108,8 +108,6 @@ public class WikipediaParser {
       e.printStackTrace();
     }
 
-    // add missing columns in second iteration of data files
-    writer.finalize();
     // finish archive and zip it
     if (dwcaFile == null) {
       dwcaFile = new File(repo, "wikipedia-" + lang + "-dwca.zip");
@@ -119,10 +117,12 @@ public class WikipediaParser {
     writer.finalize();
 
     if (dwcaFile.exists()) {
+      log.debug("Delete existing archive {}", dwcaFile);
       org.apache.commons.io.FileUtils.deleteQuietly(dwcaFile);
     } else {
       org.apache.commons.io.FileUtils.forceMkdir(dwcaFile.getParentFile());
     }
+    log.info("Bundling archive at {}", dwcaFile);
     CompressionUtil.zipDir(dwcaDir, dwcaFile);
     // remove temp folder
     //org.apache.commons.io.FileUtils.deleteDirectory(dwcaDir);

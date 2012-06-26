@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.gbif</groupId>
     <artifactId>motherpom</artifactId>
-    <version>7</version>
+    <version>8</version>
   </parent>
 
     <artifactId>wikipedia-dwca</artifactId>
@@ -94,17 +94,17 @@
   <dependency>
     <groupId>org.gbif</groupId>
     <artifactId>gbif-httputils</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
   </dependency>
   <dependency>
     <groupId>org.gbif</groupId>
     <artifactId>gbif-common</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.5</version>
   </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
       <artifactId>dwca-reader</artifactId>
-      <version>1.9.1-SNAPSHOT</version>
+      <version>1.10</version>
     </dependency>
 
     <!-- Guice -->
@@ -118,7 +118,7 @@
     <dependency>
       <groupId>de.tudarmstadt.ukp.wikipedia</groupId>
       <artifactId>de.tudarmstadt.ukp.wikipedia.api</artifactId>
-      <version>0.7.2</version>
+      <version>0.9.1</version>
       <exclusions>
         <exclusion>
           <groupId>org.hibernate</groupId>
@@ -135,12 +135,12 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.6.4</version>
+      <version>1.6.5</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.6.4</version>
+      <version>1.6.5</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -188,7 +188,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>10.0.1</version>
+      <version>12.0</version>
     </dependency>
     <dependency>
       <groupId>com.beust</groupId>

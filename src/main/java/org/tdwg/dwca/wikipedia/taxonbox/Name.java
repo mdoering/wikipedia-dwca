@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
 public class Name {
   private String scientific;
   private String author;
   private String vernacular;
   private Rank rank;
+  private String rankVerbatim;
 
   public String getScientific() {
     return scientific;
@@ -56,4 +57,19 @@ public class Name {
   public void setRank(String rank) {
     this.rank = Rank.fromString(rank);
   }
+
+  public String getRankVerbatim() {
+    return rankVerbatim;
+  }
+
+  public void setRankVerbatim(String rankVerbatim) {
+    this.rankVerbatim = rankVerbatim;
+  }
+
+  public void setRankAndVerbatim(String rank) {
+    rankVerbatim = rank;
+    this.rank = Rank.fromString(rank);
+  }
+
+
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
 /**
  * The spanish taxobox is exactly the same as the english one, so we do not need any new setters!
@@ -27,7 +27,6 @@ package org.tdwg.dwca.wikipedia;
  *
  */
 abstract class TaxonInfoES extends TaxonInfoFR {
-  public static final String TAXOBOX_NAME="Ficha_de_taxón";
 
   public void setTrinominal(String trinomial) {
     super.setTrinomial(trinomial);

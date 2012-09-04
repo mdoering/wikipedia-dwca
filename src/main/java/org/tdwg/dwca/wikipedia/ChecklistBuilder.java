@@ -23,34 +23,26 @@ import org.gbif.utils.file.CompressionUtil;
 import org.gbif.utils.file.FileUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
+import info.bliki.wiki.dump.WikiXMLParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
-public class WikipediaParser {
-  private Logger log = LoggerFactory.getLogger(WikipediaParser.class);
+public class ChecklistBuilder {
+  private Logger log = LoggerFactory.getLogger(ChecklistBuilder.class);
   private DwcaWriter writer;
-
-  @Parameter(names = {"-dump"}, description = "Local wikipedia xml dump file to parse")
-  public File dumpFile=new File("/Users/mdoering/Desktop/wikipedia-data/enwiki.xml");
+  private static String DUMP_NAME = "wiki-latest-pages-articles.xml.bz2";
 
   @Parameter(names = {"-repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia")
-  public File repo = new File("/tmp/wikipedia");
+  public File repo = new File("/Users/mdoering/Desktop/wikipedia-data");
 
   @Parameter(names = {"-dwca"}, description = "Dwc archive file to be created. Defaults to a tmp file")
   public File dwcaFile;
@@ -59,20 +51,18 @@ public class WikipediaParser {
   public String lang= "en";
 
   @Inject
-  public WikipediaParser(){
+  public ChecklistBuilder(){
   }
 
   public void parse() throws IOException{
-    if (dumpFile == null) {
-      dumpFile = new File(repo, "wiki" + lang + ".xml");
-    }
+    // download file?
+    final String dumpName = lang + DUMP_NAME;
+    File wikiDumpBz = new File(repo, dumpName);
 
-    // get file
-    if (!dumpFile.exists()){
-      // http://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
-      // http://dumps.wikimedia.org/dewiki/latest/dewiki-latest-pages-articles.xml.bz2
-      URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%swiki-latest-pages-articles.xml.bz2",lang,lang));
-      File wikiDumpBz = new File(repo,"wiki"+lang+".bz2");
+    // download?
+    //TODO: remove this, we use conditional downloads in production to check if there is a newer file online
+    if (!wikiDumpBz.exists()){
+      final URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%s",lang,dumpName));
 
       log.info("Downloading latest wikipedia dump from " + url.toString());
       HttpUtil http = new HttpUtil();
@@ -82,8 +72,6 @@ public class WikipediaParser {
       } else{
         log.info("No newer wikipedia dump, use existing copy");
       }
-      // decompress
-      decompressDump(wikiDumpBz, dumpFile);
     }
 
     // new writer
@@ -92,20 +80,19 @@ public class WikipediaParser {
     writer = new DwcaWriter(DwcTerm.Taxon, dwcaDir);
 
     // parse file
+    log.info("Parsing dump file {}", wikiDumpBz.getAbsolutePath());
+    TaxonboxHandler handler = new TaxonboxHandler(lang, writer);
     try {
-      // create XMLReader
-      log.info("Parsing dump file {}", dumpFile.getAbsolutePath());
-      FileReader reader = new FileReader(dumpFile);
-      XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-      InputSource inputSource = new InputSource(reader);
+      WikiXMLParser wxp = new WikiXMLParser(wikiDumpBz.getAbsolutePath(), handler);
+      wxp.parse();
 
-      // sax parse with wikipedia handler
-      xmlReader.setContentHandler(new WikipediaSaxHandler(writer, lang));
-
-      // Parsen wird gestartet
-      xmlReader.parse(inputSource);
-    } catch (SAXException e) {
+    } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      log.info("Unknown Taxoninfo properties: {}", handler.getWikiModel().getUnknownProperties());
+      for (Map.Entry<String, String> tmpl : handler.getWikiModel().getUnknownTemplates().entrySet()) {
+        log.debug("Unknown template >>{}<< {}", tmpl.getKey(), tmpl.getValue());
+      }
     }
 
     // finish archive and zip it
@@ -138,24 +125,10 @@ public class WikipediaParser {
     eml.setHomeUrl("http://"+lang+".wikipedia.org");
     return eml;
   }
-  private void decompressDump(File fin, File fout) throws IOException {
-    log.info("Decompressing dump {} to {}", fin.getAbsolutePath(), fout.getAbsolutePath());
-
-    FileInputStream in = new FileInputStream(fin);
-    FileOutputStream out = new FileOutputStream(fout);
-    BZip2CompressorInputStream bzIn = new BZip2CompressorInputStream(in);
-    final byte[] buffer = new byte[1024];
-    int n = 0;
-    while (-1 != (n = bzIn.read(buffer))) {
-      out.write(buffer, 0, n);
-    }
-    out.close();
-    bzIn.close();
-  }
 
   public static void main (String[] args) throws IOException {
     Injector injector = Guice.createInjector(new GuiceConfig());
-    WikipediaParser cmd = injector.getInstance(WikipediaParser.class);
+    ChecklistBuilder cmd = injector.getInstance(ChecklistBuilder.class);
     new JCommander(cmd,args);
     cmd.parse();
   }

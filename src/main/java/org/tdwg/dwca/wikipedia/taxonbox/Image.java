@@ -13,26 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.security.DigestException;
-import java.security.MessageDigest;
-
-import sun.security.provider.MD5;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
 public class Image {
-  private String image;
+  private String url;
   private String imageAlt;
   private String imageCaption;
 
-  public String getImage() {
-    return image;
+  public String getUrl() {
+    return url;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   public String getImageAlt() {

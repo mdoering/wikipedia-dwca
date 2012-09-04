@@ -16,10 +16,6 @@
 package org.tdwg.dwca.wikipedia;
 
 import org.gbif.utils.HttpUtil;
-import org.gbif.utils.file.FileUtils;
-
-import java.io.IOException;
-import java.util.Properties;
 
 import com.google.inject.Binder;
 import com.google.inject.Inject;
@@ -27,14 +23,13 @@ import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
-import com.google.inject.name.Names;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 public class GuiceConfig implements Module{
 
   @Override
   public void configure(Binder binder) {
-    binder.bind(WikipediaParser.class).in(Scopes.NO_SCOPE);
+    binder.bind(ChecklistBuilder.class).in(Scopes.NO_SCOPE);
   }
 
   @Provides

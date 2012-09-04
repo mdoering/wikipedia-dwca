@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -70,9 +70,11 @@ public enum Rank {
   Species_Subgroup,
   Species_Complex,
   Species("art"),
+  Infraspecies,
   Subspecies("unterart"),
   Variety("varietät","varietas"),
-  Form("forma");
+  Form("forma"),
+  Uninterpretable;
 
   private final String[] alts;
 
@@ -95,7 +97,16 @@ public enum Rank {
         }
       }
     }
-    return null;
+    return Rank.Uninterpretable;
   }
 
+  public boolean isLowerThan(Rank rank) {
+    if (rank == null) return true;
+    return this.ordinal() > rank.ordinal();
+  }
+
+  public boolean isHigherThan(Rank rank) {
+    if (rank == null) return true;
+    return this.ordinal() < rank.ordinal();
+  }
 }

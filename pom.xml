@@ -50,7 +50,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>org.tdwg.dwca.wikipedia.WikipediaParser</mainClass>
+              <mainClass>org.tdwg.dwca.wikipedia.ChecklistBuilder</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -87,7 +87,17 @@
       <id>gbif-all</id>
       <url>http://repository.gbif.org/content/groups/gbif</url>
     </repository>
-  </repositories>
+    <repository>
+            <id>info-bliki-repository</id>
+            <url>http://gwtwiki.googlecode.com/svn/maven-repository/</url>
+            <releases>
+                    <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                    <enabled>false</enabled>
+            </snapshots>
+    </repository>
+</repositories>
 
   <dependencies>
   <!-- GBIF -->
@@ -99,7 +109,7 @@
   <dependency>
     <groupId>org.gbif</groupId>
     <artifactId>gbif-common</artifactId>
-    <version>0.5</version>
+    <version>0.7</version>
   </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
@@ -116,19 +126,9 @@
 
     <!--  Wikipedia text -->
     <dependency>
-      <groupId>de.tudarmstadt.ukp.wikipedia</groupId>
-      <artifactId>de.tudarmstadt.ukp.wikipedia.api</artifactId>
-      <version>0.9.1</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>info.bliki.wiki</groupId>
+      <artifactId>bliki-core</artifactId>
+      <version>3.0.19</version>
     </dependency>
 
     <!-- Logging -->
@@ -176,7 +176,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.0</version>
+      <version>3.1</version>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -188,12 +188,12 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>12.0</version>
+      <version>12.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.beust</groupId>
       <artifactId>jcommander</artifactId>
-      <version>1.19</version>
+      <version>1.26</version>
     </dependency>
 
   </dependencies>

@@ -13,11 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
 /**
- * {{cite journal |author=Johnson, W.E., Eizirik, E., Pecon-Slattery, J., Murphy, W.J., Antunes, A., Teeling, E. &amp; O'Brien, S.J. |date=January 6, 2006 |number=5757 |url=http://www.sciencemag.org/cgi/content/abstract/311/5757/73 |title=The Late Miocene radiation of modern Felidae: A genetic assessment |journal=[[Science (journal)|Science]] |volume=311 |issue=5757 |pages=73–77 |doi=10.1126/science.1122277 |accessdate=June 4, 2007 |pmid=16400146}}
+ * The french taxobox concept is very different, using a separate template for each property!
+ * It contains much more information though, including ecological parameters
+ *
+ * A french taxobox starts with {{Taxobox début ...}} and ends with {{Taxobox fin}}
+ *
+ * TODO: implement the french taxobox concept
+ * @See http://fr.wikipedia.org/wiki/Catégorie:Modèle_taxobox
  */
-public class RefInfo {
+abstract class TaxonInfoFR extends TaxonInfoDE {
 
 }

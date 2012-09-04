@@ -13,226 +13,193 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
 /**
- * @See http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
+ * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
  */
 abstract class TaxonInfoDE extends TaxonInfoEN {
 
-  public static final String TAXOBOX_NAME = "Taxobox";
-
   public void setTaxon_name(String name) {
-    this.name=name;
+    name(0).setVernacular(name);
   }
 
-  public void setTaxon_wissName(String name) {
-    scientificName = name;
-  }
   public void setTaxon_wissname(String name) {
-    setTaxon_wissName(name);
+    name(0).setScientific(name);
   }
 
   public void setTaxon_autor(String author) {
-    scientificNameAuthorship = author;
+    name(0).setAuthor(author);
   }
 
   public void setTaxon_rang(String rank) {
-    rankVerbatim = rank;
-    this.rank=Rank.fromString(rank);
+    name(0).setRankAndVerbatim(rank);
   }
 
-  public void setTaxon1_wissName(String name) {
-    setTaxon_wissName(name);
+  public void setTaxon1_name(String name) {
+    name(1).setVernacular(name);
   }
 
   public void setTaxon1_wissname(String name) {
-    setTaxon_wissName(name);
+    name(1).setScientific(name);
   }
 
   public void setTaxon1_autor(String author) {
-    setTaxon_autor(author);
+    name(1).setAuthor(author);
   }
 
   public void setTaxon1_rang(String rank) {
-    setTaxon_rang(rank);
+    name(1).setRankAndVerbatim(rank);
   }
 
   public void setTaxon2_name(String name) {
-    classificationByIndex(7).setVernacular(name);
+    name(2).setVernacular(name);
   }
-  public void setTaxon2_wissName(String name) {
-    classificationByIndex(7).setScientific(name);
-  }
+
   public void setTaxon2_wissname(String name) {
-    setTaxon2_wissName(name);
+    name(2).setScientific(name);
   }
+
   public void setTaxon2_rang(String rank) {
-    classificationByIndex(7).setRank(rank);
+    name(2).setRankAndVerbatim(rank);
   }
+
   public void setTaxon2_autor(String autor) {
-    classificationByIndex(7).setAuthor(autor);
+    name(2).setAuthor(autor);
   }
 
   public void setTaxon3_name(String name) {
-    classificationByIndex(6).setVernacular(name);
-  }
-
-  public void setTaxon3_wissName(String name) {
-    classificationByIndex(6).setScientific(name);
+    name(3).setVernacular(name);
   }
 
   public void setTaxon3_wissname(String name) {
-    setTaxon3_wissName(name);
+    name(3).setScientific(name);
   }
 
   public void setTaxon3_autor(String autor) {
-    classificationByIndex(6).setAuthor(autor);
+    name(3).setAuthor(autor);
   }
 
-
   public void setTaxon3_rang(String rank) {
-    classificationByIndex(6).setRank(rank);
+    name(3).setRankAndVerbatim(rank);
   }
 
   public void setTaxon4_name(String name) {
-    classificationByIndex(5).setVernacular(name);
-  }
-
-  public void setTaxon4_wissName(String name) {
-    classificationByIndex(5).setScientific(name);
+    name(4).setVernacular(name);
   }
 
   public void setTaxon4_wissname(String name) {
-    setTaxon4_wissName(name);
+    name(4).setScientific(name);
   }
 
   public void setTaxon4_autor(String autor) {
-    classificationByIndex(5).setAuthor(autor);
+    name(4).setAuthor(autor);
   }
 
   public void setTaxon4_rang(String rank) {
-    classificationByIndex(5).setRank(rank);
+    name(4).setRankAndVerbatim(rank);
   }
 
   public void setTaxon5_name(String name) {
-    classificationByIndex(4).setVernacular(name);
-  }
-
-  public void setTaxon5_wissName(String name) {
-    classificationByIndex(4).setScientific(name);
+    name(5).setVernacular(name);
   }
 
   public void setTaxon5_wissname(String name) {
-    setTaxon5_wissName(name);
+    name(5).setScientific(name);
   }
 
   public void setTaxon5_autor(String autor) {
-    classificationByIndex(4).setAuthor(autor);
+    name(5).setAuthor(autor);
   }
 
   public void setTaxon5_rang(String rank) {
-    classificationByIndex(4).setRank(rank);
+    name(5).setRankAndVerbatim(rank);
   }
 
   public void setTaxon6_name(String name) {
-    classificationByIndex(3).setVernacular(name);
+    name(6).setVernacular(name);
   }
 
-  public void setTaxon6_wissName(String name) {
-    classificationByIndex(3).setScientific(name);
-  }
   public void setTaxon6_wissname(String name) {
-    setTaxon6_wissName(name);
+    name(6).setScientific(name);
   }
 
   public void setTaxon6_autor(String autor) {
-    classificationByIndex(3).setAuthor(autor);
+    name(6).setAuthor(autor);
   }
 
   public void setTaxon6_rang(String rank) {
-    classificationByIndex(3).setRank(rank);
+    name(6).setRankAndVerbatim(rank);
   }
 
   public void setTaxon7_name(String name) {
-    classificationByIndex(2).setVernacular(name);
+    name(7).setVernacular(name);
   }
 
-  public void setTaxon7_wissName(String name) {
-    classificationByIndex(2).setScientific(name);
-  }
   public void setTaxon7_wissname(String name) {
-    setTaxon7_wissName(name);
+    name(7).setScientific(name);
   }
 
   public void setTaxon7_autor(String autor) {
-    classificationByIndex(2).setAuthor(autor);
+    name(7).setAuthor(autor);
   }
 
   public void setTaxon7_rang(String rank) {
-    classificationByIndex(2).setRank(rank);
+    name(7).setRankAndVerbatim(rank);
   }
 
 
   public void setTaxon8_name(String name) {
-    classificationByIndex(1).setVernacular(name);
-  }
-
-  public void setTaxon8_wissName(String name) {
-    classificationByIndex(1).setScientific(name);
+    name(8).setVernacular(name);
   }
 
   public void setTaxon8_wissname(String name) {
-    setTaxon7_wissName(name);
+    name(8).setScientific(name);
   }
 
   public void setTaxon8_autor(String autor) {
-    classificationByIndex(1).setAuthor(autor);
+    name(8).setAuthor(autor);
   }
 
   public void setTaxon8_rang(String rank) {
-    classificationByIndex(1).setRank(rank);
+    name(8).setRankAndVerbatim(rank);
   }
 
   public void setTaxon9_name(String name) {
-    classificationByIndex(0).setVernacular(name);
-  }
-
-  public void setTaxon9_wissName(String name) {
-    classificationByIndex(0).setScientific(name);
+    name(9).setVernacular(name);
   }
 
   public void setTaxon9_wissname(String name) {
-    setTaxon7_wissName(name);
+    name(9).setScientific(name);
   }
 
   public void setTaxon9_autor(String autor) {
-    classificationByIndex(0).setAuthor(autor);
+    name(9).setAuthor(autor);
   }
 
   public void setTaxon9_rang(String rank) {
-    classificationByIndex(0).setRank(rank);
+    name(9).setRankAndVerbatim(rank);
   }
   public void setBildbeschreibung(String image_caption) {
-    image(0).setImageCaption(image_caption);
+    setImage_caption(image_caption);
   }
 
   public void setBild(String image) {
     if (image != null && image.equalsIgnoreCase("ohne")) {
       image = null;
     }
-    image(0).setImage(image);
+    setImage(image);
   }
 
   public void setBildbeschreibung2(String image_caption) {
-    image(1).setImageCaption(image_caption);
+    setImage2_caption(image_caption);
   }
 
   public void setBild2(String image) {
     if (image != null && image.equalsIgnoreCase("ohne")) {
       image = null;
     }
-    image(1).setImage(image);
+    setImage2(image);
   }
 
   public void setBildbeschreibung3(String image_caption) {
@@ -243,15 +210,15 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
     if (image != null && image.equalsIgnoreCase("ohne")) {
       image = null;
     }
-    image(2).setImage(image);
+    image(2).setUrl(image);
   }
 
   public void setErdzeitaltervon(String from){
-    fossilRangeFrom = from;
+    setFossilRangeFrom(from);
   }
 
   public void setErdzeitalterbis(String to) {
-    fossilRangeFrom = to;
+    setFossilRangeTo(to);
   }
 
   /**
@@ -261,9 +228,9 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
   public void setTausendvon(String from) {
     try {
       Integer x = Integer.parseInt(from);
-      fossilRangeFromMio = x / 1000.0;
+      setFossilRangeFromMio(x / 1000.0);
     } catch (NumberFormatException e) {
-      // TODO: Handle exception
+      log.warn("Cannot parse integer FossilRangeFromMio {}", from);
     }
   }
 
@@ -274,9 +241,9 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
   public void setTausendbis(String to) {
     try {
       Integer x = Integer.parseInt(to);
-      fossilRangeToMio = x / 1000.0;
+      setFossilRangeToMio(x / 1000.0);
     } catch (NumberFormatException e) {
-      // TODO: Handle exception
+      log.warn("Cannot parse integer FossilRangeToMio {}", to);
     }
   }
 
@@ -287,9 +254,9 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
   public void setMiovon(String from) {
     try {
       Integer x = Integer.parseInt(from);
-      fossilRangeFromMio= x.doubleValue();
+      setFossilRangeFromMio(x.doubleValue());
     } catch (NumberFormatException e) {
-      // TODO: Handle exception
+      log.warn("Cannot parse integer FossilRangeFromMio {}", from);
     }
   }
 
@@ -300,14 +267,14 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
   public void setMiobis(String to) {
     try {
       Integer x = Integer.parseInt(to);
-      fossilRangeToMio = x.doubleValue();
+      setFossilRangeToMio(x.doubleValue());
     } catch (NumberFormatException e) {
-      // TODO: Handle exception
+      log.warn("Cannot parse integer FossilRangeToMio {}", to);
     }
   }
 
   public void setFundorte(String localities) {
-    fossilLocalities=localities       ;
+    setFossilLocalities(localities);
   }
 
 }

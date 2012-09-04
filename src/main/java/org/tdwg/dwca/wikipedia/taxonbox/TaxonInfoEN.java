@@ -13,67 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tdwg.dwca.wikipedia;
+package org.tdwg.dwca.wikipedia.taxonbox;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * @See http://en.wikipedia.org/wiki/Template:Taxobox
+ * Support for various english wikipedia taxobox formats.
  */
-abstract class TaxonInfoEN {
-  public static final String TAXOBOX_NAME = "Taxobox";
-  protected static final Logger log = LoggerFactory.getLogger(TaxonInfo.class);
-  //name
-  protected String scientificName;
-  protected String scientificNameAuthorship;
-  protected Rank rank;
-  protected String rankVerbatim;
-  protected String name; // vernacular
-  // conservation status
-  protected String status; // iucn status
-  protected String extinct; // year
-  protected String statusSystem;
-  protected RefInfo statusRef;
-  protected String fossilRange;
-  protected String fossilLocalities;
-  protected String fossilRangeFrom;
-  protected String fossilRangeTo;
-  protected Double fossilRangeFromMio;
-  protected Double fossilRangeToMio;
-  protected String trend;
-  // images
-  protected List<Image> images = new ArrayList<Image>();
-  // range maps
-  protected List<Image> rangeMaps = new ArrayList<Image>();
-  // classification
-  protected String classificationStatus;
-  protected LinkedList<Name> classification = new LinkedList<Name>();
-  // synonyms
-  protected List<String> synonyms = new ArrayList<String>();
-  protected String synonymsRef;
-  // types
-  protected String typeSpecies;
-  protected String typeSpeciesAuthority;
-  protected String typeGenus;
-  protected String typeGenusAuthority;
-  //
-  protected String diversity; // c. 120species
-  protected String diversityLink;
-
-
+abstract class TaxonInfoEN extends TaxonInfoBase{
 
   public void setBinomial(String binomial) {
-    setScientificName(Rank.Species, binomial);
-  }
-
-  public void setLatin_name(String binomial) {
-    scientificName=binomial;
+    setScientificNameAndRankIfLowest(Rank.Species, binomial);
   }
 
   /**
@@ -83,13 +32,19 @@ abstract class TaxonInfoEN {
     setBinomial(binomial);
   }
 
-
-
-  protected boolean isLowestName(Rank r){
-    if (scientificName==null || rank==null || r.ordinal() >= rank.ordinal()){
-      return true;
+  public void setTaxon(String taxon) {
+    if (hasScientificName() ){
+      log.warn("existing name {} replaced by {}", getScientificName(), taxon);
     }
-    return false;
+    setScientificName(taxon);
+  }
+
+  public void setAuthority(String authority) {
+    setScientificNameAuthorship(authority);
+  }
+
+  public void setLatin_name(String latinName) {
+    setTaxon(latinName);
   }
 
   public void setBinomial_authority(String binomial_authority) {
@@ -104,116 +59,28 @@ abstract class TaxonInfoEN {
   }
 
   public void setTrinomial(String trinomial) {
-    setScientificName(Rank.Subspecies, trinomial);
+    setScientificNameAndRankIfLowest(Rank.Infraspecies, trinomial);
   }
 
   public void setTrinomial_authority(String trinomial_authority) {
-    setScientificNameAuthorship(Rank.Subspecies, trinomial_authority);
+    setScientificNameAuthorship(Rank.Infraspecies, trinomial_authority);
   }
 
-  private void setScientificName(Rank rank, String name){
-    classificationByRank(rank).setScientific(name);
-    classificationByRank(rank).setRank(rank);
-    if (isLowestName(rank)) {
-      scientificName = name;
-      this.rank=rank;
-    }
-  }
-
-  private void setScientificNameAuthorship(Rank rank, String authorship) {
-    classificationByRank(rank).setAuthor(authorship);
-    classificationByRank(rank).setRank(rank);
-    if (isLowestName(rank)) {
-      scientificNameAuthorship = authorship;
-    }
-  }
-
-  public void setName(Rank rank, String name) {
-    classificationByRank(rank).setVernacular(name);
-    classificationByRank(rank).setRank(rank);
-    if (isLowestName(rank)) {
-      this.name = name;
-    }
-  }
 
   public void setName(String name) {
-    this.name = name;
+    addVernacularNameInDefaultLang(name);
   }
-
-
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  public void setExtinct(String extinct) {
-    this.extinct = extinct;
-  }
-
 
   public void setStatus_system(String status_system) {
-    this.statusSystem = status_system;
+    setStatusSystem(status_system);
   }
-
-
-  public void setStatus_ref(RefInfo status_ref) {
-    this.statusRef = status_ref;
-  }
-
 
   public void setFossil_range(String fossil_range) {
-    this.fossilRange = fossil_range;
+    setFossilRange(fossil_range);
   }
 
-
-  public void setTrend(String trend) {
-    this.trend = trend;
-  }
-
-
-  public void setRank(Rank rank) {
-    this.rank = rank;
-  }
-
-
-  public void setRankVerbatim(String rankVerbatim) {
-    this.rankVerbatim = rankVerbatim;
-  }
-
-  protected Image image(int idx) {
-    try {
-      if (images.get(idx) == null) {
-        images.set(idx, new Image());
-      }
-    } catch (IndexOutOfBoundsException e) {
-      while(images.size() <= idx){
-        images.add(null);
-      }
-      images.set(idx, new Image());
-    }
-    return images.get(idx);
-  }
-
-  protected Name classificationByIndex(int idx) {
-    if (classification.size() > idx) {
-      classification.set(idx, new Name());
-    }else{
-      while (classification.size() <= idx) {
-        classification.add(null);
-      }
-      classification.set(idx, new Name());
-    }
-    return classification.get(idx);
-  }
-
-  protected Name classificationByRank(Rank rank) {
-    // reserve the first 10 names for classification given by regular list, not ranks
-    return classificationByIndex(rank.ordinal() + 9);
-  }
-
-  public void setImage(String image) {
-    image(0).setImage(image);
+  public void setImage(String url) {
+    image(0).setUrl(url);
   }
 
   public void setImage_alt(String image_alt) {
@@ -224,9 +91,8 @@ abstract class TaxonInfoEN {
     image(0).setImageCaption(image_caption);
   }
 
-
-  public void setImage2(String image) {
-    image(1).setImage(image);
+  public void setImage2(String url) {
+    image(1).setUrl(url);
   }
 
   public void setImage2_alt(String image_alt) {
@@ -237,26 +103,12 @@ abstract class TaxonInfoEN {
     image(1).setImageCaption(image_caption);
   }
 
-  public void setClassification_status(String classification_status) {
-    this.classificationStatus = classification_status;
-  }
-
   public void setRegnum(String regnum) {
-    setScientificName(Rank.Kingdom, regnum);
+    setScientificNameAndRankIfLowest(Rank.Kingdom, regnum);
   }
-
-
-  public void setPhylum(String phylum) {
-    setScientificName(Rank.Phylum, phylum);
-  }
-
 
   public void setClassis(String classis) {
-    setScientificName(Rank.Class, classis);
-  }
-
-  public void setOrder(String order) {
-    setScientificName(Rank.Order, order);
+    setScientificNameAndRankIfLowest(Rank.Class, classis);
   }
 
   public void setOrdo(String order) {
@@ -264,96 +116,49 @@ abstract class TaxonInfoEN {
   }
 
   public void setFamilia(String familia) {
-    setScientificName(Rank.Family, familia);
+    setFamily(familia);
   }
 
   public void setSubfamilia(String familia) {
-    setScientificName(Rank.Subfamily, familia);
-  }
-
-  public void setGenus(String genus) {
-    setScientificName(Rank.Genus, genus);
-  }
-
-  public void setSubgenus(String subgenus) {
-    setScientificName(Rank.Subgenus, subgenus);
+    setScientificNameAndRankIfLowest(Rank.Subfamily, familia);
   }
 
   public void setSpecies(String species) {
-    setScientificName(Rank.Species, species);
+    setScientificNameAndRankIfLowest(Rank.Species, species);
   }
 
-  public void setRegnum_authority(String regnum) {
-    setScientificNameAuthorship(Rank.Kingdom, regnum);
+  public void setRegnum_authority(String authorship) {
+    setScientificNameAuthorship(Rank.Kingdom, authorship);
   }
 
 
-  public void setOrder_authority(String order) {
-    setScientificNameAuthorship(Rank.Order, order);
+  public void setOrder_authority(String authorship) {
+    setScientificNameAuthorship(Rank.Order, authorship);
   }
 
-  public void setSubfamilia_authority(String familia) {
-    setScientificNameAuthorship(Rank.Subfamily, familia);
+  public void setSubfamilia_authority(String authorship) {
+    setScientificNameAuthorship(Rank.Subfamily, authorship);
   }
 
   public void setSynonyms_ref(String synonyms_ref) {
-    this.synonymsRef = synonyms_ref;
-  }
-
-  public void setSynonyms(String value) {
-    // synonyms = ''species1''<small>Authority1</small><br/> ''species2''<small>Authority2</small>
-    // synonyms = *''species1''<br/><small>Authority1</small> *''species2''<br/><small>Authority2</small>
-    value = value.replaceAll("< *small *>", " ");
-    value = value.replaceAll("</ *small *>", "");
-    String[] synonyms;
-    if (value.contains("*")) {
-      value = value.replaceAll("< *br */?>", " ");
-      synonyms = StringUtils.split(value, "*");
-    } else {
-      synonyms = StringUtils.splitByWholeSeparator(value, "<br/>");
-    }
-    for (String syn : synonyms) {
-      syn = StringUtils.trimToNull(syn.replaceAll(" +", " "));
-      if (syn!=null){
-        this.synonyms.add(syn);
-      }
-    }
+    setSynonymsRef(synonyms_ref);
   }
 
   public void setType_species(String type_species) {
-    this.typeSpecies = type_species;
+    setTypeSpecies(type_species);
   }
 
 
   public void setType_species_authority(String type_species_authority) {
-    this.typeSpeciesAuthority = type_species_authority;
-  }
-
-
-  public void setDiversity(String diversity) {
-    this.diversity = diversity;
+    setTypeSpeciesAuthority(type_species_authority);
   }
 
   public void setDiversity_link(String diversityLink) {
-    this.diversityLink = diversityLink;
-  }
-
-  protected Image rangeMap(int idx) {
-    try {
-      if (rangeMaps.get(idx) == null) {
-        rangeMaps.set(idx, new Image());
-      }
-    } catch (IndexOutOfBoundsException e) {
-      while (rangeMaps.size() <= idx) {
-        rangeMaps.add(null);
-      }
-      rangeMaps.set(idx, new Image());
-    }
-    return rangeMaps.get(idx);
+    setDiversityLink(diversityLink);
   }
 
   public void setRange_map(String range_map) {
-    rangeMap(0).setImage(range_map);
+    rangeMap(0).setUrl(range_map);
   }
 
   public void setRange_map_alt(String range_map_alt) {
@@ -365,7 +170,7 @@ abstract class TaxonInfoEN {
   }
 
   public void setRange_map2(String range_map) {
-    rangeMap(1).setImage(range_map);
+    rangeMap(1).setUrl(range_map);
   }
 
   public void setRange_map2_alt(String range_map_alt) {
@@ -377,7 +182,7 @@ abstract class TaxonInfoEN {
   }
 
   public void setRange_map3(String range_map) {
-    rangeMap(2).setImage(range_map);
+    rangeMap(2).setUrl(range_map);
   }
 
   public void setRange_map3_alt(String range_map_alt) {
@@ -389,7 +194,7 @@ abstract class TaxonInfoEN {
   }
 
   public void setRange_map4(String range_map) {
-    rangeMap(3).setImage(range_map);
+    rangeMap(3).setUrl(range_map);
   }
 
   public void setRange_map4_alt(String range_map_alt) {
@@ -401,137 +206,139 @@ abstract class TaxonInfoEN {
   }
 
 
-  public void setPhylum_authority(String phylum_authority) {
-    //TODO: set authorship if lowest rank
+  public void setPhylum_authority(String authority) {
+    setScientificNameAuthorship(Rank.Phylum, authority);
   }
 
-  public void setClassis_authority(String classis_authority) {
-    //TODO: set authorship if lowest rank
+  public void setClassis_authority(String authority) {
+    setScientificNameAuthorship(Rank.Class, authority);
   }
 
-  public void setOrdo_authority(String ordo_authority) {
-    //TODO: set authorship if lowest rank
+  public void setOrdo_authority(String authority) {
+    setScientificNameAuthorship(Rank.Order, authority);
   }
 
-  public void setFamilia_authority(String familia_authority) {
-    //TODO: set authorship if lowest rank
+  public void setFamilia_authority(String authority) {
+    setScientificNameAuthorship(Rank.Family, authority);
   }
 
-  public void setGenus_authority(String genus_authority) {
-    //TODO: set authorship if lowest rank
+  public void setGenus_authority(String authority) {
+    setScientificNameAuthorship(Rank.Genus, authority);
   }
 
-  public void setSubgenus_authority(String subgenus_authority) {
-    //TODO: set authorship if lowest rank
+  public void setSubgenus_authority(String authority) {
+    setScientificNameAuthorship(Rank.Subgenus, authority);
   }
 
-  public void setSpecies_authority(String species_authority) {
-    //TODO: set authorship if lowest rank
+  public void setSpecies_authority(String authority) {
+    setScientificNameAuthorship(Rank.Species, authority);
   }
 
 
   public void setBinomial2(String binomial2) {
     //TODO: do sth useful with this
-    log.debug("Binomial2: {}", binomial2);
+    log.debug("Binomial2 found: {} With current name {}", binomial2, getScientificName());
+  }
+  public void setBinomial2_authority(String binomial_authority2) {
+    //TODO: do sth useful with this
   }
   public void setBinomial_authority2(String binomial_authority2) {
-    //TODO: do sth useful with this
-    log.debug("Binomial2 authority: {}", binomial_authority2);
+    setBinomial2_authority(binomial_authority2);
   }
 
 
 
   public void setType_genus(String type_genus) {
-    this.typeGenus = type_genus;
+    setType_genus(type_genus);
   }
 
   public void setType_genus_authority(String typeGenusAuthority) {
-    this.typeGenusAuthority = typeGenusAuthority;
+    setTypeGenusAuthority(typeGenusAuthority);
   }
 
   public void setSuperdomain(String name) {
-    setScientificName(Rank.Superdomain, name);
+    setScientificNameAndRankIfLowest(Rank.Superdomain, name);
   }
 
   public void setDomain(String name) {
-    setScientificName(Rank.Domain, name);
+    setScientificNameAndRankIfLowest(Rank.Domain, name);
   }
 
   public void setSuperregnum(String name) {
-    setScientificName(Rank.Superkingdom, name);
+    setScientificNameAndRankIfLowest(Rank.Superkingdom, name);
   }
 
   public void setSubregnum(String name) {
-    setScientificName(Rank.Subkingdom, name);
+    setScientificNameAndRankIfLowest(Rank.Subkingdom, name);
   }
 
   public void setSuperdivisio(String name) {
-    setScientificName(Rank.Superdivision, name);
+    setScientificNameAndRankIfLowest(Rank.Superdivision, name);
   }
 
   public void setSuperphylum(String name) {
-    setScientificName(Rank.Superphylum, name);
+    setScientificNameAndRankIfLowest(Rank.Superphylum, name);
   }
 
   public void setDivisio(String name) {
-    setScientificName(Rank.Divisio, name);
+    setScientificNameAndRankIfLowest(Rank.Divisio, name);
   }
 
   public void setSubdivisio(String name) {
-    setScientificName(Rank.Subdivision, name);
+    setScientificNameAndRankIfLowest(Rank.Subdivision, name);
   }
 
   public void setSubphylum(String name) {
-    setScientificName(Rank.Subphylum, name);
+    setScientificNameAndRankIfLowest(Rank.Subphylum, name);
   }
 
   public void setInfraphylum(String name) {
-    setScientificName(Rank.Infraphylum, name);
+    setScientificNameAndRankIfLowest(Rank.Infraphylum, name);
   }
 
   public void setMicrophylum(String name) {
-    setScientificName(Rank.Microphylum, name);
+    setScientificNameAndRankIfLowest(Rank.Microphylum, name);
   }
 
   public void setNanophylum(String name) {
-    setScientificName(Rank.Nanophylum, name);
+    setScientificNameAndRankIfLowest(Rank.Nanophylum, name);
   }
 
   public void setSuperclassis(String name) {
-    setScientificName(Rank.Superclass, name);
+    setScientificNameAndRankIfLowest(Rank.Superclass, name);
   }
 
   public void setSubclassis(String name) {
-    setScientificName(Rank.Subclass, name);
+    setScientificNameAndRankIfLowest(Rank.Subclass, name);
   }
 
   public void setInfraclassis(String name) {
-    setScientificName(Rank.Infraclass, name);
+    setScientificNameAndRankIfLowest(Rank.Infraclass, name);
   }
 
   public void setSupercohort(String name) {
-    setScientificName(Rank.Supercohort, name);
+    setScientificNameAndRankIfLowest(Rank.Supercohort, name);
   }
 
   public void setCohort(String name) {
-    setScientificName(Rank.Cohort, name);
+    setScientificNameAndRankIfLowest(Rank.Cohort, name);
   }
 
   public void setSubcohort(String name) {
-    setScientificName(Rank.Subcohort, name);
+    setScientificNameAndRankIfLowest(Rank.Subcohort, name);
   }
 
 
   public void setMagnordo(String name) {
-    setScientificName(Rank.Magnorder, name);
+    setScientificNameAndRankIfLowest(Rank.Magnorder, name);
   }
 
   public void setSuperordo(String name) {
-    setScientificName(Rank.Superorder, name);
+    setScientificNameAndRankIfLowest(Rank.Superorder, name);
   }
 
   public void setSubordo(String name) {
-    setScientificName(Rank.Suborder, name);
+    setScientificNameAndRankIfLowest(Rank.Suborder, name);
   }
 
   public void setSuborder(String name) {
@@ -539,83 +346,83 @@ abstract class TaxonInfoEN {
   }
 
   public void setInfraordo(String name) {
-    setScientificName(Rank.Infraorder, name);
+    setScientificNameAndRankIfLowest(Rank.Infraorder, name);
   }
 
   public void setParvordo(String name) {
-    setScientificName(Rank.Parvorder, name);
+    setScientificNameAndRankIfLowest(Rank.Parvorder, name);
   }
 
   public void setZoodivisio(String name) {
-    setScientificName(Rank.Zoodivisio, name);
+    setScientificNameAndRankIfLowest(Rank.Zoodivisio, name);
   }
 
   public void setZoosectio(String name) {
-    setScientificName(Rank.Zoosectio, name);
+    setScientificNameAndRankIfLowest(Rank.Zoosectio, name);
   }
 
   public void setZoosubsectio(String name) {
-    setScientificName(Rank.Zoosubsectio, name);
+    setScientificNameAndRankIfLowest(Rank.Zoosubsectio, name);
   }
 
   public void setSuperfamilia(String name) {
-    setScientificName(Rank.Superfamily, name);
+    setScientificNameAndRankIfLowest(Rank.Superfamily, name);
   }
 
   public void setSupertribus(String name) {
-    setScientificName(Rank.Supertribe, name);
+    setScientificNameAndRankIfLowest(Rank.Supertribe, name);
   }
 
   public void setTribus(String name) {
-    setScientificName(Rank.Tribe, name);
+    setScientificNameAndRankIfLowest(Rank.Tribe, name);
   }
 
   public void setSubtribus(String name) {
-    setScientificName(Rank.Subtribe, name);
+    setScientificNameAndRankIfLowest(Rank.Subtribe, name);
   }
 
   public void setAlliance(String name) {
-    setScientificName(Rank.Alliance, name);
+    setScientificNameAndRankIfLowest(Rank.Alliance, name);
   }
 
   public void setSectio(String name) {
-    setScientificName(Rank.Section, name);
+    setScientificNameAndRankIfLowest(Rank.Section, name);
   }
 
   public void setSubsectio(String name) {
-    setScientificName(Rank.Subsection, name);
+    setScientificNameAndRankIfLowest(Rank.Subsection, name);
   }
 
   public void setSeries(String name) {
-    setScientificName(Rank.Series, name);
+    setScientificNameAndRankIfLowest(Rank.Series, name);
   }
 
   public void setSubseries(String name) {
-    setScientificName(Rank.Subseries, name);
+    setScientificNameAndRankIfLowest(Rank.Subseries, name);
   }
 
   public void setSpecies_group(String name) {
-    setScientificName(Rank.Species_Group, name);
+    setScientificNameAndRankIfLowest(Rank.Species_Group, name);
   }
 
   public void setSpecies_subgroup(String name) {
-    setScientificName(Rank.Species_Subgroup, name);
+    setScientificNameAndRankIfLowest(Rank.Species_Subgroup, name);
   }
 
   public void setSpecies_complex(String name) {
-    setScientificName(Rank.Species_Complex, name);
+    setScientificNameAndRankIfLowest(Rank.Species_Complex, name);
   }
 
   public void setSubspecies(String name) {
-    setScientificName(Rank.Subspecies, name);
+    setScientificNameAndRankIfLowest(Rank.Subspecies, name);
   }
 
   public void setVariety(String name) {
-    setScientificName(Rank.Variety, name);
+    setScientificNameAndRankIfLowest(Rank.Variety, name);
   }
 
   public void setForm(String name) {
-    setScientificName(Rank.Form, name);
+    setScientificNameAndRankIfLowest(Rank.Form, name);
   }
 
   public void setSuperdomain_authority(String author) {

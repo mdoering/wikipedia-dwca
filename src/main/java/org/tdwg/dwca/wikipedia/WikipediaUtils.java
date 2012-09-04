@@ -61,8 +61,12 @@ public class WikipediaUtils {
     return getImageThumbnailLink(image, 220);
   }
 
+  public static String cleanText(String text) {
+    return text.replaceAll("\\[\\s*\\[(.*)\\]\\s*\\]", " $1 ").replaceAll(" thumb\\|", " ").replaceAll("\\{\\{.+\\}\\}", " ");
+  }
+
   /**
-   * @see http://stackoverflow.com/questions/247678/how-does-mediawiki-compose-the-image-paths
+   * see http://stackoverflow.com/questions/247678/how-does-mediawiki-compose-the-image-paths
    * @param image
    * @return
    */

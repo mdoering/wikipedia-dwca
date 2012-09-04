@@ -24,6 +24,15 @@ public class TaxonboxWikiModelTest {
   }
 
   @Test
+  public void testRender() throws Exception {
+    WikiModel wiki = new TaxonboxWikiModel("en");
+    PlainTextConverter converter = new PlainTextConverter();
+    assertEquals("68-65 Ma", wiki.render(converter, "{{Fossil range|68|65|}}"));
+    assertEquals("Hello", wiki.render(converter, "Hello"));
+    assertEquals("Permian", wiki.render(converter, "{{Fossil range|'''Permian'''}}"));
+  }
+
+  @Test
   public void testHybrid() throws Exception {
     assertEquals("A  ×  B", render("A {{Hybrid}} B"));
     assertEquals("×", render("{{hybrid}}").trim());
@@ -33,7 +42,7 @@ public class TaxonboxWikiModelTest {
   @Test
   public void testFossilRange() throws Exception {
     assertEquals("68-65 Ma", render("68-65 Ma"));
-    assertEquals("68-65 Ma", render("68-65 Ma{{markus}}"));
+    assertEquals("68-65 Ma", render("68-65 Ma{{Carla}}"));
     assertEquals("Permian", render("{{Fossil range|Permian}}"));
     assertEquals("Permian", render("{{Fossil range|'''Permian'''}}"));
     assertEquals("68-65 Ma", render("{{Fossil range|68|65|earliest=Permian|latest=0|PS= (See article for discussion)}}"));

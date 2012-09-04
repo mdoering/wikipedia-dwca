@@ -104,11 +104,11 @@ abstract class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setRegnum(String regnum) {
-    setScientificNameAndRankIfLowest(Rank.Kingdom, regnum);
+    setKingdom(regnum);
   }
 
   public void setClassis(String classis) {
-    setScientificNameAndRankIfLowest(Rank.Class, classis);
+    setClazz(classis);
   }
 
   public void setOrdo(String order) {

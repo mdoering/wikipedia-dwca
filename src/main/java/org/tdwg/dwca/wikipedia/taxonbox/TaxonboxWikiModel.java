@@ -37,6 +37,15 @@ import org.slf4j.LoggerFactory;
  * http://simple.wikipedia.org/wiki/Template:Fossil_range/doc
  * http://en.wikipedia.org/wiki/Template:Long_fossil_range
  * http://en.wikipedia.org/wiki/Template:Geological_range
+ *
+ * http://en.wikipedia.org/wiki/Template:Cite
+ * http://en.wikipedia.org/wiki/Template:Cite_journal
+ * http://en.wikipedia.org/wiki/Template:Cite_book
+ * http://en.wikipedia.org/wiki/Template:Cite_web
+ *
+ *
+ * TODO: support more info boxes:
+ * http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Tree_of_Life/Cultivar_infobox
  */
 public class TaxonboxWikiModel extends WikiModel {
   private final Set<String> TAXOBOX_TEMPLATES = Sets.newHashSet("taxobox", "automatictaxobox", "fichadetaxón", "fichadetaxon");
@@ -166,7 +175,12 @@ public class TaxonboxWikiModel extends WikiModel {
           synonyms = synonymsBr.split(rawSynonyms);
 
         } else if (rawSynonyms.startsWith("{{")) {
-          synonyms = cleanRawValue(rawSynonyms).split("<br/>");
+          String synList = cleanRawValue(rawSynonyms);
+          if (synList != null) {
+            synonyms = synList.split("<br/>");
+          } else {
+            synonyms = new String[0];
+          }
 
         } else {
           synonyms = new String[]{rawSynonyms};
@@ -174,14 +188,15 @@ public class TaxonboxWikiModel extends WikiModel {
 
          // clean and test names before adding them
         for (String synRaw : synonyms) {
-          String syn = cleanRawValue(synRaw);
+          String syn = cleanNameValue(synRaw);
           if (syn != null) {
             info.addSynonym(syn);
           }
         }
 
       }else{
-        String value = cleanRawValue(parameterMap.get(param));
+        // not all properties are names, but most are
+        String value = cleanNameValue(parameterMap.get(param));
         try {
           PropertyUtils.setProperty(info, key, value);
         } catch (IllegalAccessException e) {
@@ -363,7 +378,7 @@ public class TaxonboxWikiModel extends WikiModel {
 
   private String subRender(String wikiText){
     if (wikiText==null) return null;
-    return parseTemplates(wikiText);
+    return render(converter, wikiText);
   }
 
   private String cleanRawValue(String val){

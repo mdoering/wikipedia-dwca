@@ -57,7 +57,7 @@ public class TaxonboxWikiModel extends WikiModel {
   private TaxonInfo info;
   private Map<String, String> unknownProperties = Maps.newHashMap();
   private Map<String, String> unknownTemplates = Maps.newHashMap();
-  private static final Pattern CLEAN_NAMES = Pattern.compile("['+†|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CLEAN_NAMES = Pattern.compile("['+†‡|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
   private static final Pattern REPL_BRACKET_REMARKS = Pattern.compile("\\( *(or [^()]+|\\?|plant|animal) *\\)");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
 

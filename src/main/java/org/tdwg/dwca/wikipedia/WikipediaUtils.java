@@ -15,6 +15,8 @@
  */
 package org.tdwg.dwca.wikipedia;
 
+import org.gbif.api.model.vocabulary.Language;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
@@ -23,9 +25,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class WikipediaUtils {
 
-  public static String getWikiLink(String lang, String title) {
+  public static String getWikiLink(Language lang, String title) {
     try {
-      return "http://"+lang+".wikipedia.org/wiki/" + URLEncoder.encode(title.replaceAll(" +", "_"), "UTF-8");
+      return "http://"+lang.getIso2LetterCode()+".wikipedia.org/wiki/" + URLEncoder.encode(title.replaceAll(" +", "_"), "UTF-8");
     } catch (UnsupportedEncodingException e) {
     }
     return null;

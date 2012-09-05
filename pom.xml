@@ -113,6 +113,11 @@
   </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
+      <artifactId>gbif-common-api</artifactId>
+      <version>0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.gbif</groupId>
       <artifactId>dwca-reader</artifactId>
       <version>1.10</version>
     </dependency>

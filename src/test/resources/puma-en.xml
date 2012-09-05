@@ -8,7 +8,7 @@
       <minor />
       <comment>[[User:Ohconfucius/script|script]]-assisted [[WP:MOS|style]] audit, incl. [[WP:MOSDATES|dates]], [[MOS:LINK]] and [[MOS:TEXT]]</comment>
       <text xml:space="preserve">{{Use mdy dates|date=June 2011}}{{About|the large cat species}}{{pp-semi|small=yes}}{{Taxobox| name = Cougar&lt;ref name=MSW3/&gt;
-| fossil_range = [[Middle Pleistocene]] to Recent
+| fossil_range = {{fossil range|Pleistocene|Recent|[[Middle Pleistocene]] to Recent}}
 | status = LC| trend = down
 | status_system = iucn3.1
 | status_ref =&lt;ref name=&quot;iucn&quot;&gt;{{IUCN2008|assessors=Caso, A., Lopez-Gonzalez, C., Payan, E., Eizirik, E., de Oliveira, T., Leite-Pitman, R., Kelly, M., Valderrama, C. &amp; Lucherini, M.|year=2008|id=18868|title=Puma concolor|downloaded=March 22, 2009}} Database entry includes justification for why this species is least concern&lt;/ref&gt;| image = Mountain lion.jpg| regnum = [[Animal]]ia

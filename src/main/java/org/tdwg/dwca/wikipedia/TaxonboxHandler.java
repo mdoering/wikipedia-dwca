@@ -1,5 +1,6 @@
 package org.tdwg.dwca.wikipedia;
 
+import org.gbif.api.model.vocabulary.Language;
 import org.gbif.dwc.terms.ConceptTerm;
 import org.gbif.dwc.terms.DcTerm;
 import org.gbif.dwc.terms.DwcTerm;
@@ -35,7 +36,7 @@ import org.xml.sax.SAXException;
 public class TaxonboxHandler implements IArticleFilter {
 
   private final Logger log = LoggerFactory.getLogger(TaxonboxHandler.class);
-  private final String lang;
+  private final Language lang;
   private final DwcaWriter writer;
   private Integer taxonCount = 0;
   // extra terms
@@ -49,7 +50,7 @@ public class TaxonboxHandler implements IArticleFilter {
   private Writer noNamesFoundWriter;
 
   private final Pattern SPLIT_SECTIONS = Pattern.compile("(?<!=)==([^=]+)==");
-  private final Pattern REMOVE_FUNCTIONS = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
+  private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
   private final Pattern REMOVE_FOOTNOTES = Pattern.compile("\\[[0-9]{1,2}\\]");
   private final Set<String> IGNORE_SETIONS = Sets.newHashSet("see also", "references", "further reading",
     "external links", "reflist");
@@ -58,7 +59,10 @@ public class TaxonboxHandler implements IArticleFilter {
 
   public TaxonboxHandler(String lang, DwcaWriter writer) {
     this.writer = writer;
-    this.lang = lang.toLowerCase();
+    this.lang = Language.fromIsoCode(lang);
+    if (lang == null) {
+      throw new IllegalArgumentException("Language {} not udnerstood. Please use iso 2 or 3 character codes");
+    }
     wikiModel = new TaxonboxWikiModel(lang);
     termFactory = new TermFactory();
     termFossil = termFactory.findTerm("http://wikipedia.org/taxon/fossilRange");
@@ -128,7 +132,7 @@ public class TaxonboxHandler implements IArticleFilter {
     if (!Strings.isNullOrEmpty(titleNormed) && !IGNORE_SETIONS.contains(titleNormed.toLowerCase()) && !titleNormed.toLowerCase().startsWith("additional ")) {
       String plain = wikiModel.render(new PlainTextConverter(), body);
       // replace remaining {{xyz}}
-      plain = REMOVE_FUNCTIONS.matcher(plain).replaceAll(" ").trim();
+      plain = REMOVE_TEMPLATES.matcher(plain).replaceAll(" ").trim();
       // remove [1], [2] etc
       //plain = REMOVE_FOOTNOTES.matcher(plain).replaceAll(" ");
       // replace newlines with <br/>
@@ -144,7 +148,7 @@ public class TaxonboxHandler implements IArticleFilter {
 
   private void processTaxonPage(WikiArticle page, TaxonInfo taxon, LinkedHashMap<String, String> sections) throws IOException {
 
-    taxon.postprocess();
+    taxon.postprocess(page, lang);
 
     if (taxon.getScientificName() == null) {
       log.warn("No scientific name found for taxon page {}", WikipediaUtils.getWikiLink(lang, page.getTitle()));
@@ -187,7 +191,7 @@ public class TaxonboxHandler implements IArticleFilter {
       }
       row = Maps.newHashMap();
       row.put(DwcTerm.vernacularName, vname);
-      row.put(DcTerm.language, lang);
+      row.put(DcTerm.language, lang.getIso2LetterCode());
       row.put(GbifTerm.isPreferredName, "true");
       writer.addExtensionRecord(GbifTerm.VernacularName, row);
     }
@@ -240,7 +244,7 @@ public class TaxonboxHandler implements IArticleFilter {
       row = Maps.newHashMap();
       row.put(DcTerm.type, section.getKey());
       row.put(DcTerm.description, section.getValue());
-      row.put(DcTerm.language, lang);
+      row.put(DcTerm.language, lang.getIso2LetterCode());
       writer.addExtensionRecord(GbifTerm.Description, row);
     }
 

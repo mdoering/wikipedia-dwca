@@ -15,10 +15,36 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
+import org.gbif.api.model.vocabulary.Kingdom;
+import org.gbif.api.model.vocabulary.Language;
+
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+
 /**
  * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
  */
 abstract class TaxonInfoDE extends TaxonInfoEN {
+  private static final Language WIKI_LANG = Language.GERMAN;
+  private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
+    .put(Kingdom.ANIMALIA, "Tier")
+    .put(Kingdom.ARCHAEA, "Archaeen")
+    .put(Kingdom.BACTERIA, "Bakterien")
+    //.put(Kingdom.CHROMISTA, null)
+    .put(Kingdom.FUNGI, "Pilze")
+    .put(Kingdom.PLANTAE, "Pflanzen")
+    .put(Kingdom.PROTOZOA, "Protozoen")
+    .put(Kingdom.VIRUSES, "Viren")
+    .build();
+
+  @Override
+  protected String knownPageTitle(Kingdom kingdom, Language lang) {
+    if (WIKI_LANG == lang) {
+      return KINGDOM_PAGES.get(kingdom);
+    }
+    return super.knownPageTitle(kingdom, lang);
+  }
 
   public void setTaxon_name(String name) {
     name(0).setVernacular(name);

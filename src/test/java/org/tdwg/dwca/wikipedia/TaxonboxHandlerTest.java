@@ -49,6 +49,6 @@ public class TaxonboxHandlerTest {
     assertEquals(68, taxon.getVernacularNames().size());
     assertEquals("Puma", taxon.getVernacularNames().get("de"));
     assertEquals("Poema", taxon.getVernacularNames().get("nl"));
-    assertEquals("Middle Pleistocene to Recent", taxon.getFossilRange());
+    assertEquals("Middle Pleistocene to Recent (Pleistocene to Recent)", taxon.getFossilRange());
   }
 }

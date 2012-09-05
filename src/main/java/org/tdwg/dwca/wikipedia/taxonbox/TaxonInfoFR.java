@@ -15,6 +15,13 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
+import org.gbif.api.model.vocabulary.Kingdom;
+import org.gbif.api.model.vocabulary.Language;
+
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+
 /**
  * The french taxobox concept is very different, using a separate template for each property!
  * It contains much more information though, including ecological parameters
@@ -25,5 +32,24 @@ package org.tdwg.dwca.wikipedia.taxonbox;
  * @See http://fr.wikipedia.org/wiki/Catégorie:Modèle_taxobox
  */
 abstract class TaxonInfoFR extends TaxonInfoDE {
+  private static final Language WIKI_LANG = Language.FRENCH;
+  private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
+    .put(Kingdom.ANIMALIA, "Animal")
+    .put(Kingdom.ARCHAEA, "Archaea")
+    .put(Kingdom.BACTERIA, "Bacteria")
+    .put(Kingdom.CHROMISTA, "Chromista")
+    .put(Kingdom.FUNGI, "Fungus")
+    .put(Kingdom.PLANTAE, "Plante")
+    .put(Kingdom.PROTOZOA, "Protozoaire")
+    .put(Kingdom.VIRUSES, "Virus")
+    .build();
+
+  @Override
+  protected String knownPageTitle(Kingdom kingdom, Language lang) {
+    if (WIKI_LANG == lang) {
+      return KINGDOM_PAGES.get(kingdom);
+    }
+    return super.knownPageTitle(kingdom, lang);
+  }
 
 }

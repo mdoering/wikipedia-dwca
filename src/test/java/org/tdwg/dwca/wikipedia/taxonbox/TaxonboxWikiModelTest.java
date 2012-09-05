@@ -1,7 +1,5 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import java.io.IOException;
-
 import info.bliki.wiki.filter.PlainTextConverter;
 import info.bliki.wiki.model.WikiModel;
 import org.junit.Test;
@@ -14,13 +12,7 @@ public class TaxonboxWikiModelTest {
   private PlainTextConverter converter = new PlainTextConverter();
 
   private String render(String wikiText) {
-    Appendable app = new StringBuilder();
-    try {
-      wiki.render(converter, wikiText, app, false, true);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    return app.toString();
+    return wiki.render(converter, wikiText);
   }
 
   @Test
@@ -34,16 +26,21 @@ public class TaxonboxWikiModelTest {
 
   @Test
   public void testHybrid() throws Exception {
-    assertEquals("A  ×  B", render("A {{Hybrid}} B"));
+    assertEquals("A × B", render("A {{Hybrid}} B"));
     assertEquals("×", render("{{hybrid}}").trim());
     assertEquals("×", render("{{hybrid|hallo}}").trim());
   }
 
   @Test
+  public void testSpeciesList() throws Exception {
+    assertEquals("Abies alba  Mill.  Puma concolor   (Linnaeus, 1771)  Passer   Linnaeus, 1771", render("{{species list|Abies alba| Mill. | Puma concolor | ([[Carolus Linnaeus|Linnaeus]], 1771) | Passer | Linnaeus, 1771}}"));
+  }
+
+  @Test
   public void testFossilRange() throws Exception {
+    assertEquals("Permian", render("{{Fossil range|Permian}}"));
     assertEquals("68-65 Ma", render("68-65 Ma"));
     assertEquals("68-65 Ma", render("68-65 Ma{{Carla}}"));
-    assertEquals("Permian", render("{{Fossil range|Permian}}"));
     assertEquals("Permian", render("{{Fossil range|'''Permian'''}}"));
     assertEquals("68-65 Ma", render("{{Fossil range|68|65|earliest=Permian|latest=0|PS= (See article for discussion)}}"));
     assertEquals("68-65 Ma", render("{{Fossil range|68|65|}}"));

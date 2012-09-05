@@ -16,10 +16,36 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
 
+import org.gbif.api.model.vocabulary.Kingdom;
+import org.gbif.api.model.vocabulary.Language;
+
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+
 /**
  * Support for various english wikipedia taxobox formats.
  */
 abstract class TaxonInfoEN extends TaxonInfoBase{
+  private static final Language WIKI_LANG = Language.ENGLISH;
+  private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
+    .put(Kingdom.ANIMALIA, "Animal")
+    .put(Kingdom.ARCHAEA, "Archaea")
+    .put(Kingdom.BACTERIA, "Bacteria")
+    .put(Kingdom.CHROMISTA, "Chromista")
+    .put(Kingdom.FUNGI, "Fungus")
+    .put(Kingdom.PLANTAE, "Plant")
+    .put(Kingdom.PROTOZOA, "Protozoa")
+    .put(Kingdom.VIRUSES, "Virus")
+    .build();
+
+  @Override
+  protected String knownPageTitle(Kingdom kingdom, Language lang) {
+    if (WIKI_LANG == lang) {
+      return KINGDOM_PAGES.get(kingdom);
+    }
+    return null;
+  }
 
   public void setBinomial(String binomial) {
     setScientificNameAndRankIfLowest(Rank.Species, binomial);
@@ -124,7 +150,12 @@ abstract class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setSpecies(String species) {
-    setScientificNameAndRankIfLowest(Rank.Species, species);
+    // can be an epithet or binomial
+    if (species.contains(" ")){
+      setScientificNameAndRankIfLowest(Rank.Species, species);
+    } else {
+      setSpeciesEpithet(species);
+    }
   }
 
   public void setRegnum_authority(String authorship) {

@@ -15,6 +15,13 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
+import org.gbif.api.model.vocabulary.Kingdom;
+import org.gbif.api.model.vocabulary.Language;
+
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+
 /**
  * The spanish taxobox is exactly the same as the english one, so we do not need any new setters!
  * The only difference is that the template is called "Ficha de taxón"
@@ -27,6 +34,25 @@ package org.tdwg.dwca.wikipedia.taxonbox;
  *
  */
 abstract class TaxonInfoES extends TaxonInfoFR {
+  private static final Language WIKI_LANG = Language.SPANISH;
+  private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
+    .put(Kingdom.ANIMALIA, "Animalia")
+    .put(Kingdom.ARCHAEA, "Archaea")
+    .put(Kingdom.BACTERIA, "Bacteria")
+    .put(Kingdom.CHROMISTA, "Chromista")
+    .put(Kingdom.FUNGI, "Fungus")
+    .put(Kingdom.PLANTAE, "Plantae")
+    .put(Kingdom.PROTOZOA, "Protozoo")
+    .put(Kingdom.VIRUSES, "Virus")
+    .build();
+
+  @Override
+  protected String knownPageTitle(Kingdom kingdom, Language lang) {
+    if (WIKI_LANG == lang) {
+      return KINGDOM_PAGES.get(kingdom);
+    }
+    return super.knownPageTitle(kingdom, lang);
+  }
 
   public void setTrinominal(String trinomial) {
     super.setTrinomial(trinomial);

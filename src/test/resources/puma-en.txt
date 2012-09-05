@@ -1,12 +1,12 @@
 {{Use mdy dates|date=June 2011}}{{About|the large cat species}}{{pp-semi|small=yes}}{{Taxobox| name = Cougar<ref name=MSW3/>
-| fossil_range = [[Middle Pleistocene]] to Recent
 | status = LC| trend = down
 | status_system = iucn3.1
 | status_ref =<ref name="iucn">{{IUCN2008|assessors=Caso, A., Lopez-Gonzalez, C., Payan, E., Eizirik, E., de Oliveira, T., Leite-Pitman, R., Kelly, M., Valderrama, C. & Lucherini, M.|year=2008|id=18868|title=Puma concolor|downloaded=March 22, 2009}} Database entry includes justification for why this species is least concern</ref>| image = Mountain lion.jpg| regnum = [[Animal]]ia
+| fossil_range = {{fossil range|Pleistocene|Recent|[[Middle Pleistocene]] to Recent}}
 | phylum = [[Chordate|Chordata]]
 | classis = [[Mammal]]ia| ordo = [[Carnivora]]
 | familia = [[Felidae]]
-| genus = ''[[Puma (genus)|Puma]]''| species = '''''Puma concolor'''''| binomial = ''Puma concolor''
+| genus = ''[[Puma (genus)|†Puma]]''| species = '''''Puma concolor'''''| binomial = ''Puma concolor''
 | binomial_authority = ([[Carolus Linnaeus|Linnaeus]], 1771)| range_map = Puma area.png| range_map_caption = Cougar range}}
 
 The '''cougar''' (''Puma concolor''), also known as '''puma''', '''mountain lion''', '''mountain cat''',  '''catamount''' or '''panther''', depending on the region, is a [[mammal]] of the family [[Felidae]], native to the Ameri

@@ -53,60 +53,96 @@ public class TaxonboxWikiModel extends WikiModel {
   private final Set<String> FOSSIL_RANGE_TEMPLATES = Sets.newHashSet("fossilrange","geologicalrange", "longfossilrange");
   private final Set<String> SPECIES_LIST_TEMPLATES = Sets.newHashSet("specieslist", "taxonlist");
   private final Logger log = LoggerFactory.getLogger(getClass());
-  private final String lang;
+  protected final String lang;
   private TaxonInfo info;
   private Map<String, String> unknownProperties = Maps.newHashMap();
   private Map<String, String> unknownTemplates = Maps.newHashMap();
-  private static final Pattern cleanNames = Pattern.compile("(''+|[†]|<[^>]+>)", Pattern.CASE_INSENSITIVE);
-  private static final Pattern replOrName = Pattern.compile("\\((or [^()]+|plant|animal)\\)");
+  private static final Pattern CLEAN_NAMES = Pattern.compile("['+†|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern REPL_BRACKET_REMARKS = Pattern.compile("\\( *(or [^()]+|\\?|plant|animal) *\\)");
+  private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
 
-  private static final Pattern synonymsBr = Pattern.compile("<br */?>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern BR_PATTERN = Pattern.compile("<br */?>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern SPECIES_LIST_PATTERN = Pattern.compile("\\{\\{(species|taxon)[ _-]?list", Pattern.CASE_INSENSITIVE);
   private static final String[] CITE_suffix = new String[]{"","1","2","3","4","5","6","7","8","9"};
   private static final String[] CITE_last_aliases = new String[]{"author","authors","last"};
 
   private PlainTextConverter converter = new PlainTextConverter();
+  private TaxonboxWikiModel internalWiki;
 
   public TaxonboxWikiModel(String lang) {
     super("http://image.wikipedia.org/${image}", "http://"+lang+".wikipedia.org/${title}");
     this.lang = lang;
+    internalWiki = new TaxonboxWikiModel(this);
+  }
+
+  private TaxonboxWikiModel(TaxonboxWikiModel wiki) {
+    super("http://image.wikipedia.org/${image}", "http://"+wiki.lang+".wikipedia.org/${title}");
+    this.lang = wiki.lang;
   }
 
   @Override
-  public void substituteTemplateCall(String templateName, Map<String, String> parameterMap, Appendable writer) throws IOException {
-    templateName = templateName.toLowerCase().replaceAll("[ _-]","");
-    if (TAXOBOX_TEMPLATES.contains(templateName)) {
-      processTaxoBox(parameterMap);
+  public String getRawWikiContent(String namespace, String articleName, Map<String, String> parameterMap) {
+    String result = super.getRawWikiContent(namespace, articleName, parameterMap);
+    if (result != null) {
+      // found magic word template
+      return result;
+    }
+    String name = encodeTitleToUrl(articleName, true);
+    if (isTemplateNamespace(namespace)) {
 
-    } else if (templateName.equalsIgnoreCase("hybrid")){
-      writer.append(" × ");
+      String templateName = name.toLowerCase().replaceAll("[ _-]","");
+      Appendable writer = new StringBuilder();
 
-    } else if (templateName.equalsIgnoreCase("speciesbox")){
-      processSpeciesBox(Rank.Species, parameterMap, writer);
+      try {
+        //
+        // exceptional - we dont render the taxon boxes, but only extract the information !!!
+        //
+        if (TAXOBOX_TEMPLATES.contains(templateName)) {
+          processTaxoBox(parameterMap);
 
-    } else if (templateName.equalsIgnoreCase("subspeciesbox")){
-      processSpeciesBox(Rank.Subspecies, parameterMap, writer);
+        } else if (templateName.equalsIgnoreCase("speciesbox")){
+          processSpeciesBox(Rank.Species, parameterMap);
 
-    } else if (templateName.equalsIgnoreCase("infraspeciesbox")){
-      processSpeciesBox(Rank.Infraspecies, parameterMap, writer);
+        } else if (templateName.equalsIgnoreCase("subspeciesbox")){
+          processSpeciesBox(Rank.Subspecies, parameterMap);
 
-    } else if (FOSSIL_RANGE_TEMPLATES.contains(templateName)){
-      processFossilRange(parameterMap, writer);
+        } else if (templateName.equalsIgnoreCase("infraspeciesbox")){
+          processSpeciesBox(Rank.Infraspecies, parameterMap);
 
-    } else if (CITATION_TEMPLATES.contains(templateName)) {
-      processCitation(parameterMap, writer);
+        //
+        // append to writer
+        //
+        } else if (templateName.equalsIgnoreCase("hybrid")){
+          return " × ";
 
-    } else if (SPECIES_LIST_TEMPLATES.contains(templateName)) {
-      processSpeciesList(parameterMap, writer);
+        } else if (FOSSIL_RANGE_TEMPLATES.contains(templateName)){
+          processFossilRange(parameterMap, writer);
 
-    } else{
-      // log all other templates
-      if (!unknownTemplates.containsKey(templateName)){
-        unknownTemplates.put(templateName, parameterMap.toString());
+        } else if (CITATION_TEMPLATES.contains(templateName)) {
+          processCitation(parameterMap, writer);
+
+        } else if (SPECIES_LIST_TEMPLATES.contains(templateName)) {
+          processSpeciesList(parameterMap, writer);
+
+
+        } else{
+          // log all other templates
+          if (!unknownTemplates.containsKey(templateName)){
+            unknownTemplates.put(templateName, parameterMap.toString());
+          }
+          // remove all other templates
+          return "";
+        }
+
+        return writer.toString();
+
+      } catch (IOException e) {
       }
     }
+    return null;
   }
 
-  private void processSpeciesBox(Rank rank, Map<String,String> parameterMap, Appendable writer) {
+  private void processSpeciesBox(Rank rank, Map<String,String> parameterMap) {
     info = new TaxonInfo();
     info.setRawParams(ImmutableMap.copyOf(parameterMap));
 
@@ -139,17 +175,6 @@ public class TaxonboxWikiModel extends WikiModel {
     info.setExtinct(cleanNameValue(parameterMap.get("extinct")));
   }
 
-  private void processSpeciesList(Map<String, String> parameterMap, Appendable writer) throws IOException {
-    boolean startName = true;
-    for (Map.Entry<String, String> tax : parameterMap.entrySet()) {
-      writer.append( subRender(tax.getValue()) );
-      startName = !startName;
-      if (startName) {
-        writer.append("<br/>");
-      }
-    }
-  }
-
   private void processTaxoBox(Map<String, String> parameterMap) {
     info = new TaxonInfo();
     info.setRawParams(ImmutableMap.copyOf(parameterMap));
@@ -162,25 +187,32 @@ public class TaxonboxWikiModel extends WikiModel {
       }else if (key.equalsIgnoreCase("synonyms")){
         String[] synonyms = null;
 
+        /**
+         * We are aware of 4 formats synonyms are given:
+         * 1) single name string
+         * 2) names concatenated with <br/> (and variations of it)
+         * 3) names concatenated with *
+         * 4) names given with nested {{species list}} template
+         *
+         **/
+
         String rawSynonyms = parameterMap.get(param).trim();
+        if (SPECIES_LIST_PATTERN.matcher(rawSynonyms).find()) {
+          // process {{species/taxon list}} template if exists and convert into <BR>
+          rawSynonyms = cleanRawValue(rawSynonyms);
+        }
+
         if (rawSynonyms.contains("*")) {
-          // * seperator
+          // * seperator, for example:
           // * ''[[Ardea (genus)|Ardea]] paradisea'' <small>Lichtenstein, AAH, 1793</small>
           // * '''''Tetrapteryx capensis''''' <small>Thunberg, 1818</small>
           // * ''Anthropoides '''stanleyanus''''' <small>Vigors, 1826</small>
           // * ''[[Grus (genus)|Grus]] '''caffra''''' <small>Fritsch, 1868</small>
           synonyms = StringUtils.split(rawSynonyms, "*");
 
-        } else if (synonymsBr.matcher(rawSynonyms).find()) {
-          synonyms = synonymsBr.split(rawSynonyms);
-
-        } else if (rawSynonyms.startsWith("{{")) {
-          String synList = cleanRawValue(rawSynonyms);
-          if (synList != null) {
-            synonyms = synList.split("<br/>");
-          } else {
-            synonyms = new String[0];
-          }
+        } else if (BR_PATTERN.matcher(rawSynonyms).find()) {
+          // <br/> seperator
+          synonyms = BR_PATTERN.split(rawSynonyms);
 
         } else {
           synonyms = new String[]{rawSynonyms};
@@ -217,20 +249,33 @@ public class TaxonboxWikiModel extends WikiModel {
     }
   }
 
+
+  private void processSpeciesList(Map<String, String> parameterMap, Appendable writer) throws IOException {
+    boolean startName = true;
+    for (Map.Entry<String, String> tax : parameterMap.entrySet()) {
+      writer.append( tax.getValue() );
+      startName = !startName;
+      if (startName) {
+        writer.append("<br/>");
+      } else {
+        writer.append(" ");
+      }
+    }
+  }
+
   /**
    * {{fossil range|Late Devonian|present}}
    */
   private void processFossilRange(Map<String, String> parameterMap, Appendable writer) throws IOException {
-    log.debug("Fossil range template found with params {}", parameterMap);
     // parse fossil range
     boolean closeBrackets = false;
     if (parameterMap.containsKey("3")) {
-      writer.append(cleanRawValue(parameterMap.get("3")));
+      writer.append(parameterMap.get("3"));
       writer.append(" (");
       closeBrackets = true;
     }
 
-    writer.append(cleanRawValue(parameterMap.get("1")));
+    writer.append(parameterMap.get("1"));
 
     if (parameterMap.containsKey("2")) {
       boolean number = false;
@@ -241,7 +286,7 @@ public class TaxonboxWikiModel extends WikiModel {
       } catch (NumberFormatException e) {
         writer.append(" to ");
       }
-      writer.append(cleanRawValue(parameterMap.get("2")));
+      writer.append(parameterMap.get("2"));
       if (number) {
         writer.append(" Ma");
       }
@@ -269,8 +314,8 @@ public class TaxonboxWikiModel extends WikiModel {
    */
   private void processCitation(Map<String, String> parameterMap, Appendable writer) throws IOException {
     // title is required !!!
-    String title = cleanRawValue(parameterMap.get("title"));
-    if (title == null){
+    String title = parameterMap.get("title");
+    if (Strings.isNullOrEmpty(title)){
       return;
     }
 
@@ -279,9 +324,9 @@ public class TaxonboxWikiModel extends WikiModel {
     StringBuilder authorSB = new StringBuilder();
     for (String sfx : CITE_suffix) {
       for (String l : CITE_last_aliases) {
-        String last = cleanRawValue(parameterMap.get(l+sfx));
+        String last = parameterMap.get(l+sfx);
         if (last != null){
-          appendAuthor(last, cleanRawValue(parameterMap.get("first"+sfx)), authorSB);
+          appendAuthor(last, parameterMap.get("first"+sfx), authorSB);
         }
       }
     }
@@ -290,7 +335,7 @@ public class TaxonboxWikiModel extends WikiModel {
       started = true;
     }
 
-    String date = getFirstParsedParameter(parameterMap, "date", "year");
+    String date = getFirstParameter(parameterMap, "date", "year");
     if (date != null){
       if (started){
         writer.append(" (");
@@ -307,19 +352,19 @@ public class TaxonboxWikiModel extends WikiModel {
     }
     writer.append(title);
 
-    String work = getFirstParsedParameter(parameterMap, "work", "journal", "journal", "journal");
+    String work = getFirstParameter(parameterMap, "work", "journal", "journal", "journal");
     if (work != null){
       writer.append(", ");
       writer.append(work);
     }
 
-    String vol = cleanRawValue(parameterMap.get("volume"));
+    String vol = parameterMap.get("volume");
     if (vol != null){
       writer.append(", ");
       writer.append(vol);
     }
 
-    String issue = cleanRawValue(parameterMap.get("issue"));
+    String issue = parameterMap.get("issue");
     if (issue != null){
       writer.append("(");
       writer.append(issue);
@@ -327,7 +372,7 @@ public class TaxonboxWikiModel extends WikiModel {
     }
 
     if (work == null) {
-      String edition = cleanRawValue(parameterMap.get("edition"));
+      String edition = parameterMap.get("edition");
       if (edition != null){
         writer.append("(");
         writer.append(edition);
@@ -335,13 +380,13 @@ public class TaxonboxWikiModel extends WikiModel {
       }
     }
 
-    String pages = getFirstParsedParameter(parameterMap, "page", "pages");
+    String pages = getFirstParameter(parameterMap, "page", "pages");
     if (pages!= null){
       writer.append(": pp. ");
       writer.append(pages);
     }
 
-    String publisher = cleanRawValue(parameterMap.get("publisher"));
+    String publisher = parameterMap.get("publisher");
     if (publisher != null){
       if (title != null || work != null){
         writer.append(". ");
@@ -350,10 +395,10 @@ public class TaxonboxWikiModel extends WikiModel {
     }
   }
 
-  private String getFirstParsedParameter(Map<String, String> parameterMap, String ... aliases) {
+  private String getFirstParameter(Map<String, String> parameterMap, String... aliases) {
     for (String param : aliases) {
-      String x = cleanRawValue(parameterMap.get(param));
-      if (x != null) {
+      String x = parameterMap.get(param);
+      if (!Strings.isNullOrEmpty(x)) {
         return x;
       }
     }
@@ -376,21 +421,29 @@ public class TaxonboxWikiModel extends WikiModel {
     }
   }
 
-  private String subRender(String wikiText){
+  private String internalRender(String wikiText){
     if (wikiText==null) return null;
+    if (internalWiki != null) {
+      return internalWiki.render(converter, wikiText);
+    }
     return render(converter, wikiText);
+  }
+
+  private String removeTemplateRemains(String x){
+    if (x==null) return null;
+    return REMOVE_TEMPLATES.matcher(x).replaceAll(" ");
   }
 
   private String cleanRawValue(String val){
     if (val==null) return null;
-    return Strings.emptyToNull(StringUtils.normalizeSpace(subRender(val)));
+    return Strings.emptyToNull(StringUtils.normalizeSpace(internalRender(val)));
   }
 
   private String cleanNameValue(String val){
     if (val==null) return null;
-    String cleaned = subRender(val);
-    cleaned = cleanNames.matcher(cleaned).replaceAll(" ");
-    cleaned = replOrName.matcher(cleaned).replaceAll(" ");
+    String cleaned = internalRender(val);
+    cleaned = CLEAN_NAMES.matcher(cleaned).replaceAll(" ");
+    cleaned = REPL_BRACKET_REMARKS.matcher(cleaned).replaceAll(" ");
     return Strings.emptyToNull(StringUtils.normalizeSpace(cleaned));
   }
 

@@ -15,14 +15,20 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
+import org.gbif.api.model.vocabulary.Kingdom;
+import org.gbif.api.model.vocabulary.Language;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import info.bliki.wiki.dump.WikiArticle;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +51,7 @@ abstract class TaxonInfoBase {
   private String taxStatus;
   // holding temp names to collect all info before we can identify the lowest name & classification
   private List<Name> names = Lists.newArrayList();
+  private String speciesEpithet;
   // classification
   private String kingdom;
   private String phylum;
@@ -84,7 +91,7 @@ abstract class TaxonInfoBase {
   private String diversity; // c. 120species
   private String diversityLink;
 
-  public void postprocess() {
+  public void postprocess(WikiArticle page, Language lang) {
     // set classification and scientific name from flexible rank names
     for (Name n : names) {
       if (n != null){
@@ -109,12 +116,71 @@ abstract class TaxonInfoBase {
       }
     }
 
-    // replace genus abbreviation in name?
-    if (!Strings.isNullOrEmpty(getGenus()) && Strings.nullToEmpty(getScientificName()).startsWith(getGenus().charAt(0)+".")) {
-      String expandedName = getGenus() + " " + getScientificName().substring(2);
-      log.debug("Expanding abbreviated name {} with {}", getScientificName(), expandedName);
-      setScientificName(expandedName);
+    // replace genus abbreviation in names?
+    setScientificName(expandName(getScientificName()));
+    List<String> syns = Lists.newArrayList();
+
+    // expand synonyms
+    for (String syn : getSynonyms()) {
+      syns.add(expandName(syn));
     }
+    getSynonyms().clear();
+    getSynonyms().addAll(syns);
+
+    // make sure we dont have wrong kingdom pages - we keep the known pages
+    if (getScientificName() != null) {
+      Kingdom kingdom = null;
+      for (Kingdom k : Kingdom.values()) {
+        if (StringUtils.startsWithIgnoreCase(getScientificName(), k.name())) {
+          kingdom = k;
+          break;
+        }
+      }
+      // try virus separately
+      if (StringUtils.startsWithIgnoreCase(getScientificName(), "virus")) {
+        kingdom = Kingdom.VIRUSES;
+      }
+
+      if (kingdom != null) {
+        // seems we got a kingdom page - make sure its the real one!
+        if (!page.getTitle().equalsIgnoreCase(knownPageTitle(kingdom, lang))) {
+          log.warn("Wrong kingdom page {} found. Ignore");
+          setScientificName(null);
+          setRank(null);
+        }
+      }
+    }
+  }
+
+  abstract protected String knownPageTitle(Kingdom kingdom, Language lang);
+
+  /**
+   * Expand abbreviated names like:
+   *   V[ipera]. a[mmodytes]. transcaucasiana - Bruno, 1985
+   *
+   * @param name
+   * @return
+   */
+  private String expandName(String name){
+    if (name==null) return null;
+
+    if (!Strings.isNullOrEmpty(getGenus())) {
+      Pattern gen = Pattern.compile("^ *"+getGenus().charAt(0)+"\\. *");
+      Matcher m = gen.matcher(getScientificName());
+      if (m.find()) {
+        String expandedName = m.replaceFirst(getGenus()+" ");
+        if (!Strings.isNullOrEmpty(getSpeciesEpithet())) {
+          Pattern spec = Pattern.compile("^"+getGenus()+" "+getSpeciesEpithet().charAt(0)+ "\\. *");
+          m = spec.matcher(expandedName);
+          if (m.find()) {
+            expandedName = m.replaceFirst(getGenus()+" "+getSpeciesEpithet()+" ");
+          }
+        }
+        log.debug("Expanding abbreviated name {} with {}", getScientificName(), expandedName);
+        return expandedName;
+      }
+    }
+    return name;
   }
 
   protected Name name(int idx) {
@@ -199,6 +265,14 @@ abstract class TaxonInfoBase {
 
   public String getTaxStatus() {
     return taxStatus;
+  }
+
+  public String getSpeciesEpithet() {
+    return speciesEpithet;
+  }
+
+  public void setSpeciesEpithet(String speciesEpithet) {
+    this.speciesEpithet = speciesEpithet;
   }
 
   public void setTaxStatus(String taxStatus) {

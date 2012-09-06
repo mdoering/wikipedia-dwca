@@ -457,7 +457,7 @@ public class TaxonboxWikiModel extends WikiModel {
     cleaned = REPL_BRACKET_REMARKS.matcher(cleaned).replaceAll(" ");
     String name = Strings.emptyToNull(StringUtils.normalizeSpace(cleaned));
 
-    if (name.equalsIgnoreCase("incertae sedis")) {
+    if (name != null && name.equalsIgnoreCase("incertae sedis")) {
       return null;
     }
 

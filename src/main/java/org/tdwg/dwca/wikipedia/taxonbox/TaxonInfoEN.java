@@ -623,4 +623,44 @@ abstract class TaxonInfoEN extends TaxonInfoBase{
   public void setForm_authority(String author) {
     setScientificNameAuthorship(Rank.Form, author);
   }
+
+  public void setUnranked_regnum(String kingdom) {
+    setScientificNameAndRankIfLowest(Rank.KingdomClade, kingdom);
+  }
+
+  public void setUnranked_kingdom(String kingdom) {
+    setUnranked_regnum(kingdom);
+  }
+
+  public void setUnranked_phylum(String phylum) {
+    setScientificNameAndRankIfLowest(Rank.PhylumClade, phylum);
+  }
+
+  public void setUnranked_classis(String classis) {
+    setScientificNameAndRankIfLowest(Rank.ClassClade, classis);
+  }
+
+  public void setUnranked_class(String classis) {
+    setUnranked_classis(classis);
+  }
+
+  public void setUnranked_ordo(String order) {
+    setScientificNameAndRankIfLowest(Rank.OrderClade, order);
+  }
+
+  public void setUnranked_order(String order) {
+    setUnranked_ordo(order);
+  }
+
+  public void setUnranked_familia(String family) {
+    setScientificNameAndRankIfLowest(Rank.FamilyClade, family);
+  }
+
+  public void setUnranked_family(String family) {
+    setUnranked_familia(family);
+  }
+
+  public void setUnranked_genus(String genus) {
+    setScientificNameAndRankIfLowest(Rank.GenusClade, genus);
+  }
 }

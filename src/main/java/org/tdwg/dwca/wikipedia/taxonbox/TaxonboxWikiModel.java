@@ -55,9 +55,11 @@ public class TaxonboxWikiModel extends WikiModel {
   private final Logger log = LoggerFactory.getLogger(getClass());
   protected final String lang;
   private TaxonInfo info;
+  private boolean multipleTaxa = false;
   private Map<String, String> unknownProperties = Maps.newHashMap();
   private Map<String, String> unknownTemplates = Maps.newHashMap();
-  private static final Pattern CLEAN_NAMES = Pattern.compile("['+†‡|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern REPL_REF_TAG = Pattern.compile("< *ref>[^<>]+</ *ref *>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CLEAN_NAMES = Pattern.compile("[†‡\"'+|<>\\[\\]\\?]", Pattern.CASE_INSENSITIVE);
   private static final Pattern REPL_BRACKET_REMARKS = Pattern.compile("\\( *(or [^()]+|\\?|plant|animal) *\\)");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
 
@@ -143,6 +145,10 @@ public class TaxonboxWikiModel extends WikiModel {
   }
 
   private void processSpeciesBox(Rank rank, Map<String,String> parameterMap) {
+    if (info != null) {
+      multipleTaxa = true;
+      return;
+    }
     info = new TaxonInfo();
     info.setRawParams(ImmutableMap.copyOf(parameterMap));
 
@@ -176,6 +182,10 @@ public class TaxonboxWikiModel extends WikiModel {
   }
 
   private void processTaxoBox(Map<String, String> parameterMap) {
+    if (info != null) {
+      multipleTaxa = true;
+      return;
+    }
     info = new TaxonInfo();
     info.setRawParams(ImmutableMap.copyOf(parameterMap));
     for (String param : parameterMap.keySet()){
@@ -441,18 +451,26 @@ public class TaxonboxWikiModel extends WikiModel {
 
   private String cleanNameValue(String val){
     if (val==null) return null;
-    String cleaned = internalRender(val);
+    String cleaned = REPL_REF_TAG.matcher(val).replaceAll(" ");
+    cleaned = internalRender(cleaned);
     cleaned = CLEAN_NAMES.matcher(cleaned).replaceAll(" ");
     cleaned = REPL_BRACKET_REMARKS.matcher(cleaned).replaceAll(" ");
-    return Strings.emptyToNull(StringUtils.normalizeSpace(cleaned));
+    String name = Strings.emptyToNull(StringUtils.normalizeSpace(cleaned));
+
+    if (name.equalsIgnoreCase("incertae sedis")) {
+      return null;
+    }
+
+    return name;
   }
 
   public void reset() {
     info = null;
+    multipleTaxa = false;
   }
 
   public boolean isSpeciesPage() {
-    return info != null;
+    return !multipleTaxa && info != null;
   }
 
   public TaxonInfo getTaxonInfo() {

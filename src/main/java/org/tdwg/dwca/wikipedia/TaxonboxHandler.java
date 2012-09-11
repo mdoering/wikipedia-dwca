@@ -8,10 +8,7 @@ import org.gbif.dwc.terms.GbifTerm;
 import org.gbif.dwc.terms.TermFactory;
 import org.gbif.dwc.text.DwcaWriter;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -51,7 +48,6 @@ public class TaxonboxHandler implements IArticleFilter {
   private final ConceptTerm wikipediaThumb;
   private final ConceptTerm taxobox;
   private final TaxonboxWikiModel wikiModel;
-  private Writer noNamesFoundWriter;
 
   private final Pattern SPLIT_SECTIONS = Pattern.compile("(?<!=)==([^=]+)==");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
@@ -79,13 +75,6 @@ public class TaxonboxHandler implements IArticleFilter {
     wikipediaImage = termFactory.findTerm("http://wikipedia.org/image/link");
     wikipediaThumb = termFactory.findTerm("http://wikipedia.org/image/thumbnail");
     taxobox = termFactory.findTerm("http://wikipedia.org/taxobox");
-    try {
-      File noNames = File.createTempFile("wikipedia", "noname.txt");
-      noNamesFoundWriter = new FileWriter(noNames);
-      log.warn("Log taxa without scientific name into {}", noNames.getAbsolutePath());
-    } catch (IOException e) {
-      log.warn("Cant create no names writer: {}", e.getMessage());
-    }
   }
 
   @Override
@@ -160,13 +149,10 @@ public class TaxonboxHandler implements IArticleFilter {
     taxon.postprocess(page, lang);
 
     if (taxon.getScientificName() == null) {
-      log.warn("No scientific name found for taxon page {}", WikipediaUtils.getWikiLink(lang, page.getTitle()));
-      noNamesFoundWriter.write(page.getTitle());
-      noNamesFoundWriter.write("\n\n");
-      noNamesFoundWriter.write(page.getText());
-      noNamesFoundWriter.write("\n\n==========\n\n");
-      return;
+      log.info("No scientific name found in taxon page {}. Use article {} instead", WikipediaUtils.getWikiLink(lang, page.getTitle()), page.getTitle());
+      taxon.setScientificName(page.getTitle());
     }
+
     taxonCount++;
     log.debug("Processing #" + taxonCount + " {}: {}", WikipediaUtils.getWikiLink(lang, page.getTitle()), taxon.getScientificName());
     // write core record

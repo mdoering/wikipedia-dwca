@@ -23,10 +23,10 @@ import static org.junit.Assert.assertTrue;
 public class TaxonboxHandlerTest {
   private WikiArticle page = new WikiArticle();
 
-  private TaxonInfo processPage(String filename, Language lang) throws IOException, SAXException {
+  private TaxonInfo processPage(String title, String filename, Language lang) throws IOException, SAXException {
     InputStreamUtils isu = new InputStreamUtils();
     page.setId("1");
-    page.setTitle("Cougar");
+    page.setTitle(title);
     page.setText(isu.readEntireStream(FileUtils.classpathStream(filename)));
 
     File tmpDir = FileUtils.createTempDir();
@@ -39,7 +39,7 @@ public class TaxonboxHandlerTest {
 
   @Test
   public void testPuma() throws Exception {
-    TaxonInfo taxon = processPage("puma-en.txt", Language.ENGLISH);
+    TaxonInfo taxon = processPage("Puma", "puma-en.txt", Language.ENGLISH);
 
     assertEquals("Puma", taxon.getScientificName());
     assertNull(taxon.getScientificNameAuthorship());
@@ -60,7 +60,7 @@ public class TaxonboxHandlerTest {
 
   @Test
   public void testPumaConcolor() throws Exception {
-    TaxonInfo taxon = processPage("pumaconcolor-en.txt", Language.ENGLISH);
+    TaxonInfo taxon = processPage("Cougar", "pumaconcolor-en.txt", Language.ENGLISH);
 
     assertEquals("Puma concolor", taxon.getScientificName());
     assertEquals("(Linnaeus, 1771)", taxon.getScientificNameAuthorship());
@@ -82,7 +82,7 @@ public class TaxonboxHandlerTest {
 
   @Test
   public void testOlivenbaum() throws Exception {
-    TaxonInfo taxon = processPage("olivenbaum.txt", Language.GERMAN);
+    TaxonInfo taxon = processPage("Olivenbaum", "olivenbaum.txt", Language.GERMAN);
 
     assertEquals("Olea europaea", taxon.getScientificName());
     assertEquals("L.", taxon.getScientificNameAuthorship());
@@ -102,7 +102,7 @@ public class TaxonboxHandlerTest {
 
   @Test
   public void testArthrobacter() throws Exception {
-    TaxonInfo taxon = processPage("arthrobacter.txt", Language.GERMAN);
+    TaxonInfo taxon = processPage("Arthrobacter", "arthrobacter.txt", Language.GERMAN);
 
     assertEquals("Arthrobacter", taxon.getScientificName());
     assertEquals("Conn & Dimmick 1947", taxon.getScientificNameAuthorship());
@@ -119,6 +119,22 @@ public class TaxonboxHandlerTest {
     assertEquals("Arthrobacter", taxon.getVernacularNames().get("en"));
     assertEquals("Arthrobacter", taxon.getVernacularNames().get("fr"));
     assertNull(taxon.getFossilRange());
+  }
+
+  @Test
+  public void testApatosaurus() throws Exception {
+    TaxonInfo taxon = processPage("Apatosaurus", "apatosaurus.txt", Language.ENGLISH);
+
+    assertEquals("Apatosaurus", taxon.getScientificName());
+    assertEquals("Marsh, 1877", taxon.getScientificNameAuthorship());
+    assertNull(taxon.getKingdom());
+    assertNull(taxon.getPhylum());
+    assertNull(taxon.getRank());
+    assertTrue(taxon.getVernacularNamesInDefaultLang().isEmpty());
+    assertEquals(40, taxon.getVernacularNames().size());
+    assertEquals("Apatosaurus", taxon.getVernacularNames().get("de"));
+    assertEquals("Apatosaurus", taxon.getVernacularNames().get("es"));
+    assertEquals("Late Jurassic, 154-150 Ma", taxon.getFossilRange());
   }
 
 }

@@ -1,0 +1,204 @@
+<!--{{About|the sauropod dinosaur formerly called Apatosaurus|for other uses|Brontosaurus (disambiguation)}}
+-->{{Automatic taxobox
+| fossil_range = [[Late Jurassic]], {{Geological range|154|150}}
+| image = Louisae.jpg
+| image_caption = Mounted skeleton of ''A. louisae'', [[Carnegie Museum of Natural History]]
+| image_width = 300px
+| authority = [[Othniel Charles Marsh|Marsh]], 1877
+| subdivision = {{bold species list
+|{{extinct}}A. ajax|Marsh, 1877 ([[Type (zoology)|type]])
+|{{extinct}}A. excelsus|(Marsh, 1879) [originally ''Brontosaurus'']
+|{{extinct}}A. louisae|Holland, 1915
+|{{extinct}}A. parvus|(Peterson & Gilmore, 1902)<br /> [originally ''Elosaurus'']}}
+| synonyms = {{species list
+|Brontosaurus|Marsh, 1879
+|Elosaurus|Peterson & Gilmore, 1902}}
+}}
+
+'''''Apatosaurus''''' ({{IPAc-en|icon|ə|ˌ|p|æ|t|ɵ|ˈ|s|ɔr|ə|s}}), also known by the popular but scientifically redundant [[synonym (taxonomy)|synonym]] '''''Brontosaurus''''', is a [[genus]] of [[sauropod]] [[dinosaur]] that lived from about 154 to 150 million years ago, during the [[Jurassic]] [[Period (geology)|Period]] ([[Kimmeridgian]] and early [[Tithonian]] ages).<ref name=turner1999/> It was one of the largest land [[animal]]s that ever existed, with an average length of {{convert|23|m|ft|abbr=on}} and a mass of at least {{convert|23|MT|ST}}. The composite term ''Apatosaurus'' comes from the [[Ancient Greek|Greek]] names ''apate'' ({{lang|grc|ἀπάτη}})/''apatelos'' ({{lang|grc|ἀπατηλός}}) meaning "deception"/"deceptive" and ''sauros'' ({{lang|grc|[[wikt:σαῦρος|σαῦρος]]}}) meaning "lizard"; thus, "deceptive lizard". [[Othniel Charles Marsh]] gave it this name because he regarded the [[Chevron (anatomy)|chevron bones]] as similar to those of some [[mosasaur]]s, members of a group of prehistoric marine lizards.
+
+The cervical vertebrae were less elongated and more heavily constructed than those of ''[[Diplodocus]]'' and the bones of the leg were much stockier (despite being longer), implying a more robust animal. The tail was held above the ground during normal locomotion. Like most sauropods, ''Apatosaurus'' had only a single large claw on each forelimb, with the first three toes on the hind limb possessing claws. [[Fossil]]s of these animals have been found in [[Bone Cabin Quarry#Nine Mile Quarry|Nine Mile Quarry]] and [[Bone Cabin Quarry]] in [[Wyoming]] and at sites in [[Colorado]], [[Oklahoma]] and [[Utah]], present in stratigraphic zones 2-6.<ref name="foster-appendix">Foster, J. (2007). "Appendix." ''Jurassic West: The Dinosaurs of the Morrison Formation and Their World''. Indiana University Press. pp. 327-329.</ref>
+
+==Description==
+[[File:Apatosaurus scale mmartyniuk wiki.png|thumb|left|Comparison of three species and a human: ''A. louisae'' (red), ''A. excelsus'' (violet), and ''A. ajax'' (green)]]
+''Apatosaurus'' was a large, long-necked [[quadruped]]al animal with a long, whip-like tail. Its forelimbs were slightly shorter than its hindlimbs. One estimate places the total length of the species ''Apatosaurus louisae'' at {{convert|22|m|ft|abbr=on}}.<ref name="mazzettaetal2004">{{cite journal | last1 = Mazzetta | first1 = G.V. | last2 = Christiansen | first2 = P. | last3 = Farina | first3 = R.A. | year = 2004 | title = Giants and bizarres: body size of some southern South American Cretaceous dinosaurs | url = http://www.miketaylor.org.uk/tmp/papers/Mazzetta-et-al_04_SA-dino-body-size.pdf | format = PDF | journal = Historical Biology | volume = 2004 | issue = | pages = 1–13 }}</ref>
+
+It was roughly the weight of four elephants.<ref name="Holtz2008">Holtz, Thomas R. Jr. (2008) ''Dinosaurs: The Most Complete, Up-to-Date Encyclopedia for Dinosaur Lovers of All Ages'' [http://www.geol.umd.edu/~tholtz/dinoappendix/DinoappendixSummer2008.pdf Supplementary Information]</ref> One specimen of ''A. excelsus'' was estimated to weigh around 26 metric tons (28.5 short tons)<ref>{{Cite journal| last1=Erickson | first1=Gregory M.| last2=Curry Rogers | first2=Kristina |last3 =Yerby|first3=Scott A.| title=Dinosaurian growth patterns and rapid avian growth rates. | journal=Nature | year= 2001 | volume= 412| pmid=11473315 | issue= 6845 | pages= 429–33 | doi=10.1038/35086558 }}</ref> estimates for ''A. louisae'' range from 20.5 metric tons (22.5 short tons)<ref name="mazzettaetal2004"/> to 22.5 metric tons( 25 short tons).<ref name=Seebacher01>{{Cite journal| last1 = Seebacher | first1 = Frank | title = A new method to calculate allometric length-mass relationships of dinosaurs | journal = Journal of Vertebrate Paleontology | volume = 21 | pages = 51–52 | year = 2001 | doi = 10.1671/0272-4634(2001)021[0051:ANMTCA]2.0.CO;2| issn = 0272-4634}}</ref> Other estimates of the body mass of adult ''Apatosaurus'' species range from {{convert|18000|kg|lb|abbr=on}}<ref>{{Cite journal| last1=Packard | first1=G.C.| last2=Boardman | first2=T.J. |last3 =Birchard|first3=G.F.| year= 2009 |title= Allometric equations for predicting body mass of dinosaurs |journal= Journal of Zoology |volume=279 |pages=102–110 | doi= 10.1111/j.1469-7998.2009.00594.x }}</ref> to {{convert|35000|kg|lb|abbr=on}}.<ref name=Seebacher01/>
+
+The skull was small in comparison with the size of the animal. The jaws were lined with spatulate(chisel-like) teeth, suited to an herbivorous diet. Like other sauropods, the vertebrae of the neck were deeply bifurcated; that is, they carried paired spines, resulting in a wide and deep neck.<ref name=dinonathist>Fasovsky, D.E. and Weishampel, D.B. (2009). ''Dinosaurs: A Concise Natural History''. Cambridge: Cambridge University Press. ISBN 978-0-521-88996-4</ref> The apparently massive neck was, however, filled with an extensive system of weight-saving air sacs. ''Apatosaurus'', like its close relative ''[[Supersaurus]]'', is notable for the incredibly tall spines on its vertebrae, which make up more than half the height of the individual bones.  The shape of the tail is unusual for a diplodocid, being comparatively thin in breadth and short in height, a shape caused by the vertebral spines decreasing in height rapidly the farther they are from the hips. ''Apatosaurus'' also had very long ribs compared to most other diplodocids, giving it an unusually deep chest. The limb bones were also very robust.<ref name=LHW07>{{Cite journal|last=Lovelace |first=David M. |coauthors=Hartman, Scott A.; and Wahl, William R. |year=2007 |title=Morphology of a specimen of ''Supersaurus'' (Dinosauria, Sauropoda) from the Morrison Formation of Wyoming, and a re-evaluation of diplodocid phylogeny |journal=Arquivos do Museu Nacional |volume=65 |issue=4 |pages=527–544 | url = http://server1.bhbfonline.org/Specimens/CLPV_II_Supersaurus.pdf}}</ref>
+
+==Classification and species==
+[[File:Brontosaurus skeleton 1880s.jpg|thumb|left|An 1896 diagram of the ''A. excelsus'' (then ''Brontosaurus'') skeleton by [[Othniel Charles Marsh|O.C. Marsh]]. The head is based on material now assigned to ''[[Brachiosaurus]] sp.''<ref>{{Cite book
+| url = http://books.google.com/?id=CLEPeg_SjTcC&pg=PA69
+| title = The Upper Jurassic Morrison Formation: an interdisciplinary study
+| first1 = Kenneth | last1 = Carpenter | first2 = Virginia | last2 = Tidwell
+| chapter = Preliminary Description of a Brachiosaurus Skull from Felch Quarry 1, Garden Park, Colorado
+| editor1-first = Kenneth | editor1-last = Carpenter
+| editor2-first = Dan | editor2-last = Chure
+| editor3-first = James Ian | editor3-last = Kirkland
+| publisher = Taylor & Francis | year = 1998
+| isbn = 978-90-5699-183-8
+}}</ref>]]
+''Apatosaurus'' is a member of the [[Family (biology)|family]] [[Diplodocidae]], a [[cladistics|clade]] of gigantic [[sauropod]] [[dinosaur]]s. The family includes some of the longest creatures ever to walk the earth, including ''[[Diplodocus]]'', ''[[Supersaurus]]'', and ''[[Barosaurus]]''. Within the subfamily Apatosaurinae, ''Apatosaurus'' may be most closely related to ''Suuwassea'', ''Supersaurus'' and ''[[Eobrontosaurus]]''.<ref name=autogenerated1>{{Cite journal|last=Lovelace |first=David M. |year=2007 |title=Morphology of a specimen of ''Supersaurus'' (Dinosauria, Sauropoda) from the Morrison Formation of Wyoming, and a re-evaluation of diplodocid phylogeny |journal=Arquivos do Museu Nacional |volume=65 |issue=4 |pages=527–544 }}</ref><ref name="taylornaish05">{{Cite journal | author = Taylor, M.P. and Naish, D. | year = 2005 | title = The phylogenetic taxonomy of Diplodocoidea (Dinosauria: Sauropoda) | url = http://www.miketaylor.org.uk/dino/pubs/ | journal = PaleoBios | volume = 25 | issue = 2 | pages = 1–7 | archiveurl = http://www.webcitation.org/5msewSMAx | archivedate = 2010-01-18| deadurl=no}}</ref><ref name="harris06">{{Cite journal | doi = 10.1017/S1477201906001805 | author = Harris, J.D. | year = 2006 | title = The significance of ''Suuwassea emiliae'' (Dinosauria: Sauropoda) for flagellicaudatan intrarelationships and evolution | url = | journal = Journal of Systematic Palaeontology | volume = 4 | issue = 2 | pages = 185–198 }}</ref>
+
+In 1877, [[Othniel Charles Marsh]] published the name of the [[type species]] ''Apatosaurus ajax''. He followed this in 1879 with a description of another, more complete specimen, which he thought represented a new [[genus]] and [[species]], which he named ''Brontosaurus excelsus''. In 1903, [[Elmer Riggs]] re-examined the fossils. While he agreed with Marsh that ''Brontosaurus excelsus'' was likely a distinct species, he also noted many similarities between ''B. excelsus'' and ''A. ajax'', and decided that both should be placed in the same genus. Riggs re-classified the species as ''Apatosaurus excelsus'' in 1903.<ref name="riggs-1903">{{cite journal
+|last=Riggs|first=Elmer|authorlink=Elmer S. Riggs
+|year=1903
+|title=Structure and Relationships of Opisthocoelian Dinosaurs. Part I, ''Apatosaurus'' Marsh
+|journal=Publications of the Field Columbian Museum|volume=Geological Series|issue=2|pages=165–196
+|url=http://books.google.com/books?id=ssgPAAAAIAAJ&printsec=frontcover
+}}</ref> Almost all paleontologists since Riggs published his opinions have agreed that the two species should be classified together in a single genus. According to the rules of the [[International Code of Zoological Nomenclature|ICZN]] (which governs the scientific names of animals), the name ''Apatosaurus'', having been published first, had priority as the official name; ''Brontosaurus'' is considered a [[Synonym (taxonomy)|junior synonym]] and has therefore been discarded from formal use.<ref>{{Cite doi|10.1144/SP343.22}}</ref><ref>{{Cite doi|10.1016/j.endeavour.2006.10.004}}</ref>
+
+{{cladogram|1=
+{{clade| style=font-size:90%; line-height:80%
+|label1=&nbsp;&nbsp;&nbsp;Diplodocidae&nbsp;&nbsp;&nbsp;
+|1={{clade
+|1={{clade
+|label1=&nbsp;Apatosaurinae&nbsp;
+|1={{clade
+|1=''[[Suuwassea]]''
+|label2=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|2={{clade
+|label1=&nbsp;&nbsp;&nbsp;
+|1=''[[Supersaurus]]''&nbsp;&nbsp;&nbsp;
+|2=''Apatosaurus''&nbsp;&nbsp;&nbsp;
+}}
+}}
+|label2=Diplodocinae
+|2={{clade
+|1=''[[Barosaurus]]''
+|2=''[[Diplodocus]]''
+}}
+}}
+}}
+}}
+<center><small>[[Cladogram]] of the Diplodocidae after Lovelace, Hartman, and Wahl, 2008.<ref name="LHW07"/></small></center>
+}}
+
+''Apatosaurus ajax'' is the [[type species]] of the genus, and was named by the [[paleontologist]] [[Othniel Charles Marsh]] in 1877 after [[Ajax (mythology)|Ajax]], the [[hero]] from [[Greek mythology]]. It is the [[holotype]] for the genus and two partial skeletons have been found, including part of a [[skull]]. ''Apatosaurus laticollis'', named by Marsh in 1879, is now considered a synonym of it.<ref>{{Cite doi|10.1002/gj.3350270109}}</ref> ''Apatosaurus excelsus'' (originally ''Brontosaurus'') was named by Marsh in 1879. It is known from six partial skeletons, including part of a skull, which have been found in the [[United States]], in [[Colorado]], [[Oklahoma]], [[Utah]], and [[Wyoming]]. ''Apatosaurus louisae'' was named by William Holland in 1915 in honor of Mrs. Louise Carnegie, wife of [[Andrew Carnegie]] who funded field research to find complete dinosaur skeletons in the American West. ''Apatosaurus louisae'' is known from one partial skeleton which was found in [[Utah]] in the United States. ''Apatosaurus parvus'' was originally known as ''Elosaurus parvus'', but was reclassified as a species of ''Apatosaurus'' in 1994.<ref name="CM94">Carpenter, K. and McIntosh, J. (1994). "Upper Jurassic sauropod babies from the Morrison Formation", In: K. Carpenter, K. F. Hirsch, and J. R. Horner (eds.), ''Dinosaur Eggs and Babies''. Cambridge University Press, Cambridge 265–278</ref> This synonymy was upheld in 2004.<ref name="Upchurch04">Upchurch, Paul; Tomida, Yukimitsu; and Barrett, Paul M. (2004). "[http://ci.nii.ac.jp/naid/110004665753/ A new specimen of ''Apatosaurus ajax'' (Sauropoda: Diplodocidae) from the Morrison Formation (Upper Jurassic) of Wyoming, USA.]" ''National Science Museum monographs'' 26: i-118 ISSN:13429574</ref>
+
+''Apatosaurus yahnahpin'' was named by Filla and Redman in 1994. [[Robert T. Bakker]] made ''A. yahnahpin'' the [[holotype|type]] species of a new genus, ''[[Eobrontosaurus]]'' in 1998,<ref>Bakker, R.T. (1998). "Dinosaur mid-life crisis: the Jurassic-Cretaceous transition in Wyoming and Colorado". In: S.G. Lucas, J.I. Kirkland, & J.W. Estep (eds.) Lower and Middle Cretaceous Terrestrial Ecosystems; New Mexico Museum of Natural History and Science Bulletin, 14: 67–77.</ref> so it is now properly ''Eobrontosaurus yahnahpin''. One partial skeleton has been found in Wyoming. It has been argued that ''Eobrontosaurus'' belongs within ''[[Camarasaurus]]'',<ref name="Dinosauria04"/> although this has been questioned.<ref name="Holtz2008"/><ref name="SH05">{{cite web|url=http://dml.cmnh.org/2005Feb/msg00289.html|title="Eobrontosaurus" is not Camarasaurus|last=Hartman|first=Scott|date=2005-02-13|work=The Dinosaur Mailing List Archives|accessdate=27 January 2010}}</ref>
+
+==History==
+[[File:Sharp lull brontosaurus.jpg|thumb|left|Original (outdated) ''A. excelsus'' skeletal mount at the [[American Museum of Natural History|AMNH]]]]
+[[Othniel Charles Marsh]], a Professor of [[Paleontology]] at [[Yale University]], described and named an incomplete (and juvenile) skeleton of ''Apatosaurus ajax'' in 1877. Two years later, Marsh announced the discovery of a larger and more complete specimen at [[Como Bluff]] [[Wyoming]]—which, because of discrepancies including the size difference, Marsh incorrectly identified as belonging to an entirely new [[genus]] and [[species]]. He dubbed the new species ''Brontosaurus excelsus'', meaning "thunder lizard", from the [[Ancient Greek|Greek]] '''brontē/βροντη''' meaning 'thunder' and '''sauros/σαυρος''' meaning 'lizard', and from the [[Latin]] ''excelsus'', "highest, sublime", referring to the greater number of sacral vertebrae than in any other genus of sauropod known at the time.
+[[File:AMNH Apatosaurus.jpg|thumb|Current ''A. excelsus'' skeletal mount at the [[American Museum of Natural History|AMNH]]]]
+The finds—the largest dinosaur ever discovered at the time and nearly complete, lacking only a head, feet, and portions of the tail — were then prepared for what was to be the first ever mounted display of a sauropod skeleton, at Yale's [[Peabody Museum of Natural History]] in 1905. The missing bones were created using known pieces from close relatives of ''Brontosaurus''. Sauropod feet that were discovered at the same quarry were added, as well as a tail fashioned to appear as Marsh believed it should, as well as a composite model of what he felt the skull of this massive creature might look like. This was not a delicate ''[[Diplodocus]]''-style skull (which would later turn out to be more accurate<ref>{{Cite journal | author = McIntosh, J.S. and Berman, D.S. | year = 1975 | title = Description of the palate and lower jaw of the sauropod dinosaur ''Diplodocus'' (Reptilia: Saurischia) with remarks on the nature of the skull of ''Apatosaurus'' | journal = Journal of Paleontology | volume = 49 | issue = 1 | pages = 187–199 | jstor =1303324 }}</ref>), but was composed of "the biggest, thickest, strongest skull bones, lower jaws and tooth crowns from three different quarries",<ref name="Bakker">{{cite journal | last1 = Bakker | first1 = Robert | year = 1994 | title = The Bite of the Bronto | url = | journal = Earth | volume = 3 | issue = 6| pages = 26–33 }}</ref> primarily those of ''[[Camarasaurus]]'', the only other sauropod for which good skull material was known at the time. This method of reconstructing incomplete skeletons based on the more complete remains of related dinosaurs continues in museum mounts and life restorations to this day.
+
+Despite the much-publicized debut of the mounted skeleton, which cemented the name ''Brontosaurus'' in the public consciousness, [[Elmer Riggs]] had published a paper in the 1903 edition of ''Geological Series of the Field Columbian Museum'' which argued that ''Brontosaurus'' was not different enough from ''Apatosaurus'' to warrant its own genus, and created the combination ''Apatosaurus excelsus'': "In view of these facts the two genera may be regarded as synonymous. As the term 'Apatosaurus' has priority, 'Brontosaurus' will be regarded as a synonym."<ref name="riggs-1903" />
+
+Despite this, at least one paleontologist—[[Robert Bakker]]—argued in the 1990s that ''A. ajax'' and ''A. excelsus'' are in fact sufficiently distinct that the latter continues to merit a separate genus.<ref name="Bakker98">Bakker, R.T. (1998). "Dinosaur mid-life crisis: the Jurassic-Cretaceous transition in Wyoming and Colorado". In: S.G. Lucas, J.I. Kirkland, & J.W. Estep (eds.) ''Lower and Middle Cretaceous Terrestrial Ecosystems; New Mexico Museum of Natural History and Science Bulletin'', 14: 67–77.</ref> This idea has not been accepted by most palaeontologists.<ref name="Dinosauria04">Upchurch, P., Barrett, P.M. and Dodson, P. (2004). "Sauropoda". In Weishampel, D.B., Osmólska, H., and Dodson, P. (eds.), ''The Dinosauria'' (2nd edition). University of California Press, Berkeley 259–322.</ref><ref name="Macintosh">McIntosh, J.S. (1995). "Remarks on the North American sauropod ''Apatosaurus'' Marsh". ''Sixth Symposium on Mesozoic Terrestrial Ecosystems and Biota'', Short Papers, A. Sun and Y. Wang (eds.), China Ocean Press, Beijing 119–123</ref>
+
+==Palaeobiology==
+[[File:Apatosaurus33.jpg|thumb|[[Paleoart|Restoration]] of an individual arching its neck down to drink]]
+Until the 1970s, it was believed that sauropods like ''Apatosaurus'' were too massive to support their own weight on dry land, so it was theorized that they must have lived partly submerged in water, perhaps in swamps. Recent findings do not support this, and sauropods are thought to have been fully terrestrial animals.
+
+In 2008, footprints of juvenile ''Apatosaurus'' were reported from Quarry Five in Morrison, Colorado. Discovered in 2006 by Matthew Mossbrucker, these footprints show that juveniles could run on their hind legs in a manner similar to that of the modern [[Basiliscus (genus)|basilisk]] lizard.<ref name="smithsonian08">{{Cite journal|last=Rajewski|first=Genevieve|date=May 2008|title=Where Dinosaurs Roamed |journal=Smithsonian |pages=20–24 |url=http://www.smithsonianmag.com/history-archaeology/phenom-dino-200805.html |accessdate=2008-04-30| archiveurl= http://web.archive.org/web/20080427162722/http://www.smithsonianmag.com/history-archaeology/phenom-dino-200805.html| archivedate= 27 April 2008 <!--DASHBot-->| deadurl= no}}</ref>
+
+A microscopic study of ''Apatosaurus'' bones concluded that the animals grew rapidly when young and reached near-adult sizes in about 10 years.<ref name=Curry99>{{Cite journal|doi= 10.1080/02724634.1999.10011179 |last= Curry |first= Kristina A. |authorlink = Kristina Curry Rogers |year= 1999|title= Ontogenetic histology of Apatosaurus (Dinosauria: Sauropoda): new insights on growth rates and longevity |journal= Journal of Vertebrate Paleontology |volume=19 |issue=4 |pages=654–665 | jstor= 4524036 }}</ref>
+
+A study of diplodocid snouts showed that the square snout, large proportion of pits, and fine subparallel scratches in ''Apatosaurus'' suggests it was a ground-height nonselective browser.<ref>{{Cite doi|10.1371/journal.pone.0018304}}</ref>
+[[File:Apatosaurus skull.jpg|thumb|left|Skull of a specimen nicknamed "Max"]]
+''Apatosaurus'' was the second most common sauropod in the [[Morrison Formation]] ecosystem, after ''[[Camarasaurus]]''.<ref name="foster-2007">{{cite book
+|last=Foster|first=John
+|year=2007
+|title=Jurassic West: The Dinosaurs of the Morrison Formation and Their World
+|publisher=Indiana University Press|isbn=978-0-253-34870-8
+|page=273}}</ref> It may have been a more solitary animal than other Morrison Formation dinosaurs.<ref name=DBBM80>{{cite journal |last=Dodson |first=Peter |coauthors=Behrensmeyer, A.K.; Bakker, Robert T.; and McIntosh, John S. |year=1980 |title=Taphonomy and paleoecology of the dinosaur beds of the Jurassic Morrison Formation |journal=Paleobiology |volume=6 |issue=2 |pages=208–232}}</ref> As a genus, ''Apatosaurus'' existed for a long span of time, and have been found in most levels of the Morrison. Fossils of ''Apatosaurus ajax'' are known exclusively from the upper portion of the formation (upper Brushy Basin Member), about 152-151 million years ago. ''A. excelsus'' fossils have been reported from the upper Salt Wash Member to the upper Brushy Basin Member, ranging from the middle to late [[Kimmeridgian]] age, about 154-151 million years ago. ''A. louisae'' fossils are rare, known only from one site in the upper Brushy Basin Member, dated to the late Kimmeridgian stage (about 151 million years ago). Additional ''Apatosaurus'' remains are known from even younger rocks, but they have not been identified as any particular species.<ref name=turner1999>Turner, C.E. and Peterson, F., (1999). "Biostratigraphy of dinosaurs in the Upper Jurassic Morrison Formation of the Western Interior, U.S.A." Pp. 77–114 in Gillette, D.D. (ed.), ''Vertebrate Paleontology in Utah''. Utah Geological Survey Miscellaneous Publication 99-1.</ref>
+
+===Posture===
+[[diplodocidae|Diplodocids]] like ''Apatosaurus'' are often portrayed with their necks held high up in the air, allowing them to browse on tall trees. Some scientists have argued that the heart would have had trouble sustaining sufficient blood pressure to oxygenate the brain.<ref>{{Cite doi|10.4187/002013209793800286}}</ref> Furthermore, more recent studies have shown that diplodocid necks were less flexible than previously believed, because the structure of the neck vertebrae would not have permitted the neck to bend far upwards, and that sauropods like ''Apatosaurus'' were adapted to low browsing or ground feeding.<ref name="StevensParrish99">{{Cite journal| last = Stevens| first = Kent A.| authorlink = | title = Neck Posture and Feeding Habits of Two Jurassic Sauropod Dinosaurs| journal = Science| volume = 284| issue = 5415| pages = 798–800| publisher = | location = | year = 1999| url = http://www.sciencemag.org/cgi/content/abstract/284/5415/798| doi = 10.1126/science.284.5415.798| id = | accessdate = 2008-08-03| pmid = 10221910| last2 = Parrish| first2 = JM}}</ref><ref name="stevens05">{{Cite book|author=Stevens KA, Parrish JM|year=2005|chapter=Neck Posture, Dentition and Feeding Strategies in Jurassic Sauropod Dinosaurs|editor=Carpenter, Kenneth and Tidswell, Virginia (ed.)|title=Thunder Lizards: The Sauropodomorph Dinosaurs|pages=212–232|publisher= Indiana University Press|isbn=978-0-253-34542-4|oclc=218768170 57202057 61128849}}</ref><ref name="Upchurch2000">{{cite journal|last=Upchurch |first=P, ''et al.''|title=Neck Posture of Sauropod Dinosaurs|journal=Science|volume= 287 |page=547b |doi=10.1126/science.287.5453.547b |year=2000|url=http://www.sciencemag.org/cgi/reprint/287/5453/547b.pdf|format = PDF | accessdate =2008-08-05 }}</ref> However, subsequent studies demonstrated that all [[tetrapod]]s appear to hold their necks at the maximum possible vertical extension when in a normal, alert posture, and argued that the same would hold true for sauropods barring any unknown, unique characteristics that set the soft tissue anatomy of their necks apart from other animals. ''Apatosaurus'', like ''Diplodocus'', would have held its neck angled upward with the head pointed downwards in a resting posture.<ref>{{cite journal
+| last1 = Taylor | first1 = M.P.
+| last2 = Wedel | first2 = M.J.
+| last3 = Naish | first3 = D.
+| title = Head and neck posture in sauropod dinosaurs inferred from extant animals
+| journal = Acta Palaeontologica Polonica | volume = 54 | issue = 2 | year = 2009 | pages = 213–220
+| url = http://www.app.pan.pl/archive/published/app54/app54-213.pdf
+| doi = 10.4202/app.2009.0007
+}} ([http://www.app.pan.pl/article/item/app54-213.html Abstract])</ref>
+
+===Physiology===
+[[File:Pasta-Brontosaurus.jpg|thumb|1897 restoration by [[Charles R. Knight]] of an ''A. excelsus'', when sauropods were thought to have been semi-aquatic]]
+Given the large body mass of ''Apatosaurus'', combined with its long neck, [[physiologist]]s have encountered problems determining how these animals managed to breathe.
+
+Beginning with the assumption that ''Apatosaurus'', like [[crocodilia]]ns, did not have a diaphragm, the [[dead space (physiology)|dead-space volume]] (the amount of unused air remaining in the mouth, trachea and air tubes after each breath) has been estimated at about 184&nbsp;liters for a 30 ton specimen.
+
+Its [[Lung volumes|tidal volume]] (the amount of air moved in or out during a single breath) has been calculated based on the following [[respiratory system]]s:
+* 904&nbsp;liters if avian
+* 225&nbsp;liters if mammalian
+* 19&nbsp;liters if reptilian.
+
+On this basis, its respiratory system could not have been reptilian, as its tidal volume would not have been able to replace its dead-space volume. Likewise, the mammalian system would only provide a fraction of new air on each breath. Therefore, it must have had either a system unknown in the modern world or [[Bird anatomy#Respiratory system|one like birds]], i.e. multiple air sacs and a flow-through lung. Furthermore, an avian system would only need a lung volume of about 600&nbsp;liters compared to a mammalian requirement of 2,950&nbsp;liters, which would exceed the available space. The overall thoracic volume of ''Apatosaurus'' has been estimated at 1,700&nbsp;liters allowing for a 500-liter, four-chambered [[heart]] (like [[bird]]s, not three-chambered like [[reptile]]s) and a 900-liter lung capacity. That would allow about 300&nbsp;liters for the necessary [[Biological tissue|tissue]]. Assuming ''Apatosaurus'' had an avian respiratory system and a reptilian resting-metabolism, it would need to consume only about 262&nbsp;liters (69 gallons) of water per day.<ref name="paladinoetal1997">Paladino, F.V., Spotila, J.R., and Dodson, P. (1997). "A Blueprint for Giants: Modeling the Physiology of Large Dinosaurs." In Farlow, J.O. and Brett-Surman, M.K. (eds.), ''The Complete Dinosaur'', Indiana University Press, 491–504. doi0253333490.</ref>
+
+===Tail===
+An article that appeared in the November 1997 issue of ''[[Discover Magazine]]'' reported research into the mechanics of ''Apatosaurus'' tails by [[Nathan Myhrvold]], a [[computer scientist]] from [[Microsoft]]. Myhrvold carried out a [[computer simulation]] of the tail, which in diplodocids like ''Apatosaurus'' was a very long, tapering structure resembling a [[bullwhip]]. This computer modeling suggested that sauropods were capable of producing a whip-like cracking sound of over 200 [[decibel]]s, comparable to the volume of a [[cannon]].<ref name="zimmer1997">Zimmer, C. (1997). "Dinosaurs in Motion." ''Discover'', 1 November 1997. [http://discovermagazine.com/1997/nov/dinosaursinmotio1261 DISCOVER Magazine]. Retrieved 27 July 2008.</ref>
+
+==In popular culture==
+[[Image:Gertie the Dinosaur.ogv|thumb|thumbtime=6:58|Gertie the Dinosaur, featuring an animated dinosaur based on ''A. excelsus'']]
+The length of time taken for Marsh's misclassification to be brought to public notice meant that the name ''Brontosaurus'', associated as it was with one of the largest dinosaurs, became so famous that it persisted long after the name had officially been abandoned in scientific use.<ref name="gould1991"/>
+
+''Apatosaurus'' have often been depicted in cinema, beginning with [[Winsor McCay]]'s 1914 classic ''[[Gertie the Dinosaur]]'', one of the first animated films.<ref>{{cite book|title=Before Mickey: The Animated Film 1898-1928|author=Donald Crafton|year=1982|publisher=MIT Press|isbn=0-262-03083-7}}</ref> McCay based his unidentified dinosaur on the ''Brontosaurus'' skeleton in the American Museum of Natural History.<ref>http://www.sdnhm.org/exhibits/dinosrr/index.html</ref> The 1925 silent film [[The Lost World (1925 film)|''The Lost World'']] featured a battle between a ''Brontosaurus'' and an ''[[Allosaurus]]'', using [[special effect]]s by [[Willis O'Brien]].<ref>Glut, Donald F.; Brett-Surman, Michael K. (1997). "Dinosaurs and the media", in Farlow, James; and Brett-Surman, Michael K. (eds.): The Complete Dinosaur. Bloomington and Indianapolis: Indiana University Press, 675–706. ISBN 978-0-253-33349-0.</ref> These, and other early early uses of the animal as major representative of the group, helped cement ''Brontosaurus'' as a quintessential dinosaur in the public consciousness.<ref name="gould1991"/>
+
+[[Sinclair Oil]] has long been a fixture of American roads (and briefly in other countries) with its green dinosaur logo and mascot, an ''Apatosaurus'' (''Brontosaurus''). While Sinclair's early advertising included a number of different dinosaurs, eventually only ''Apatosaurus'' was used as the official logo, due to its popular appeal.<ref>Sinclair Oil Corporation, (2008). [http://www.sinclairoil.com/history/historys_p1.htm Evolution of the Company Symbol]. Published online by SinclairOil.com, http://www.sinclairoil.com/history/historys_p1.htm Accessed 27-August-2010.</ref>
+
+As late as 1989, the [[United States Postal Service|U.S. Post Office]] caused controversy when it issued four "dinosaur" stamps: ''[[Tyrannosaurus]]'', ''[[Stegosaurus]]'', ''[[Pteranodon]]'' and ''Brontosaurus''. The use of the term ''Brontosaurus'' in place of ''Apatosaurus'', as well as the fact that ''Pteranodon'' were technically [[pterosaur]]s and not dinosaurs, led to complaints of "fostering scientific illiteracy."<ref name="NYT">[http://query.nytimes.com/gst/fullpage.html?res=950DE5DC173CF932A25753C1A96F948260 " Topics of The Times; Leapin' Lizards!"] ''The New York Times'', 1989-10-11. Retrieved 2008-06-08.</ref> The Post Office defended itself (in Postal Bulletin 21744) by saying, "Although now recognized by the scientific community as ''Apatosaurus'', the name 'Brontosaurus' was used for the stamp because it is more familiar to the general population." [[Stephen Jay Gould]] also supported this position in his essay "[[Bully for Brontosaurus]]", though he echoed Riggs's original argument that ''Brontosaurus'' is a synonym for ''Apatosaurus''. Nevertheless, he noted that the former has developed and continues to maintain an independent existence in the popular imagination.<ref name="gould1991">Gould, S.J. (1991). ''Bully for Brontosaurus: Reflections in Natural History'', W. W. Norton & Co., 540pp.</ref>
+
+==References==
+{{Reflist|2}}
+
+==External links==
+{{Portal|Dinosaurs}}
+{{Wikibooks|Wikijunior: Dinosaurs/Brontosaurus}}
+{{Commons}}
+* Hartman, Scott. [http://skeletaldrawing.com/sauropods/sauropods.htm "Sauropods."] SkeletalDrawing.com, 2006. Includes ''A. ajax'', ''A. excelsus'', and ''A. louisae''.
+* Krystek, Lee. [http://www.unmuseum.org/dinobront.htm "Whatever Happened to the Brontosaurus?"] UnMuseum (Museum of Unnatural Mystery), 2002.
+* Taylor, Mike. [http://www.miketaylor.org.uk/dino/faq/s-class/bronto/ "Why is 'Brontosaurus' now called ''Apatosaurus''?"] MikeTaylor.org.uk, June 28, 2004.
+
+[[Category:Dinosaurs of North America]]
+[[Category:Diplodocoids]]
+[[Category:Jurassic dinosaurs]]
+[[Category:Dinosaurs of the Morrison Formation]]
+[[Category:Article Feedback 5]]
+[[Category:Fossil taxa described in 1877]]
+
+[[ar:أباتوصور]]
+[[be:Апатазаўр]]
+[[ca:Apatosaure]]
+[[cs:Apatosaurus]]
+[[da:Apatosaurus]]
+[[de:Apatosaurus]]
+[[et:Apatosaurus]]
+[[el:Απατόσαυρος]]
+[[es:Apatosaurus]]
+[[fa:آپاتوسور]]
+[[fo:Apatosaurus]]
+[[fr:Apatosaurus]]
+[[ga:Apatasár]]
+[[ko:아파토사우루스]]
+[[hr:Apatosaur]]
+[[it:Apatosaurus]]
+[[he:אפטוזאור]]
+[[ka:ბრონტოზავრი]]
+[[lt:Apatozauras]]
+[[hu:Apatosaurus]]
+[[nl:Apatosaurus]]
+[[ja:アパトサウルス]]
+[[no:Apatosaurus]]
+[[nn:Apatosaurus]]
+[[pnb:اپاٹوسارس]]
+[[pl:Apatozaur]]
+[[pt:Apatossauro]]
+[[ro:Apatosaurus]]
+[[ru:Апатозавр]]
+[[simple:Apatosaurus]]
+[[sk:Apatosaurus]]
+[[sr:Апатосаурус]]
+[[sh:Apatosaur]]
+[[fi:Apatosaurus]]
+[[sv:Apatosaurus]]
+[[th:อะแพทโตซอรัส]]
+[[tr:Apatosaurus]]
+[[uk:Апатозавр]]
+[[vi:Apatosaurus]]
+[[war:Apatosaurus]]
+[[zh:迷惑龙]]

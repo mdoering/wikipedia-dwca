@@ -23,9 +23,10 @@ import org.slf4j.LoggerFactory;
  * In detail the supported templates are:
  *
  * http://en.wikipedia.org/wiki/Template:Taxobox
- * http://en.wikipedia.org/wiki/Template:Automatic_taxobox/doc
  * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
  * http://de.wikipedia.org/wiki/Wikipedia:Pal%C3%A4oboxen
+ * TODO: find out ways to retrieve the classification from the Taxonomy templates for automatic boxes
+ * http://en.wikipedia.org/wiki/Template:Automatic_taxobox/doc
  *
  * http://en.wikipedia.org/wiki/Template:Speciesbox/doc
  * http://en.wikipedia.org/wiki/Template:Subspeciesbox/doc

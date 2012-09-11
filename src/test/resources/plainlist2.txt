@@ -1,0 +1,8 @@
+{{Plainlist}}
+* [[cat]]
+* [[dog]]
+* [[horse]]
+* [[cow]]
+* [[sheep]]
+* [[pig]]
+{{endplainlist}}

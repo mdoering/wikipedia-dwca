@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Strings;
@@ -22,8 +23,9 @@ import org.slf4j.LoggerFactory;
  * In detail the supported templates are:
  *
  * http://en.wikipedia.org/wiki/Template:Taxobox
- * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
  * http://en.wikipedia.org/wiki/Template:Automatic_taxobox/doc
+ * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
+ * http://de.wikipedia.org/wiki/Wikipedia:Pal%C3%A4oboxen
  *
  * http://en.wikipedia.org/wiki/Template:Speciesbox/doc
  * http://en.wikipedia.org/wiki/Template:Subspeciesbox/doc
@@ -33,6 +35,8 @@ import org.slf4j.LoggerFactory;
  *
  * http://en.wikipedia.org/wiki/Template:Species_list/doc
  * http://en.wikipedia.org/wiki/Template:Taxon_list
+ * http://en.wikipedia.org/wiki/Template:Plainlist
+ * http://en.wikipedia.org/wiki/Template:Collapsible_list
  *
  * http://simple.wikipedia.org/wiki/Template:Fossil_range/doc
  * http://en.wikipedia.org/wiki/Template:Long_fossil_range
@@ -44,8 +48,9 @@ import org.slf4j.LoggerFactory;
  * http://en.wikipedia.org/wiki/Template:Cite_web
  *
  *
- * TODO: support more info boxes:
+ * TODO: support more templates:
  * http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Tree_of_Life/Cultivar_infobox
+ * http://de.wikipedia.org/wiki/Wikipedia:Viroboxen
  */
 public class TaxonboxWikiModel extends WikiModel {
   private final Set<String> TAXOBOX_TEMPLATES = Sets.newHashSet("taxobox", "automatictaxobox", "fichadetaxón", "fichadetaxon");
@@ -59,7 +64,9 @@ public class TaxonboxWikiModel extends WikiModel {
   private Map<String, String> unknownProperties = Maps.newHashMap();
   private Map<String, String> unknownTemplates = Maps.newHashMap();
   private static final Pattern REPL_REF_TAG = Pattern.compile("< *ref>[^<>]+</ *ref *>", Pattern.CASE_INSENSITIVE);
-  private static final Pattern CLEAN_NAMES = Pattern.compile("[†‡\"'+|<>\\[\\]\\?]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern IS_EXTINCT = Pattern.compile("[†‡]");
+  private static final Pattern CLEAN_NAMES = Pattern.compile("[†‡\"'„“+|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern REMOVE_QUESTION_MARK = Pattern.compile("\\?");
   private static final Pattern REPL_BRACKET_REMARKS = Pattern.compile("\\( *(or [^()]+|\\?|plant|animal) *\\)");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
 
@@ -122,6 +129,15 @@ public class TaxonboxWikiModel extends WikiModel {
 
         } else if (CITATION_TEMPLATES.contains(templateName)) {
           processCitation(parameterMap, writer);
+
+        } else if (templateName.equalsIgnoreCase("plainlist")) {
+          if (parameterMap.containsKey("1")) {
+            return parameterMap.get("1");
+          }
+          return "";
+
+        } else if (templateName.equalsIgnoreCase("collapsiblelist")) {
+          processCollapsibleList(parameterMap, writer);
 
         } else if (SPECIES_LIST_TEMPLATES.contains(templateName)) {
           processSpeciesList(parameterMap, writer);
@@ -259,6 +275,26 @@ public class TaxonboxWikiModel extends WikiModel {
     }
   }
 
+
+  private void processCollapsibleList(Map<String,String> parameterMap, Appendable writer) throws IOException {
+    int max = 10;
+    int idx = 1;
+    boolean started = false;
+    while (idx <= max) {
+      if (parameterMap.containsKey(String.valueOf(idx))) {
+        if (started) {
+          writer.append(" <br/>");
+        }
+        writer.append(parameterMap.get(String.valueOf(idx)));
+        started = true;
+        if (idx == max) {
+          // we have reached the end and still found items, check next 10 indices
+          max += 10;
+        }
+      }
+      idx++;
+    }
+  }
 
   private void processSpeciesList(Map<String, String> parameterMap, Appendable writer) throws IOException {
     boolean startName = true;
@@ -452,9 +488,14 @@ public class TaxonboxWikiModel extends WikiModel {
   private String cleanNameValue(String val){
     if (val==null) return null;
     String cleaned = REPL_REF_TAG.matcher(val).replaceAll(" ");
+
+    Matcher m = IS_EXTINCT.matcher(cleaned);
+    info.extinctTmp = m.find();
+
     cleaned = internalRender(cleaned);
     cleaned = CLEAN_NAMES.matcher(cleaned).replaceAll(" ");
     cleaned = REPL_BRACKET_REMARKS.matcher(cleaned).replaceAll(" ");
+    cleaned = REMOVE_QUESTION_MARK.matcher(cleaned).replaceAll(" ");
     String name = Strings.emptyToNull(StringUtils.normalizeSpace(cleaned));
 
     if (name != null && name.equalsIgnoreCase("incertae sedis")) {

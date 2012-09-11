@@ -1,0 +1,380 @@
+{{Dieser Artikel|befasst sich mit dem Olivenbaum als Pflanze. Einen Artikel über das politische Bündnis in Italien finden Sie unter [[L’Ulivo]] (italienisch für Ölbaum / Olivenbaum).}}
+<!-- Für Informationen zum Umgang mit dieser Tabelle siehe bitte [[Wikipedia:Taxoboxen]]. -->
+{{Taxobox
+| Taxon_Name       = Echter Olivenbaum
+| Taxon_WissName   = Olea europaea
+| Taxon_Rang       = Art
+| Taxon_Autor      = [[Carl von Linné|L.]]
+| Taxon2_Name      = Ölbäume
+| Taxon2_WissName  = Olea
+| Taxon2_Rang      = Gattung
+| Taxon3_Name      = Ölbaumgewächse
+| Taxon3_WissName  = Oleaceae
+| Taxon3_Rang      = Familie
+| Taxon4_Name      = Lippenblütlerartige
+| Taxon4_WissName  = Lamiales
+| Taxon4_Rang      = Ordnung
+| Taxon5_Name      = Euasteriden I
+| Taxon5_Rang      = ohne
+| Taxon6_Name      = Asteriden
+| Taxon6_Rang      = ohne
+| Bild             = Tafelneuolive4.jpg
+| Bildbeschreibung = <br />''Olea europaea'' – Illustration<br />aus „Köhler’s Medicinalpflanzen“ von 1887.<br /><div style="text-align:left">
+&nbsp;'''A:''' Blühender Zweig<br />
+&nbsp;'''1:''' Geschlossene Blüte = Blütenknospe<br />
+&nbsp;'''2:''' Staubblätter, Vorder- und Rückseite in geöffneter Blüte<br />
+&nbsp;'''3:''' Blütenstempel in Blüte ohne Blütenhüllblätter<br />
+&nbsp;'''4:''' Olivenkern = Same der [[Steinfrucht]], rechts Längsschnitt<br />
+&nbsp;'''5:''' [[Staubblatt]]<br />
+&nbsp;'''6:''' Blüte und [[Fruchtknoten]]: Längsschnitt<br />
+&nbsp;'''7:''' Olive im Querschnitt, Fruchtfleisch und Samen darstellend<br />
+&nbsp;'''8:''' Steinfrucht (Olive)<br />
+&nbsp;'''9:''' Sternhaar</div>
+}}
+Der '''Olivenbaum''' (''Olea europaea''), auch '''Echter Ölbaum''' genannt, ist ein mittelgroßer, im Alter oft knorriger Baum aus der Gattung der [[Ölbäume]] (''Olea''), die zur Familie der [[Ölbaumgewächse]] (Oleaceae) gehört. Er wird seit dem 4. Jahrtausend v. Chr. als [[Nutzpflanze]] kultiviert.
+== Beschreibung ==
+[[Datei:Olivenbäume_Umbrien.jpg|links|miniatur|Echte Ölbäume (''Olea europaea'' subsp. ''europaea'')]]
+Die Rinde junger Zweige, die Blattstiele und Blattspreite sind intensiv silber-grau oder rostfarben beschuppt.
+
+=== Habitus und Stamm ===
+[[Datei:Olive tree Karystos2.jpg|miniatur|Stamm eines alten Olivenbaums.]]
+Der Olivenbaum wächst als reich verzweigter, [[Immergrüne Pflanze|immergrüner]] [[Baum]] oder [[Strauch]] und erreicht (je nach Sorte) Wuchshöhen von 10 bis zu 20 Meter. Die wilden Olivenbäume sind kleiner als die Züchtungen. Der Olivenbaum benötigt viel Zeit zum Wachsen, kann jedoch mehrere hundert Jahre alt werden. Das [[Holz]] ist langsam wachsend. Junge Zweige sind etwas kantig. Die grüngraue, glatte Rinde wird im Alter zu einer rissigen [[Borke]].
+
+Die Olivenbäume in den [[Hain|Olivenhainen]] werden zur besseren Ernte beschnitten, damit sie kleiner bleiben. Dabei gilt im Allgemeinen die Regel: je krummer und knorriger, desto besser der Ertrag.<!-- da wird es schwer sein einen Beleg zu finden für die zwei Sätze.-->
+
+=== Wurzel ===
+Die Entwicklung und der Wuchs der Wurzeln hängt maßgeblich von der Lockerheit des Bodens ab. Ein lockerer Boden bewirkt ein nahezu senkrechtes Wachstum, bis zu 7 m in die Erde, ist der Nährboden jedoch fest und felsig, entwickeln sich die Wurzeln eher flach und bilden ein verzweigtes Netzwerk um den Stamm herum. Im Allgemeinen befinden sich die meisten Wurzeln, unabhängig von der Bodenbeschaffenheit, jedoch in etwa 1 m Tiefe.<ref>Barranco et al.: ''Cultivo del olivo.'' Ed. Mundiprensa, Madrid 1998.</ref>
+Jede Hauptwurzel der Olive kann einem bestimmten Hauptast zugeordnet werden, entfernt man diesen Ast, degeneriert im Boden der gesamte Wurzelabschnitt.
+
+=== Blatt ===
+[[Datei:Olea europaea subsp europaea Leafs.jpg|miniatur|Vorder- und Rückseite der Laubblätter des Europäischen Olivenbaumes.]]
+Der Olivenbaum ist eine [[immergrüne Pflanze]], das heißt, er verliert zu keiner Jahreszeit all sein Laub, sondern mehrere Jahre alte Blätter werden jahreszeitunabhängig abgeworfen. Die gegenständigen, kleinen [[Blatt (Pflanze)|Laubblätter]] sind in Blattstiel und Blattspreite gegliedert. Der Blattstiel ist 2 bis 5&nbsp;mm lang. Die einfache, ledrige Blattspreite ist schmal lanzettlich bis elliptisch, selten schmal eiförmig, 1,5 bis 10&nbsp;cm lang, 0,5 bis 2&nbsp;cm breit, ganzrandig und läuft lanzettenförmig spitz nach vorne zu. Auf beiden Seiten der Mittelrippe befinden sich 5 bis 11 Hauptseitennerven. Die Blattoberseite ist graugrün. Die silbrig glänzende und grau gefärbte Blattunterseite besitzt kleine Härchen; sie sind als Sternhaare oder sternförmige Schuppenhaare ausgebildet, die die Wasserabgabe des Baumes vermindern, indem sie die [[Diffusion]] von Wasserdampf aus den [[Stoma (Botanik)|Spaltöffnung]]en vermindern.
+
+=== Blütenstand und Blüte ===
+Abhängig vom Verbreitungsgebiet blühen Olivenbäume von Ende April bis Anfang Juni. An end- oder seitenständigen, 2 bis 4&nbsp;cm langen, [[Rispe|rispigen]] [[Blütenstände]]n stehen zwischen 10 und 40 Blüten.
+
+Die fast sitzenden, vierzähligen [[Blüte]]n des Olivenbaumes sind zwittrig, können aber funktional eingeschlechtig sein und besitzen eine doppelte Blütenhülle (Perianth). Die vier [[Kelchblatt|Kelchblätter]] sind 1 bis 1,5 mm lang. Die vier weißen bis gelblichen, 2,5 bis 4&nbsp;mm langen [[Kronblatt|Kronblätter]] sind zu einer etwa 1&nbsp;mm langen Kronröhre verwachsen, die in vier elliptisch-länglichen, involuten, 1,5 bis 3&nbsp;mm langen Kronlappen endet. Jede Blüte enthält vier [[Staubblatt|Staubblätter]] und zwei [[Fruchtblatt|Fruchtblätter]].
+
+Wird der Baum durch Trockenheit oder Nährstoffmangel etwa sechs Wochen vor der Blüte gestresst, verringert sich der Ertrag, weil die Blütenzahl vermindert wird und Blüten nicht zum Fruchten kommen. Die meisten Sorten sind selbstbefruchtend, wobei Fremdbestäubung meist den Ertrag steigert. Einige Sorten sind jedoch auf Fremdbestäubung angewiesen und brauchen ein genetisch verschiedenes Exemplar zur Bestäubung. Die Blüte wird über den Wind bestäubt.
+
+=== Frucht und Samen ===
+[[Datei:Olivenkern.png|miniatur|Querschnitt eines Olivenkerns.]]
+Es wird eine einsamige [[Steinfrucht]], die Olive, gebildet. Die ellipsoide bis fast kugelige Steinfrucht weist eine Länge von 0,7 bis 4&nbsp;cm und einen Durchmesser von 1 bis 2&nbsp;cm auf. Der harte „Kern“, der Samen, ist von weichem Fruchtfleisch umgeben. Die Farbe der unreifen Oliven ist grün, die der reifen schwarz oder violett/braun. Am ertragreichsten ist ein Olivenbaum nach etwa 20 Jahren.
+
+Die durchschnittliche Zusammensetzung des Fruchtfleisches einer Olive besteht aus<ref>[[Hans-Dieter Belitz|H.-D. Belitz]] & W. Grosch: ''Lehrbuch der Lebensmittelchemie'', Berlin 1995, ISBN 3-540-55449-1</ref>:
+{| class="wikitable sortable"
+|-
+! in Gewichts-%    !! frische Oliven    !! grüne, milchsaure Oliven
+|-
+| Wasser           || 50–70           || 61–81
+|-
+| Fette            || 6–30            || 9–28
+|-
+| red. Zucker      || 2–6             ||     –
+|-
+| Rohprotein       || 1–3             || 1–1,5
+|-
+| Rohfaser         || 1–4             || 1,4–2,1
+|-
+| Asche            || 0,6–1           || 4,2–5,5
+|}
+
+Die Olive ist eine [[Mittelmeerraum|mediterran]]e [[Steinfrucht]]. Sie ist wegen ihrer Bitterkeit roh nicht genießbar, aber nach mehrmaligem Einlegen in Wasser, bei dem die [[Bitterstoff]]e ausgeschwemmt werden, essbar. Echte Schwarze Oliven sind voll ausgereifte grüne (olivgrüne) Oliven. Oft werden jedoch grüne, mit [[Eisengluconat]] schwarz gefärbte Oliven verkauft.
+
+90 % der Oliven werden zu [[Olivenöl]] gepresst.
+
+Im [[Handel]] erhältlich sind Oliven vor allem in modifizierter Form. Üblich ist dabei die Füllung der grünen Olive (mit [[Paprika]], [[Mandel]]n) sowie das [[Einlegen]]/[[Marinieren]] der ganzen oder entkernten Früchte.
+
+In Öl eingelegte Oliven sind ohne weitere [[Konservierungsmittel|Konservierungsstoff]]e relativ lange haltbar und werden auch nicht von Schädlingen befallen, was zumindest zum Teil ihre große Bedeutung für die [[Mittelmeerküche|mediterrane Küche]] erklärt.
+
+Der Olivenbaum zeigt, wie andere fruchtende Bäume auch, das Phänomen der [[Alternanz (Gartenbau)|Alternanz]]; sein Fruchtertrag schwankt also in zweijährigem Rhythmus.
+
+<gallery>
+Datei:Blühender Olivenbaum.jpg|Blütenstände.
+Datei:Olive_small_fruits.jpg|Fruchtansatz nach der Blüte.
+Datei:Olive.JPG|Unreife Olive in der [[Camargue]].
+Datei:OlivenReif.jpg|Reife Oliven am Zweig.
+</gallery>
+
+=== Chromosomen ===
+Die [[Chromosom]]enzahl beträgt 2n = 46.
+
+== Heimat ==
+[[Datei:Olea europa.jpg|miniatur|Fossile Blattabdrücke von ''Olea europaea''. FO: Fira/Santorin (GR). Alter 54 000 a BP.]]
+Die wilde Olive hat ein sogenanntes [[Disjunktion (Biologie)|disjunktes Areal]], sie hat ein weit auseinanderliegendes, nicht zusammenhängendes natürliches Vorkommen: [[Mittelmeerraum|Mittelmeergebiet]], [[Naher Osten]] und [[Südafrika]]. Davon stark verschieden ist das Anbaugebiet der heutigen Kultursorten (siehe [[Olivenbaum#Verbreitung|Anbau/Verbreitung]]). In der Forschung stand lange die Theorie im Raum, dass die Olive von Menschen in den Mittelmeerraum gebracht worden sei. Fossile Funde von Blattabdrücken von ''Olea europea'' auf der Insel [[Santorin]] (GR) widerlegen diese These. Die Blätter wurden von den Ascheablagerungen des Vulkans [[Santorin|Thera]] bei einem Ausbruch vor 54000 Jahren eingeschlossen (Tephra aus einen regionalen Einschaltung zwischen den Straten Upper Scoriae und Vouroulos bei Fira).
+
+== Ökologie ==
+Der Olivenbaum ist ein wichtiges Element der mediterranen Vegetation und Kulturlandschaft.
+
+Der Olivenbaum gedeiht im mediterranen Klima, also bei Jahresmitteltemperaturen von 15 bis 20°C und Jahresniederschlägen 500 bis 700 mm am besten, mindestens sind 200 mm nötig.
+
+Beispiele für mediterrane Pflanzengesellschaften mit Olivenbäumen:
+:Ägäischer Ölbaum-Pistazien-Hartlaubwald (Oleo-Ceratonion): Von der Ölbaum-Pistazien-Hartlaubwald-Formation gibt es klimaabhängige Variationen. Überall sind neben der Wildform des Ölbaums (''Olea europaea'' var. ''sylvestris'') aber folgende Arten vertreten: [[Johannisbrotbaum]] (''Ceratonia siliqua''), [[Mastixstrauch|Wilde Pistazie]] (''Pistacia lentiscus''). Die Pflanzengesellschaften dieses [[Verband (Pflanzensoziologie)|Verbandes]] besiedeln meist den Küstenbereich und kommen nur bis in einer Höhenlage von etwa 200 m NN auf tiefgründigen Böden und bei einem subhumiden Klima vor. In Lagen mit Luveffekten werden diese Waldgesellschaften jedoch schon ab 100 m NN von ''[[Quercus pubescens]]'' verdrängt.
+
+:Auch in der Türkei ist der Olivenbaum (''Olea europaea'') Bestandteil des Hartlaubwaldes der Tiefenlagen, weitere wichtige Arten sind [[Steineiche|Stein-Eiche]] (''Quercus ilex''), [[Kermes-Eiche]] (''Quercus coccifera''), [[Johannisbrotbaum]] (''Ceratonia siliqua'') und ''[[Pinus brutia]]''.
+
+== Systematik ==
+[[Datei:Starr 010423-0037 Olea europaea subsp. cuspidata.jpg|miniatur|''Olea europaea'' subsp. ''cuspidata'']]
+[[Datei:Olea europaea var sylvestris.jpg|miniatur|''Olea europaea'' var. ''sylvestris'']]
+Die Erstveröffentlichung des Artnamens ''Olea europaea'' erfolgte 1753 durch [[Carl von Linné]].<ref name = "SpeciesPlantarum">[[Carl von Linné]]: ''[[Species Plantarum]].'' Band 1, 1753, S. 8, {{Digitalisat|http://www.botanicus.org/page/358029}}] </ref>.
+
+Von der Art ''Olea europaea'' unterscheidet man mehrere Unterarten:
+* ''Olea europaea'' L. subsp. ''europaea'': Heimat des Echten Olivenbaumes, auch Europäischer Olivenbaum genannt, ist der gesamte Mittelmeerraum und die Kanaren. Mit dieser Unterart beschäftigt sich der restliche Teil des Artikels, es ist der Olivenbaum im engeren Sinn. Aus dieser Unterart wurden alle Olivenbaumsorten gezüchtet.
+** ''Olea europaea'' L. subsp. ''europaea'' var. ''europaea'': die Kultursorten des Olivenbaums
+** ''Olea europaea'' L. subsp. ''europaea'' var. ''sylvestris'' (Mill.) Lehr (Syn.: ''Olea oleaster'' Hoffmans. & Link): die Wildform, charakterisiert durch oft strauchförmigen Wuchs, etwas breitere Blätter und kleinere Früchte.<ref name = "Green2002"/>
+* ''Olea europaea'' subsp. ''africana'' (Mill.) P.S.Green (Syn.: ''Olea africana'' Mill., ''Olea chrysophylla'' Lam.) kommt natürlich in [[Jemen]] und im [[Gebel-Elba-Nationalpark|Gebel Elba]]-Gebiet im äußersten Süden [[Ägypten]]s vor. Es ist ein 9 bis 12 m hoher immergrüner Baum, der heute in Afrika, Madagaskar, Arabien, Indien bis China verbreitet ist. Die süßen bis sauren Früchte sind beliebt bei Mensch und Tier. Von den Blättern kann man einen Tee machen, und aus den Früchten wird eine Tinte hergestellt. Das harte, schön goldbraune Holz wird verwendet zur Herstellung von Möbeln und Kunstgegenständen. In der Volksheilkunde gewinnt man von dem Baum Augentropfen und ein Mittel gegen Nierenleiden. Die Früchte wurden früher gegen Durchfall verwendet. Der Anbau ist auch in sehr trockenen Gebieten möglich.<ref> [http://www.plantzafrica.com/plantnop/oleaeurop.htm ''Olea europaea'' subsp. ''africana'' Beschreibung und Bilder vom Pretoria National Botanical Garden.] (engl.)</ref>
+
+weitere Unterarten:
+* ''Olea europaea'' subsp. ''cerasiformis'' G.Kunkel & Sunding: beheimatet in [[Madeira]], auch auf den [[Kanarische Inseln|Kanaren]] vorkommend.
+* ''Olea europaea'' subsp. ''cuspidata''  (Wallich ex G.Don) Ciferri: verbreitet in [[Afrika]] und [[Asien]], kleinfruchtig, rostbraune Blattunterseite.
+* ''Olea europaea'' subsp. ''guanchica'' P.Vargas: beheimatet auf den Kanaren.
+* ''Olea europaea'' subsp. ''laperrinei'' (Batt. & Trab.) Cif.: beheimatet in [[Algerien]], [[Sudan]], [[Niger]].<ref>[http://aob.oxfordjournals.org/cgi/content/full/96/5/823 Umfangreiche Beschreibung von ''Olea europaea'' subsp. ''laperrinei''.] (engl.) </ref>
+* ''Olea europaea'' subsp. ''maroccana'' (Greuter & Burdet) P.Vargas: beheimatet in [[Marokko]]
+
+== Anbau ==
+=== Verbreitung ===
+[[Datei:Rocche-di-Cusa-bjs-4.jpg|miniatur|Olivenhain auf [[Sizilien]].]]
+[[Datei:OlivenAnbauBeiJaén.jpg|thumb|Oliven-Anbaugebiet bei [[Jaén]] in [[Spanien]]]]
+
+Der Olivenbaum wächst in allen [[Mittelmeerraum|Gebieten um das Mittelmeer]] und zum Teil auch um das Schwarze Meer, die keine extremen Klimabedingungen aufweisen. Er kann hohe Hitze ertragen, leidet aber leicht durch Frost in kalten Wintern, wodurch nicht nur die Ernte einzelner Jahre, sondern der Bestand ganzer Plantagen bedroht ist. Er gilt als Charakterpflanze der mediterranen Pflanzenwelt und weist die Gebiete, in denen er gedeiht, als Gebiete mit mediterranem oder [[Mittelmeerklima]] aus. Es wurde immer wieder versucht, das Anbaugebiet des Olivenbaums nach Norden und in rauere Gebiete zu erweitern. Diese oft über Jahrzehnte oder sogar Jahrhunderte erfolgreichen Versuche schlugen letztendlich aber immer wieder fehl, das letzte Mal im Februar 1956, als ein Kälteeinbruch aus Osteuropa Millionen von Olivenbäumen in Südfrankreich, Italien und Spanien vernichtete. Derzeit befindet sich die nördlichste Anpflanzung Europas in [[Köln]]. Hier wurden seit 2008 über 170 Olivenbäume gesetzt.<ref>Bernd Imgrund: ''111 Kölner Orte die man gesehen haben muss.'' emons Verlag, Köln 2008. S. 146. ISBN 978-3-89705-618-3</ref> Seit der neuzeitlichen Kolonisation wird der Olivenbaum auch in entsprechenden Klimaten Nord- und Südamerikas, wo er erstmalig im Jahr 1560 in [[Lima]] durch die spanischen Eroberer angepflanzt wurde, sowie in Australien, Südafrika und Japan angebaut. Alle Anbaugebiete des Olivenbaums liegen zwischen dem 30. und dem 45. Grad nördlicher bzw. südlicher Breite, mit Ausnahme einiger äquatornäherer Höhenlagen, etwa in Peru, wohin er von den spanischen Konquistadoren im 16. Jh. gebracht wurde. Von dort aus gelangte er über Mexiko bis Kalifornien und Hawaii.
+
+=== Vermehrung ===
+Die Olivenkerne werden durch Vögel verbreitet, die die Früchte fressen. Olivenbäume in Kultur werden allerdings meist über [[Steckling]]e vermehrt (so sind alle dabei entstehenden Pflanzen genetisch identisch (siehe [[Klonen]]), und damit haben die Jungpflanzen alle guten Eigenschaften der Mutterpflanze, sind aber auch alle gleich anfällig für Krankheiten und Schädlinge wie diese).
+
+=== Ernte ===
+[[Datei:Filet Olive de Nice.jpg|miniatur|upright|left|Olivenbaum in Südfrankreich]]
+[[Datei:Tree harvest.jpg|miniatur|Olivenernte]]
+[[Datei:OlivenNetzSauerklee.jpg|miniatur|Oliven im Sammelnetz]]
+Von der Jungpflanze bis zum ersten Ertrag dauert es oft sieben Jahre. Die Ernte findet je nach Gebiet ab Mitte Oktober, teilweise bis in den März statt. Wer nach Kalabrien kommt, wird aus der Ferne immer wieder rote Flächen sehen; dies sind feine Netze, die ausgelegt werden, um die Oliven aufzufangen. In Sizilien z.&nbsp;B. werden die Netze immer wieder verschoben, da traditionell von Hand gepflückt wird oder mit einer Art Kamm und man nicht wartet, bis die Oliven von selbst zu Boden fallen.
+
+Auch in Griechenland verwendet man Netze, um die herabgefallenen oder herabgeschlagenen Oliven aufzufangen. Die Ernte der Öloliven erfolgt teilweise durch Absägen ganzer Äste, von denen anschließend die Oliven maschinell abgeschlagen werden. Größere Stücke des Holzes dienen dabei traditionell als Brennholz, dünne Äste werden später an Ort und Stelle verbrannt. Diese Erntemethode geht mit dem starken Rückschnitt der Bäume, die überwiegend an den zweijährigen Trieben Früchte tragen, einher, der den Baum auf einer erntegerechten Größe hält.
+
+=== Krankheiten und Schädlinge ===
+* Olivenfliege (''Bactrocera oleae''): Die Olivenfliege ist der gefürchtetste Schädling der Olivenhaine, sie legt ihre Eier in die reifenden Früchte, die so durch ihre Maden verdorben werden. Außerdem überträgt sie die Tuberkelkrankheit (s.&nbsp;u.).
+* Stammfäule (''Fomitiporia punctata''): Ein [[Pilze|Pilz]], der nach und nach das Stamminnere des Baumes zersetzt. Meist wird die betroffene Stelle ausgeschnitten oder ausgeschabt, allerdings infizieren diese „Pflegemaßnahmen“ meist das freigelegte gesunde Gewebe erneut.
+* [[Tuberkelkrankheit]] (''Pseudomonas syringae subsp. savastanoi pv. oleae''): Eine [[Bakterien]]krankheit, sie verursacht extreme Wucherungen, das Absterben von Zweigen und Ästen und mindert die Qualität und Menge der Ernte. Sie wird übertragen durch die Olivenfliege.
+* Olivenschildlaus: Der Befall der Bäume durch diese spezielle [[Schildläuse|Schildlaus]] kann sowohl die Menge als auch die Qualität der Ernte erheblich mindern.
+* [[Blattläuse]]: Der Befall im Frühjahr an jungen Trieben kann zur Verkümmerung von Trieben, Blättern oder Blüten und so zu späteren Ernteverlusten führen.
+
+== Sorten ==
+Es gibt allein im [[Mittelmeer]]raum über 1.000 Sorten von Olivenbäumen. Je nach [[Klima]] und Bodenbeschaffenheit hat sich der Olivenbaum über hunderte Jahre anders entwickelt, manche Olivenbaumsorten sind auf einzelne Dörfer beschränkt.
+
+=== Spanien ===
+Spanien ist der größte Olivenproduzent der Welt. Die heute angebauten Sorten gehen noch immer auf den Beginn der Kultivierung zurück.  Das spanische Sortenspektrum heute entspricht dem im 15. Jahrhundert. In Spanien werden etwa 200 Olivensorten kultiviert; nachfolgend eine Auswahl:
+
+'''Sorten für die Ölproduktion''':
+
+*''Picual''  (auch ''Marteña'', ''Lopereña'' oder ''Nevadillo Blanco'' genannt): Bedeutendste Sorte, macht etwa 50 % der spanischen und 20 % der Weltproduktion aus. Das Heimat- und Hauptanbaugebiet ist die [[Provinz Jaén]] in Andalusien (dort 91 % des Anbaus), außerdem die Provinzen [[Provinz Badajoz|Badajoz]], [[Provinz Granada|Granada]] und [[Provinz Córdoba|Córdoba]].  Sie liefert ein hochqualitatives Öl von sehr großer Stabilität und hohem Säuregehalt. Picual besitzt einen kräftigen, fruchtigen Geschmack nach Oliven und enthält besonders viel Vitamin E. Der kräftige Geschmack unterscheidet sie von anderen Sorten.
+
+* ''Picudo'': Stammt aus der Provinz Córdoba, im Besonderen aus [[Priego de Córdoba]] und wird außerdem auch in Granada und [[Málaga]] angebaut.
+* ''Hojiblanca'': Ursprungsgebiet ist [[Lucena]] (Provinz Córdoba). Hauptanbaugebiet sind die Provinzen Córdoba, [[Provinz Málaga|Málaga]] und [[Provinz Sevilla|Sevilla]]. Sie wird sowohl für die Ölproduktion als auch als Tischolive verwendet. Das Öl zeichnet sich durch einen vollen, aber milden Geschmack ohne Schärfe aus.
+* ''Verdial'': Heimatregion ist [[Vélez-Málaga]], die Sorte wird aber auch im übrigen Andalusien und in der [[Extremadura]] angebaut.
+* ''Arbequina'': Wird in [[Lleida]], [[Tarragona]] und Córdoba angebaut. Die Oliven sind klein und fallen nicht leicht vom Baum ab, so dass sie meist in Handarbeit abgeerntet werden.
+* ''Empeltre'': Stammt aus der [[Provinz Saragossa]] und wird im gesamten Ebrotal angebaut. Sie gibt ein mildes Öl von klarer, gelber Farbe mit süßlicher, aromatischer Geschmacksrichtung.
+* ''Cornicabra'': Stammt aus Mora in der Provinz Toledo und macht ca. 12 % der spanischen Produktion aus.
+* ''Lechín'': Wird in den Provinzen Córdoba, [[Provinz Cádiz|Cádiz]], Sevilla und Granada kultiviert.
+* ''Royal de Cazorla'': autochthone Sorte der Region Sierra de Cazorla.
+
+'''Tischoliven''':
+* ''Manzanilla'': Wichtigste Tischolive Spaniens. Sie stammt aus dem Ort [[Dos Hermanas]] (Provinz Sevilla) und wird im Wesentlichen auch dort angebaut.
+* ''Gordal'': Ebenfalls eine typische Tischolive aus der Provinz Sevilla.
+* ''Morona'': Ähnlich wie die Gordal
+* ''Cornezuelo'': Sehr beliebt in Teilen des südlichen Spanien. Sie hat einen sehr scharfen und spitzen Kern und wird in traditioneller Weise mit Wasser, Salz, Thymian, Knoblauch und Orangenschalen eingelegt.
+
+=== Italien ===
+Eine große Sortenvielfalt gibt es in [[Italien]], wo es alleine zwischen [[Sizilien]] und [[Ligurien]] an die 80 verschiedene Sorten gibt. Die italienischen Hauptsorten sind ''Leccino'', ''Frantoio'' und ''Carolea''. Da die Oliven der verschiedenen Sorten unterschiedlich im Geschmack sind, gibt es eine Vielzahl verschiedener Öle.
+
+=== Griechenland ===
+Griechische Sorten sind z. B. ''Athinolia'', ''Kalamata'' und ''Koroneiki''.
+
+== Nutzung ==
+[[Datei:Olive Press in Pompeji.JPG|miniatur|Olivenpresse im antiken [[Pompeji]]]]
+[[Datei:Olivenholz-Brettchen.jpg|miniatur|Olivenholz: Dunkler gemaserter Kern und heller homogener Splint]]
+Der Olivenbaum wird genutzt:
+* Wirtschaftlich am bedeutsamsten ist die Gewinnung von [[Olivenöl]]. Es wird zum Braten, Kochen, und als Öl für Salate und kalte Gerichte, aber auch für kosmetische Zwecke, zum Beispiel Hautcreme, verwendet. Industriell werden die Oliven für das Öl entweder von Hand gepflückt oder mit der Maschine herabgeschüttelt, gehackt, mit Wasser gemischt und hydraulisch gepresst, teils (je nach Zweck) auch mit chemischen Lösungsmitteln oder thermischen Verfahren extrahiert. Top-Qualitäten für die Küche hingegen werden mit schonenderen Verfahren gewonnen, z.B. dem Tropf-Verfahren, bei dem nur das Eigengewicht der Früchte ohne weiteren Druck die Frucht presst. Anschließend wird das Öl vom Wasser bei modernen Verfahren in der [[Zentrifuge]] sonst mittels Ruhenlassen getrennt. Die Reste die bei der Erstpressung entstehen werden von den Ölpressereien weiterverarbeitet mit Hitze und speziellen Verfahren. Die weiteren Reste werden teilweise zu Kosmetika und Medizin verarbeitet.
+
+* Die Früchte werden auch direkt als Nahrungsmittel in den Handel gebracht. Direkt vom Baum ist die Olive jedoch wegen ihrer Bitterkeit kaum genießbar. Sie wird in eine Salzlake eingelegt, die ihr die Bitterstoffe entzieht. In der mediterranen Küche wird sie häufig in Brot, Ragouts, Salaten und Saucen verwendet. Im Handel finden sich schwarze und grüne Oliven. Dabei sind die schwarzen Oliven ausgereift, die grünen wurden unreif geerntet. Auch die grünen Oliven würden schwarz, ließe man sie am Baum ausreifen. In der Regel handelt es sich auch um verschiedene Sorten: Einige Sorten eignen sich besser für die Gewinnung von grünen, andere für die von schwarzen Oliven. Teilweise sind auf dem Markt auch unreife, mit [[Eisengluconat]] schwarz gefärbte Oliven erhältlich – die Kenntlichmachung auf der Zutatenliste ist vorgeschrieben. Die unreifen Oliven sind nach dem Einlegen nicht weniger genießbar; schmecken jedoch anders, weswegen der Unterschied der oxidierten zu echten schwarzen für den Kenner deutlich ist.
+
+* Das Holz wird zu [[Möbel]]n, Blasinstrumenten (besonders [[Blockflöte]]n), Küchengeräten und anderen Gebrauchsgegenständen verarbeitet.
+
+{{Quelle}}
+* als medizinische Pflanze, speziell wegen seiner Blätter, die einen beruhigenden und schlaffördernden Effekt haben und das [[Immunsystem]] stärken sowie den [[Cholesterin]]spiegel senken. Das Öl ist gesund wegen des hohen Anteils an einfach [[Fettsäuren|ungesättigten Fettsäuren]] und wirkt sich positiv auf das [[Blutkreislauf|Herzkreislaufsystem]] und den [[Fettstoffwechsel]] aus und verringert die Gefahr von [[Diabetes mellitus]] oder [[Krebs (Medizin)|Krebs]]. Extra natives Olivenöl hat entzündungshemmende Wirkung. Der dafür verantwortliche Wirkstoff heißt [[Oleocanthal]]. Das Olivenöl soll einen großen Teil der gesundheitsfördernden Wirkung der sogenannten [[Kreta-Diät]] ausmachen.
+
+== Ökonomie ==
+Olivenbaumpflanzungen nehmen auf der Welt 8,6 Millionen [[Hektar]] an Fläche ein, auf denen jährlich 17,3 Millionen Tonnen Oliven geerntet werden. Spanien ist der größte Olivenproduzent. Die vier wichtigsten Länder (Spanien, Italien, Griechenland und Syrien) erstellen ca. 80 % der weltweiten Olivenproduktion. Die Vermarktung wird dabei von italienischen Firmen dominiert, auch bei nichtitalienischem Öl. Nimmt in Europa die Beliebtheit des Olivenöls auch stetig zu, so nimmt es wegen seines vergleichsweise hohen Preises weltweit im Gegensatz zur Ölpalme oder Sojaöl nur einen geringen Anteil der Speiseölproduktion ein.
+
+=== Ökonomie in der Europäischen Union ===
+60 Prozent der weltweit ca. 750 Millionen Olivenbäume stehen in der [[Europäische Union|Europäischen Union]]. Die EU ist nicht nur der größte Olivenölproduzent, sondern auch der größte Verbraucher. Da die Nachfrage nach Olivenöl auch in nördlichen Ländern stetig zugenommen hat, wurde der Anbau von Olivenbäumen erheblich ausgeweitet. In vielen Regionen der Hauptproduzenten ist der Olivenbaum Grundlage der ländlichen Wirtschaft.
+
+=== Ökonomie außerhalb der EU ===
+Syrien, die Türkei und Tunesien sind die größten Olivenöl- und Olivenproduzenten außerhalb der EU. In diesen Ländern macht die Olivenölproduktion einen höheren Teil am [[BIP]] aus, und der Olivenanbau bindet viele Arbeitskräfte, so dass er die Lebensgrundlage vieler Menschen ist.
+[[Datei:Olijven.jpg|miniatur|Oliven]]
+[[Datei:Eingelegte Oliven.JPG|miniatur|Verschiedenartig eingelegte Oliven]]
+[[Datei:Olivenhaendler.jpg|miniatur|Olivenhändler in der Türkei]]
+
+== Kulturgeschichte des Olivenbaumes ==
+[[Datei:Olive tree.jpg|miniatur|Mehrere Jahrhunderte alter Olivenbaum.]]
+Die Geschichte des Ölbaums reicht bis in die [[Antike]] zurück. Erste archäologische Funde von Olivenkernen sind über 9000 Jahre alt, dabei handelt es sich aber um von Menschen gesammelte Oliven von wilden Olivenbäumen. Wann die Wildform zur fruchtbaren Gartenolive kultiviert wurde, ist unbekannt. Archäologische Funde deuten jedoch darauf hin, dass dies um 4000 v. Chr. in [[Kreta]] und [[Syrien]] geschah. Auch der häufige Hinweis in der [[Bibel]] auf den Baum und seine Erzeugnisse, auf seinen Überfluss im Land von [[Kanaan]] und den wichtigen Platz, den er in der Wirtschaft von Syrien hat, lässt vermuten, dass dort der Ursprung des kultivierten Olivenbaumes liegt. In früh[[Byzantinisches Reich|byzantinischer]] Zeit bedeutete für hunderte Dörfer im Gebiet der [[Tote Städte|Toten Städte]] der Export von Olivenöl die wirtschaftliche Grundlage für ihre Blütezeit ab dem 4. Jahrhundert.
+
+Der Baum wurde schnell zum Zeichen des Friedens. Im trockenen Klima des Nahen Ostens stellte das Öl bald ein wichtiges und gesundes Grundnahrungsmittel dar. In der [[Wirtschaft]], [[Religion]] und [[Kunst]], sowie den vielen [[Mythos|Mythen]] spiegelt sich diese wichtige Rolle des Olivenbaums wider. Der Bibel nach war die Ölfrucht den [[Juden]] im [[Gelobtes Land|gelobten Land]] verheißen, bildete einen bedeutenden Teil des Reichtums und war neben dem [[Echte Feige|Feigenbaum]] und [[Rebstock]] das Bild des Wohlstandes und bürgerlichen Glückes. Die eingewanderten Israeliten fanden den Olivenbaum schon vor. Die Könige [[David (Israel)|David]] und [[Salomo]] förderten seinen Anbau. Man benutzte das Öl zu Speisen, bei Opfergaben, als [[Brennöl]] und zum [[Salbe]]n des [[Haar]]s und des ganzen [[Mensch|menschlichen Körpers]].
+
+Zu [[Homer]]s Zeiten benutzte man in [[Griechenland]] das Holz des wilden Ölbaums wegen seiner großen Festigkeit zur Anfertigung von [[Axt]]stielen. Das Öl diente zum Salben des Körpers, war aber den Reichen und Edlen als Luxusgut vorbehalten, wie es in der [[Ilias]] beschrieben wird. In der [[Platonische Akademie|Akademie]] standen die der [[Athene]] geweihten unantastbaren Ölbäume; sie stammten der Sage nach von der Mutterolive auf der [[Burg]], die von der Göttin selbst geschaffen und später nach der [[Verbrennung (Chemie)|Verbrennung]] durch die Perser von selbst aus der Wurzel wieder aufgesprossen sein soll. Nach einer griechischen Sage hatten die Götter Athene und [[Poseidon]] einen Wettstreit ausgetragen. Als Gewinner sollte derjenige gelten, der den Bewohnern von [[Athen]] das sinnvollere Geschenk überbringt. Athene setzte sich mit dem von ihr erschaffenen Olivenbaum durch, der den antiken Griechen als heilig galt. In zahlreichen griechischen Stadtstaaten war es gesetzlich verboten, Olivenbäume zu fällen.
+
+[[Datei:Flag of the United Nations.svg|miniatur|Flagge der UNO. Trotz der Ähnlichkeit handelt es sich nicht um [[Lorbeerkranz|Lorbeerzweige]], sondern um Zweige des Ölbaums als Zeichen des Friedens.<ref>[http://www.flaggenlexikon.de/fiouno.htm#Bedeutung Flaggenlexikon.de], abgerufen am 1. September 2010</ref>]]
+Im 6. Jahrhundert v. Chr. kam der Olivenbaum nach Italien. Wie schon in Griechenland war ein [[Kranz]] aus Ölzweigen die höchste Auszeichnung des um das [[Vaterland]] hochverdienten Bürgers, sowie der höchste Siegespreis (Kranz aus Zweigen vom ''kotinos kallistephanos'') bei den Olympischen Spielen. Der Ölzweig war das [[Symbol]] des [[Frieden]]s, und Besiegte, die um Frieden baten, trugen Ölzweige in den Händen.
+
+Auch im alten [[Christentum]] ist die Taube mit dem Ölzweig ein Symbol des Friedens. Der Bibel zufolge schickte [[Noach|Noah]] nach der Sintflut eine Taube los. Sie kehrte mit einem Ölzweig im Schnabel zurück: die Erde grünte wieder, das Leben war zurück. [[Jesus von Nazaret|Jesus]] hielt zwischen Olivenbäumen im Garten [[Getsemani]] kurz vor seiner Kreuzigung Zwiesprache mit Gott. [[Paulus von Tarsus|Paulus]] illustrierte das Verhältnis zwischen Heidentum und Judentum mit einem wilden und einem edlen Ölbaum.<ref>[[Brief des Paulus an die Römer]] 11, 17 bis 24</ref> Wilde Oliven (''Olea europea'' subsp. ''oleaster'' oder ''Olea europea'' var. ''sylvestris'') wachsen an der Küste des Mittelmeeres. Eine afrikanische Variante (''Olea africana'' Mill. oder ''Olea chrysophylla'' Lam.) kommt in Jemen und im [[Gebel-Elba-Nationalpark|Gebel Elba]]-Gebiet im äußersten Süden Ägyptens vor (siehe auch ''Heimat'').
+
+In Ägypten wurden Oliven an der Mittelmeerküste, den Oasen [[Baħrija]], [[Dachla]], [[Karga]] und [[Oase Siwa|Siwa]] sowie auf dem [[Sinai-Halbinsel|Sinai]] angebaut. Der erste Nachweis stammt aus der [[Neues Reich#18. Dynastie|18. Dynastie]]. Im Grab des [[Pharao]] [[Tutanchamun]] wurden Blätter des Ölbaums gefunden.<ref>René T. J. Chappers, Roman Footprints at Berenike. Los Angeles 2006, 15</ref> In Ptolemäischer Zeit wird die Pflanze häufiger angebaut, in römischer Zeit ist sie sehr geläufig. Nach [[Theophrastos von Eresos|Theophrast]] war der Ölbaum in der [[Thebais (Ägypten)|Thebais]] zu finden, nach Strabo auch im [[Madinat al-Fayyum|Fajum]].
+[[File:Europe-sud-olive.jpg|150px|miniatur|rechts|Karte des Olivenanbaus in Südeuropa]]
+
+== Zitate ==
+=== Der Ölbaum bei Homer ===
+''„Doch der Atreid’, ausziehend das Schwert voll silberner Buckeln,''<br />
+''Sprang auf Peisandros hinan. Der hob die schimmernde Streitaxt''<br />
+''Unter dem Schild, die ehrne, geschmückt mit dem Stiele von Ölbaum,''<br />
+''Schöngeglättet und lang; und sie drangen zugleich aneinander.“''<br />
+([[Homer]]: [[Ilias]], 13. Gesang, 610–613)
+
+''„Innerhalb des Gehegs war ein weitumschattender Ölbaum,''<br />
+''Stark und blühenden Wuchses; der Stamm glich Säulen an Dicke.''<br />
+''Rings um diesen erbaut’ ich von dichtgeordneten Steinen''<br />
+''Unser Ehegemach, und wölbte die obere Decke,''<br />
+''Und verschloß die Pforte mit festeinfugenden Flügeln.''<br />
+''Hierauf kappt’ ich die Äste des weitumschattenden Ölbaums,''<br />
+''Und behaute den Stamm an der Wurzel, glättet’ ihn ringsum''<br />
+''Künstlich und schön mit dem Erz, und nach dem Maße der Richtschnur;''<br />
+''Schnitzt’ ihn zum Fuße des Bettes, und bohrt’ ihn rings mit dem Bohrer,''<br />
+''Fügete Bohlen daran, und baute das zierliche Bette,''<br />
+''Welches mit Gold und Silber und Elfenbeine geschmückt war;''<br />
+''Und durchzog es mit Riemen von purpurfarbener Stierhaut.“<br />''
+([[Odyssee]], 23. Gesang, 190–201)
+
+=== Der Ölbaum in der Bibel ===
+''„Einst machten sich die Bäume auf, um sich einen König zu salben, und sie sagten zum Ölbaum: ‚Sei du unser König.‘ Der Ölbaum sagte zu ihnen: ‚Soll ich mein Fett aufgeben, mit dem man Götter und Menschen ehrt und hingehen, um über den anderen Bäumen zu schwanken?‘“'' ([[Buch der Richter]], 9, 8-9)
+
+''„Gegen Abend kam die Taube zu ihm zurück, und siehe da: In ihrem Schnabel hatte sie einen frischen Olivenzweig. Jetzt wusste Noah, dass nur noch wenig Wasser auf der Erde stand.“'' ([[1. Buch Mose|Genesis]], 8, 11)
+
+''„Ob aber nun etliche von den Zweigen ausgebrochen sind und du, da du ein wilder Ölbaum warst, bist unter sie gepfropft und teilhaftig geworden der Wurzel und des Safts im Ölbaum, so rühme dich nicht wider die Zweige. Rühmst du dich aber wider sie, so sollst du wissen, daß<!--sic--> du die Wurzel nicht trägst, sondern die Wurzel trägt dich.“'' ([[Brief des Paulus an die Römer|Römerbrief]], 11, 17-18)
+
+Die Olive als Symbol der [[Jungfrau Maria]] wurde von den Malern der [[Schule von Siena|Sieneser Schule]] verwandt, da sie das traditionelle Symbol der [[Lilien|Lilie]], das auch Symbol und Wappen der Konkurrentin [[Florenz]] war, vermeiden wollten. Ein Beispiel hier für ist das Verkündigungsbild von [[Simone Martini]] von 1333 in den [[Uffizien]], in dem der [[Erzengel Gabriel]] einen Olivenzweig anstatt der sonst üblichen Lilie in der Hand hält.
+
+=== Der Ölbaum im Koran ===
+''„Und ER ist es, Der aus dem Himmel Wasser niedersendet; damit bringen Wir alle Arten von Pflanzen hervor; … und Oliven- und Granatapfel-(Bäume) …“'' (Die ungefähre Bedeutung des [[Koran|Al-Qur'an]] Al-Karim, Sure 6:99 „Das Vieh“)
+
+''„Allah ist das Licht der Himmel und der Erde. Sein Licht ist gleich einer Nische, in der sich eine Lampe befindet: Die Lampe … Angezündet (wird die Lampe) von einem gesegneten Ölbaum, der weder östlich noch westlich ist, dessen Öl beinahe leuchten würde, auch wenn das Feuer es nicht berührte.“'' (Die ungefähre Bedeutung des Al-Qur'an Al-Karim, Sure 24:35 „Das Licht“)
+
+''„Alsdann spalteten Wir die Erde in wunderbarer Weise und ließen Korn in ihr wachsen … und Ölbäume…“'' (Die ungefähre Bedeutung des Al-Qur'an Al-Karim, Sure 80:26–29 „Er runzelte die Stirn“)
+
+=== Der Ölbaum in der Neuzeit ===
+''„Die Ölbäume sind sehr charakteristisch, und ich gebe mir große Mühe, das einzufangen. Es ist Silber, das mal ins Blaue, mal ins Grüne spielt, bronzefarben und beinah weiß auf gelbem, rosa, violettem oder orange Boden, der bis zum stumpfroten Ocker geht … Eines Tages mache ich vielleicht etwas ganz Persönliches daraus, wie ich es mit den Sonnenblumen für die gelben Töne gemacht habe.“ '' ([[Vincent van Gogh]] an seinen Bruder [[Theo van Gogh (Kunsthändler)|Theo]], Brief 608)
+
+== Quellen ==
+* Mei-chen Chang, Lien-ching Chiu, Zhi Wei & Peter S. Green: ''Oleaceae'' in der ''Flora of China'', Volume 15, 1996, S. 296: [http://www.efloras.org/florataxon.aspx?flora_id=2&taxon_id=200017804 ''Olea europaea'' – Online.] (Abschnitt Beschreibung)
+* Fritz Grohmann: ''Oleaceae''  in der ''Flora von Pakistan'': [http://www.efloras.org/florataxon.aspx?flora_id=5&taxon_id=200017804 ''Olea europaea'' – Online.] (Abschnitt Beschreibung)
+* [http://www.pfaf.org/database/plants.php?Olea+europaea Der Olivenbaum bei Plant for the Future.] (Abschnitt Nutzung)
+<references>
+<ref name = "Green2002">P. S. Green: ''A revision of Olea L. (Oleaceae).'' – Kew Bulletin 57(1), 2002: 91–140.</ref>
+</references>
+
+=== Literatur ===
+* René T. J. Chappers, Roman Footprints at Berenike. Los Angeles 2006.
+* Victor Hehn: ''Olive, Wein und Feige. Kulturhistorische Skizzen''. Hrsg. von Klaus von See unter Mitwirkung von Gabriele Seidel-Leimbach. Insel, Frankfurt am Main 1992. ISBN 3-458-33127-1
+* A. Lingelsheim: ''Oleaceae. Oleolidae. Fraxinae et Syringeae.'' in: [[Adolf Engler|A. Engler]]: ''Das Pflanzenreich'', Bd 72. W. Engelmann, Berlin 1920, Stuttgart 1957 (Repr.).
+* Charles R. Metcalfe, L. Chalk: ''Anatomy of the Dicotyledons'', 3 Bde., Oxford University Press, Oxford ²1987-1989, ³1998. ISBN 0-19-854593-2
+* D. B. Sandy: ''The production and use of vegetable oils in Ptolemaic Egypt'', in ''Bulletin of the American Society of Papyrologists'', Suppl. 6, 1989, S. 1-136.
+
+=== Weblinks ===
+{{Commonscat|Olea europaea|Olivenbaum (''Olea europaea'')}}
+* [http://www.kuebelpflanzeninfo.de/exot/olivenbaum.htm Anleitung zur Kultivierung als Topf- oder Kübelpflanze] bei ''www.kuebelpflanzeninfo.de''
+* [http://apps.fao.org/faostat/collections?version=ext&hasbulk=0&subset=agriculture FAOSTAT-Landwirtschaftsstatistik] der [[Food and Agriculture Organization|FAO]]
+
+{{Lesenswert|23. Oktober 2006|22925593}}
+
+[[Kategorie:Ölbaumgewächse]]
+[[Kategorie:Baum]]
+[[Kategorie:Heilpflanze]]
+[[Kategorie:Ölpflanze]]
+[[Kategorie:Frucht (Lebensmittel)]]
+
+[[af:Olienhout]]
+[[als:Olivenbaum]]
+[[an:Olea europaea]]
+[[ar:زيتون]]
+[[arc:ܙܝܬܐ]]
+[[az:Avropa zeytunu]]
+[[be:Масліна еўрапейская]]
+[[bg:Маслина]]
+[[bs:Maslina]]
+[[ca:Olivera]]
+[[ckb:زەیتون]]
+[[cs:Olivovník evropský]]
+[[cy:Olewydden]]
+[[da:Oliven]]
+[[el:Ελιά]]
+[[en:Olive]]
+[[eo:Olivarbo]]
+[[es:Olea europaea]]
+[[et:Harilik õlipuu]]
+[[eu:Olibondo]]
+[[fa:زیتون]]
+[[fi:Öljypuu]]
+[[fr:Olea europaea]]
+[[gl:Oliveira]]
+[[hak:Kám-lám-su]]
+[[he:זית אירופי]]
+[[hi:जैतून (फल)]]
+[[hr:Maslina]]
+[[hu:Oliva]]
+[[id:Zaitun]]
+[[io:Olivo]]
+[[is:Ólífa]]
+[[it:Olea europaea]]
+[[ja:オリーブ]]
+[[jv:Zaitun]]
+[[kab:Tazemmurt]]
+[[ko:올리브]]
+[[la:Olea]]
+[[lbe:Зайтун]]
+[[lt:Europinis alyvmedis]]
+[[lv:Olīvkoks]]
+[[ml:ഒലിവ്]]
+[[ms:Zaitun]]
+[[nds:Öölboom]]
+[[ne:जैतुन]]
+[[nl:Olijf]]
+[[nn:Oliven]]
+[[no:Oliven]]
+[[oc:Olea europaea]]
+[[pl:Oliwka europejska]]
+[[pms:Olea europaea]]
+[[pnb:زیتون]]
+[[ps:ښوون]]
+[[pt:Oliveira]]
+[[qu:Uliw]]
+[[ro:Măslin]]
+[[ru:Олива европейская]]
+[[rw:Umumuri]]
+[[sc:Olea europaea]]
+[[scn:Uliva]]
+[[sh:Maslina]]
+[[simple:Olive tree]]
+[[sk:Oliva európska]]
+[[sl:Oljka]]
+[[sq:Pema e ullirit]]
+[[sr:Маслина]]
+[[sv:Olivträd]]
+[[ta:சைத்தூன்]]
+[[tg:Зайтун]]
+[[th:มะกอกโอลีฟ]]
+[[tl:Olibo]]
+[[tr:Zeytin]]
+[[ug:Zeytun]]
+[[uk:Маслина європейська]]
+[[ur:زیتون]]
+[[uz:Zaytun daraxti]]
+[[vec:Olivaro]]
+[[vi:Ô liu]]
+[[vls:Olyve]]
+[[yi:איילבירט]]
+[[zh:橄欖 (木樨科)]]

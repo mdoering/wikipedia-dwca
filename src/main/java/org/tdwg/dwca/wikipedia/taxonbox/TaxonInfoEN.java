@@ -20,13 +20,15 @@ import org.gbif.api.model.vocabulary.Kingdom;
 import org.gbif.api.model.vocabulary.Language;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 
 /**
  * Support for various english wikipedia taxobox formats.
  */
-abstract class TaxonInfoEN extends TaxonInfoBase{
+public class TaxonInfoEN extends TaxonInfoBase{
   private static final Language WIKI_LANG = Language.ENGLISH;
   private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
     .put(Kingdom.ANIMALIA, "Animal")
@@ -38,6 +40,7 @@ abstract class TaxonInfoEN extends TaxonInfoBase{
     .put(Kingdom.PROTOZOA, "Protozoa")
     .put(Kingdom.VIRUSES, "Virus")
     .build();
+  public static final Set<String> IGNORE_SETIONS = Sets.newHashSet("see also", "references", "further reading", "external links", "reflist");
 
   @Override
   protected String knownPageTitle(Kingdom kingdom, Language lang) {

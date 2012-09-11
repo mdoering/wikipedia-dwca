@@ -19,8 +19,10 @@ import org.gbif.api.model.vocabulary.Kingdom;
 import org.gbif.api.model.vocabulary.Language;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 
 /**
  * The french taxobox concept is very different, using a separate template for each property!
@@ -31,7 +33,7 @@ import com.google.common.collect.ImmutableMap;
  * TODO: implement the french taxobox concept
  * @See http://fr.wikipedia.org/wiki/Catégorie:Modèle_taxobox
  */
-abstract class TaxonInfoFR extends TaxonInfoDE {
+public class TaxonInfoFR extends TaxonInfoDE {
   private static final Language WIKI_LANG = Language.FRENCH;
   private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
     .put(Kingdom.ANIMALIA, "Animal")
@@ -43,6 +45,7 @@ abstract class TaxonInfoFR extends TaxonInfoDE {
     .put(Kingdom.PROTOZOA, "Protozoaire")
     .put(Kingdom.VIRUSES, "Virus")
     .build();
+  public static final Set<String> IGNORE_SETIONS = Sets.newHashSet();
 
   @Override
   protected String knownPageTitle(Kingdom kingdom, Language lang) {

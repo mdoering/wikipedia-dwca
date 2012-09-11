@@ -19,8 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import info.bliki.wiki.dump.IArticleFilter;
 import info.bliki.wiki.dump.Siteinfo;
 import info.bliki.wiki.dump.WikiArticle;
@@ -30,6 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.taxonbox.Image;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
+import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoDE;
+import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoEN;
+import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoES;
+import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoFR;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonboxWikiModel;
 import org.xml.sax.SAXException;
 
@@ -52,8 +56,13 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Pattern SPLIT_SECTIONS = Pattern.compile("(?<!=)==([^=]+)==");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
   private final Pattern REMOVE_FOOTNOTES = Pattern.compile("\\[[0-9]{1,2}\\]");
-  private final Set<String> IGNORE_SETIONS = Sets.newHashSet("see also", "references", "further reading",
-    "external links", "reflist");
+  private final Set<String> IGNORE_SETIONS = ImmutableSet.<String>builder()
+    .addAll(TaxonInfoEN.IGNORE_SETIONS)
+    .addAll(TaxonInfoDE.IGNORE_SETIONS)
+    .addAll(TaxonInfoES.IGNORE_SETIONS)
+    .addAll(TaxonInfoFR.IGNORE_SETIONS)
+    .build();
+
   private final Pattern EXTRACT_VERNACULARS = Pattern.compile("\\[\\[([a-z]{2,3}):([^\\]\\[]+)\\]\\]");
   private final Pattern REDIRECT = Pattern.compile("^.REDIRECT", Pattern.CASE_INSENSITIVE);
 
@@ -212,7 +221,11 @@ public class TaxonboxHandler implements IArticleFilter {
     if (fr != null) {
       row = Maps.newHashMap();
       row.put(GbifTerm.livingPeriod, fr);
-      row.put(GbifTerm.isExtinct, taxon.getExtinct());
+      if (taxon.getExtinct() != null) {
+        row.put(GbifTerm.isExtinct, taxon.getExtinct());
+      } else {
+        row.put(GbifTerm.isExtinct, String.valueOf(taxon.getExtinctSymbol()));
+      }
       writer.addExtensionRecord(GbifTerm.SpeciesProfile, row);
     }
 
@@ -249,6 +262,21 @@ public class TaxonboxHandler implements IArticleFilter {
     }
 
 
+    // types extension
+    if (!Strings.isNullOrEmpty(taxon.getTypeSpecies())) {
+      row = Maps.newHashMap();
+      row.put(DwcTerm.typeStatus, "type species");
+      row.put(DwcTerm.scientificName, concatSciName(taxon.getTypeSpecies(), taxon.getTypeSpeciesAuthority()));
+      writer.addExtensionRecord(GbifTerm.TypesAndSpecimen, row);
+
+    } else if (Strings.isNullOrEmpty(taxon.getTypeGenus())) {
+      row = Maps.newHashMap();
+      row.put(DwcTerm.typeStatus, "type genus");
+      row.put(DwcTerm.scientificName, concatSciName(taxon.getTypeGenus(), taxon.getTypeGenusAuthority()));
+      writer.addExtensionRecord(GbifTerm.TypesAndSpecimen, row);
+    }
+
+
     // create individual records for each synonym
     int synIdx = 1;
     for (String synonym : taxon.getSynonyms()) {
@@ -261,6 +289,14 @@ public class TaxonboxHandler implements IArticleFilter {
       writer.addCoreColumn(DwcTerm.taxonomicStatus, "synonym");
       synIdx++;
     }
+  }
+
+  private String concatSciName(String name, String authority) {
+    if (!Strings.isNullOrEmpty(name) && !Strings.isNullOrEmpty(authority) && !name.toLowerCase().contains(
+      authority.toLowerCase())) {
+      return name + " " + authority;
+    }
+    return name;
   }
 
   public TaxonboxWikiModel getWikiModel() {

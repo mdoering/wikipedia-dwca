@@ -19,8 +19,10 @@ import org.gbif.api.model.vocabulary.Kingdom;
 import org.gbif.api.model.vocabulary.Language;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 
 /**
  * The spanish taxobox is exactly the same as the english one, so we do not need any new setters!
@@ -33,7 +35,7 @@ import com.google.common.collect.ImmutableMap;
  * this is not yet supported
  *
  */
-abstract class TaxonInfoES extends TaxonInfoFR {
+public class TaxonInfoES extends TaxonInfoFR {
   private static final Language WIKI_LANG = Language.SPANISH;
   private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
     .put(Kingdom.ANIMALIA, "Animalia")
@@ -45,6 +47,7 @@ abstract class TaxonInfoES extends TaxonInfoFR {
     .put(Kingdom.PROTOZOA, "Protozoo")
     .put(Kingdom.VIRUSES, "Virus")
     .build();
+  public static final Set<String> IGNORE_SETIONS = Sets.newHashSet();
 
   @Override
   protected String knownPageTitle(Kingdom kingdom, Language lang) {

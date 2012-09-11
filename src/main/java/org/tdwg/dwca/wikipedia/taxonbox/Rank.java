@@ -24,18 +24,18 @@ import org.apache.commons.lang3.StringUtils;
 public enum Rank {
   Group,
   Superdomain,
-  Domain,
+  Domain("Domäne"),
   Superkingdom,
   KingdomClade,
   Kingdom("reich", "regnum"),
-  Subkingdom,
-  Superdivision,
-  Superphylum,
-  Divisio("division"),
+  Subkingdom("unterreich"),
+  Superdivision("überabteilung"),
+  Divisio("division", "abteilung"),
+  Superphylum("überstamm"),
   PhylumClade,
   Phylum("stamm"),
   Subdivision,
-  Subphylum,
+  Subphylum("unterstamm"),
   Infraphylum,
   Microphylum,
   Nanophylum,
@@ -48,16 +48,16 @@ public enum Rank {
   Cohort("cohors"),
   Subcohort("subcohors"),
   Magnorder,
-  Superorder,
+  Superorder("überordnung"),
   OrderClade,
   Order("ordo", "ordnung"),
-  Suborder,
-  Infraorder,
+  Suborder("unterordnung"),
+  Infraorder("teilordnung"),
   Parvorder,
   Zoodivisio("zoodivision"),
   Zoosectio("zoosection"),
   Zoosubsectio("zoosubsection"),
-  Superfamily,
+  Superfamily("überfamilie"),
   FamilyClade,
   Family("familia", "familie"),
   Subfamily("subfamilia", "unterfamilie"),
@@ -80,7 +80,7 @@ public enum Rank {
   Subspecies("unterart"),
   Variety("varietät","varietas"),
   Form("forma"),
-  Uninterpretable;
+  Uninterpretable("ohne rang");
 
   private final String[] alts;
 
@@ -107,12 +107,12 @@ public enum Rank {
   }
 
   public boolean isLowerThan(Rank rank) {
-    if (rank == null) return true;
+    if (rank == null || Rank.Uninterpretable==rank) return true;
     return this.ordinal() > rank.ordinal();
   }
 
   public boolean isHigherThan(Rank rank) {
-    if (rank == null) return true;
+    if (rank == null || Rank.Uninterpretable==rank) return true;
     return this.ordinal() < rank.ordinal();
   }
 }

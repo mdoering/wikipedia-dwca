@@ -1,7 +1,10 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
+import org.gbif.utils.file.InputStreamUtils;
+
 import info.bliki.wiki.filter.PlainTextConverter;
 import info.bliki.wiki.model.WikiModel;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,9 +13,10 @@ public class TaxonboxWikiModelTest {
 
   private WikiModel wiki = new TaxonboxWikiModel("en");
   private PlainTextConverter converter = new PlainTextConverter();
+  private InputStreamUtils isu = new InputStreamUtils();
 
   private String render(String wikiText) {
-    return wiki.render(converter, wikiText);
+    return StringUtils.normalizeSpace(wiki.render(converter, wikiText));
   }
 
   @Test
@@ -33,7 +37,19 @@ public class TaxonboxWikiModelTest {
 
   @Test
   public void testSpeciesList() throws Exception {
-    assertEquals("Abies alba  Mill.  Puma concolor   (Linnaeus, 1771)  Passer   Linnaeus, 1771", render("{{species list|Abies alba| Mill. | Puma concolor | ([[Carolus Linnaeus|Linnaeus]], 1771) | Passer | Linnaeus, 1771}}"));
+    assertEquals("Abies alba Mill. Puma concolor (Linnaeus, 1771) Passer Linnaeus, 1771", render("{{species list|Abies alba| Mill. | Puma concolor | ([[Carolus Linnaeus|Linnaeus]], 1771) | Passer | Linnaeus, 1771}}"));
+  }
+
+  @Test
+  public void testPlainList() throws Exception {
+    assertEquals("cat dog horse cow sheep pig", render(isu.readEntireStream(isu.classpathStream("plainlist1.txt"))));
+    assertEquals("cat dog horse cow sheep pig", render(isu.readEntireStream(isu.classpathStream("plainlist2.txt"))));
+  }
+
+  @Test
+  public void testCollapsibleList() throws Exception {
+    assertEquals("Dean Allison Chris Charlton David Christopherson Wayne Marston David Sweet", render(isu.readEntireStream(isu.classpathStream("collapsible1.txt"))));
+    assertEquals("Iceland Liechtenstein Norway Switzerland", render(isu.readEntireStream(isu.classpathStream("collapsible2.txt"))));
   }
 
   @Test

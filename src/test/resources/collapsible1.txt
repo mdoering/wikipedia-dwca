@@ -1,0 +1,5 @@
+{{Collapsible list
+  |framestyle=border:none; padding:0; <!--Hides borders and improves row spacing-->
+  |title=List of MPs
+  |1=[[Dean Allison]] |2=[[Chris Charlton]] |3=[[David Christopherson]] |4=[[Wayne Marston]] |5=[[David Sweet]]
+ }}

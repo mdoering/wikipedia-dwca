@@ -6,8 +6,9 @@
 | phylum = [[Chordate|?Chordata]]
 | classis = [[Mammal]]ia| ordo = "[[Carnivora]]"
 | familia = [[Felidae?]]
-| genus = ''[[Puma (genus)|†Puma]]''
-}}
+| genus = ''[[Puma (genus)|†Puma]]''| species = '''''Puma concolor'''''| binomial = ''Puma concolor''
+| binomial_authority = ([[Carolus Linnaeus|Linnaeus]], 1771)<ref>{{cite book | author = Haeckel G | year = 1866 | title = Generale Morphologie der Organismen | publisher = Verlag von Georg Reimer | location = Berlin | pages = vol.1: i–xxxii, 1–574, pls I–II; vol. 2: i–clx, 1–462, pls I–VIII}}</ref>
+| range_map = Puma area.png| range_map_caption = Cougar range}}
 
 The '''cougar''' (''Puma concolor''), also known as '''puma''', '''mountain lion''', '''mountain cat''',  '''catamount''' or '''panther''', depending on the region, is a [[mammal]] of the family [[Felidae]], native to the Ameri
 cas. This large, solitary cat has the greatest [[range (biology)|range]] of any large wild terrestrial mammal in the [[Western Hemisphere]],<ref name="diet"/> extending from [[Yukon]] in Canada to the southern [

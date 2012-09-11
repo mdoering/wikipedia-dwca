@@ -1,0 +1,53 @@
+<!-- Für Informationen zum Umgang mit dieser Tabelle siehe bitte [[Wikipedia:Taxoboxen]]. -->
+{{Taxobox
+| Taxon_WissName   = Arthrobacter
+| Taxon_Rang       = Gattung
+| Taxon_Autor      = [[Harold J. Conn|Conn]] & [[Isabel Dimmick|Dimmick]] 1947
+| Taxon2_WissName  = Micrococcaceae
+| Taxon2_Rang      = Familie
+| Taxon3_WissName  = Actinomycetales
+| Taxon3_Rang      = Ordnung
+| Taxon4_WissName  = Actinobacteria
+| Taxon4_Rang      = Klasse
+| Taxon5_WissName  = Actinobacteria
+| Taxon5_Rang      = Abteilung
+| Taxon6_WissName  = Bakterien
+| Taxon6_Rang      = Domäne
+| Bild             = SEM of Arthrobacter chlorophenolicus.jpg
+| Bildbeschreibung = ''Arthrobacter chlorophenolicus''
+}}
+
+'''''Arthrobacter''''' ist eine [[Gattung (Biologie)|Gattung]] im Boden lebender [[aerob]]er [[Bakterien]] mit hohem [[GC-Gehalt]], welche eine ausgeprägte [[Resistenz]] gegen Austrocknung und Nahrungsmangel aufweisen. Sie besitzen die Fähigkeit, [[Phenole]], [[Herbizid]]e und andere organische Verbindungen (wie Nikotin oder Koffein) abzubauen, und spielen daher eine wesentliche Rolle bei der Entgiftung von Böden.
+
+Sie sind [[grampositiv]] und zeichnen sich durch einen komplexen Lebenszyklus aus, bei dem sie sich von einer Kokkenform zu Stäbchen entwickeln.
+
+== Systematik ==
+Zu der Gattung Arthrobacter werde mehr als 70 Arten gestellt.<ref>J.P. Euzéby: ''List of Prokaryotic names with Standing in Nomenclature'' – [http://www.bacterio.cict.fr/a/arthrobacter.html Genus ''Arthrobacter] (Stand November 2011)</ref> Einige Beispiele:
+* ''Arthrobacter agilis'' <span class="Person">(Ali-Cohen 1889) Koch et al. 1995</span>
+* ''Arthrobacter albus'' <span class="Person">Wauters et al. 2000</span>
+* ''Arthrobacter antarcticus'' <span class="Person">Pindi et al. 2010</span>
+* ''Arthrobacter aurescens'' <span class="Person">Phillips 1953</span>
+* ''Arthrobacter flavus'' <span class="Person">Reddy et al. 2000</span>
+* ''Arthrobacter histidinolovorans'' <span class="Person">Adams 1954</span>
+* ''Arthrobacter nicotinovorans'' <span class="Person">Kodama et al. 1992</span>
+* ''Arthrobacter phenanthrenivorans'' <span class="Person">Kallimanis et al. 2009</span>
+* ''Arthrobacter ramosus'' <span class="Person">Jensen 1960</span>
+* ''Arthrobacter subterraneus'' <span class="Person">Chang et al. 2008</span>
+* ''Arthrobacter viscosus'' <span class="Person">Gasdorf et al. 1965</span>
+
+== Einzelnachweise ==
+<references/>
+
+==Literatur ==
+Martin Dworkin, Stanley Falkow, Eugene Rosenberg, Karl-Heinz Schleifer, Erko Stackebrandt (Hrsg.): ''The Prokaryotes'', 3. Auflage, Bd. 3: ''Archaea. Bacteria: Firmicutes, Actinomycetes''. Springer Verlag, New York 2006, ISBN 978-0-387-25493-7 (Print), ISBN 978-0-387-30743-5 (Online)
+
+== Weblinks ==
+*J.P. Euzéby: List of Prokaryotic Names with Standing in Nomenclature - [http://www.bacterio.cict.fr/a/arthrobacter.html Genus ''Arthrobacter'']
+[[Kategorie:Bakterien]]
+[[Kategorie:Bacteria]]
+
+[[en:Arthrobacter]]
+[[es:Arthrobacter]]
+[[fr:Arthrobacter]]
+[[it:Arthrobacter]]
+[[ta:அர்த்ரோபாக்ட்டேர்]]

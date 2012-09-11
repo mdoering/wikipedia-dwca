@@ -19,13 +19,15 @@ import org.gbif.api.model.vocabulary.Kingdom;
 import org.gbif.api.model.vocabulary.Language;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 
 /**
  * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
  */
-abstract class TaxonInfoDE extends TaxonInfoEN {
+public class TaxonInfoDE extends TaxonInfoEN {
   private static final Language WIKI_LANG = Language.GERMAN;
   private static final Map<Kingdom, String> KINGDOM_PAGES = ImmutableMap.<Kingdom, String>builder()
     .put(Kingdom.ANIMALIA, "Tier")
@@ -37,6 +39,7 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
     .put(Kingdom.PROTOZOA, "Protozoen")
     .put(Kingdom.VIRUSES, "Viren")
     .build();
+  public static final Set<String> IGNORE_SETIONS = Sets.newHashSet("einzelnachweise", "quellen", "weblinks", "literatur");
 
   @Override
   protected String knownPageTitle(Kingdom kingdom, Language lang) {
@@ -44,6 +47,17 @@ abstract class TaxonInfoDE extends TaxonInfoEN {
       return KINGDOM_PAGES.get(kingdom);
     }
     return super.knownPageTitle(kingdom, lang);
+  }
+
+  /**
+   * http://de.wikipedia.org/wiki/Wikipedia:Pal%C3%A4oboxen
+   * Used for extinct palaeo taxa
+   * @param modus
+   */
+  public void setModus(String modus) {
+    if ("Paläobox".equalsIgnoreCase(modus)) {
+      setExtinct("true");
+    }
   }
 
   public void setTaxon_name(String name) {

@@ -73,6 +73,7 @@ abstract class TaxonInfoBase {
   // conservation status
   private String status; // iucn status
   private String extinct; // year
+  private boolean extinctSymbol;
   private String statusSystem;
   private String statusRef;
   private String fossilRange;
@@ -90,6 +91,8 @@ abstract class TaxonInfoBase {
   // ?
   private String diversity; // c. 120species
   private String diversityLink;
+  //
+  public boolean extinctTmp;
 
   public void postprocess(WikiArticle page, Language lang) {
     // set classification and scientific name from flexible rank names
@@ -207,6 +210,11 @@ abstract class TaxonInfoBase {
 
   public void setScientificName(String scientificName) {
     this.scientificName = scientificName;
+    copyExtinctTmp();
+  }
+
+  protected void copyExtinctTmp() {
+    extinctSymbol = extinctTmp;
   }
 
   public String getScientificNameAuthorship() {
@@ -221,17 +229,21 @@ abstract class TaxonInfoBase {
     if (getRank() == null || getRank().isHigherThan(rank)) {
       scientificName = name;
       this.rank = rank;
+      copyExtinctTmp();
     }
   }
 
   protected void setNameIfLowest(Name name){
     if (!Strings.isNullOrEmpty(name.getScientific())) {
-      if (getRank() == null || getRank().isHigherThan(name.getRank())) {
+      if (getRank() == null || (getRank().isHigherThan(name.getRank()) && Rank.Uninterpretable!=name.getRank())) {
         rank = name.getRank();
         scientificName = name.getScientific();
         scientificNameAuthorship = name.getAuthor();
-        //TODO: is this correct?
-        addVernacularNameInDefaultLang(name.getVernacular());
+        if (!Strings.isNullOrEmpty(name.getVernacular())) {
+          //TODO: is this correct?
+          addVernacularNameInDefaultLang(name.getVernacular());
+        }
+        copyExtinctTmp();
       }
     }
   }
@@ -360,6 +372,10 @@ abstract class TaxonInfoBase {
 
   public String getExtinct() {
     return extinct;
+  }
+
+  public boolean getExtinctSymbol() {
+    return extinctSymbol;
   }
 
   public void setExtinct(String extinct) {

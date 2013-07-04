@@ -40,6 +40,8 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Language lang;
   private final DwcaWriter writer;
   private Integer taxonCount = 0;
+  private final WikimediaScraper imgScraper = new WikimediaScraper();
+
   // extra terms
   private final TermFactory termFactory;
   private final ConceptTerm termFossil;
@@ -230,13 +232,21 @@ public class TaxonboxHandler implements IArticleFilter {
     // image extension
     for (Image image : taxon.getImages()) {
       if (!StringUtils.isBlank(image.getUrl())) {
+        image = imgScraper.scrape(image);
         row = Maps.newHashMap();
         row.put(DcTerm.identifier, WikipediaUtils.getImageLink(image.getUrl()));
         row.put(DcTerm.title, image.getImageCaption());
+        row.put(DcTerm.creator, image.getAuthor());
+        row.put(DcTerm.created, image.getDate());
+        row.put(DcTerm.license, image.getLicense());
+        row.put(DcTerm.publisher, image.getPublisher());
+        row.put(DcTerm.source, image.getSource());
         row.put(wikipediaThumb, WikipediaUtils.getImageThumbnailLink(image.getUrl()));
+        row.put(DcTerm.description, image.getDescription());
         writer.addExtensionRecord(GbifTerm.Image, row);
       }
     }
+    imgScraper.logNewLicenses();
 
     // description extension
     for (Map.Entry<String, String> section : sections.entrySet()) {

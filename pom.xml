@@ -135,6 +135,11 @@
       <artifactId>bliki-core</artifactId>
       <version>3.0.19</version>
     </dependency>
+    <dependency>
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>1.7.2</version>
+    </dependency>
 
     <!-- Logging -->
     <dependency>

@@ -19,6 +19,14 @@ public class Image {
   private String url;
   private String imageAlt;
   private String imageCaption;
+  // further metadata
+  private String author;
+  private String publisher;
+  private String license;
+  private String source;
+  private String date;
+  private String description;
+
 
   public String getUrl() {
     return url;
@@ -44,4 +52,66 @@ public class Image {
     this.imageCaption = imageCaption;
   }
 
+  public String getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+
+  public String getLicense() {
+    return license;
+  }
+
+  public void setLicense(String license) {
+    this.license = license;
+  }
+
+  public String getSource() {
+    return source;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public String getDate() {
+    return date;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getPublisher() {
+    return publisher;
+  }
+
+  public void setPublisher(String publisher) {
+    this.publisher = publisher;
+  }
+
+  @Override
+  public String toString() {
+    return "Image{" +
+           "description='" + description + '\'' +
+           ", date='" + date + '\'' +
+           ", source='" + source + '\'' +
+           ", license='" + license + '\'' +
+           ", publisher='" + publisher + '\'' +
+           ", author='" + author + '\'' +
+           ", imageCaption='" + imageCaption + '\'' +
+           ", imageAlt='" + imageAlt + '\'' +
+           ", url='" + url + '\'' +
+           '}';
+  }
 }

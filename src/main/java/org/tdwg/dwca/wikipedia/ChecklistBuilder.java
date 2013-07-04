@@ -15,12 +15,13 @@
  */
 package org.tdwg.dwca.wikipedia;
 
+import org.gbif.api.vocabulary.ContactType;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.text.DwcaWriter;
+import org.gbif.metadata.eml.Agent;
 import org.gbif.metadata.eml.Eml;
 import org.gbif.utils.HttpUtil;
 import org.gbif.utils.file.CompressionUtil;
-import org.gbif.utils.file.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import info.bliki.wiki.dump.WikiXMLParser;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,28 +43,30 @@ public class ChecklistBuilder {
   private DwcaWriter writer;
   private static String DUMP_NAME = "wiki-latest-pages-articles.xml.bz2";
 
-  @Parameter(names = {"-repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia")
-  public File repo = new File("/Users/mdoering/Desktop/wikipedia-data");
+  @Parameter(names = {"-repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia-data")
+  public File repo = new File("/tmp/wikipedia-data");
 
   @Parameter(names = {"-dwca"}, description = "Dwc archive file to be created. Defaults to a tmp file")
   public File dwcaFile;
 
-  @Parameter(names = {"-lang"}, description = "Wikipedia language file to parse (en, es, fr, de, etc.). Defaults to english if no language or dump file is given")
+  @Parameter(names = {"-lang"}, description = "Wikipedia language file to parse (en, es, fr, de, etc.). Defaults to english")
   public String lang= "en";
+
+  @Parameter(names = {"-offline"}, description = "If true no wikipedia dumps will be downloaded and only local dump files will be used. Defaults to false")
+  public boolean offline = false;
+
+  @Parameter(names = {"-keepTmp"}, description = "If true temporay files during archive build will be kept. Defaults to false")
+  public boolean keepTmp = false;
 
   @Inject
   public ChecklistBuilder(){
   }
 
-  public void parse() throws IOException{
-    // download file?
-    final String dumpName = lang + DUMP_NAME;
+  private File download(String dumpName) throws IOException {
     File wikiDumpBz = new File(repo, dumpName);
 
-    // download?
-    //TODO: remove this, we use conditional downloads in production to check if there is a newer file online
-    if (!wikiDumpBz.exists()){
-      final URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%s",lang,dumpName));
+    if (!offline){
+      final URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%s", lang, dumpName));
 
       log.info("Downloading latest wikipedia dump from " + url.toString());
       HttpUtil http = new HttpUtil();
@@ -74,8 +78,17 @@ public class ChecklistBuilder {
       }
     }
 
+    return wikiDumpBz;
+  }
+
+  public void parse() throws IOException{
+    // download file?
+    final String dumpName = lang + DUMP_NAME;
+
+    File wikiDumpBz = download(dumpName);
+
     // new writer
-    File dwcaDir = FileUtils.createTempDir("wikipedia-", "-dwca");
+    File dwcaDir = org.gbif.utils.file.FileUtils.createTempDir("wikipedia-", "-dwca");
     log.info("Writing archive files to temporary folder "+dwcaDir);
     writer = new DwcaWriter(DwcTerm.Taxon, dwcaDir);
 
@@ -105,14 +118,17 @@ public class ChecklistBuilder {
 
     if (dwcaFile.exists()) {
       log.debug("Delete existing archive {}", dwcaFile);
-      org.apache.commons.io.FileUtils.deleteQuietly(dwcaFile);
+      dwcaFile.delete();
     } else {
-      org.apache.commons.io.FileUtils.forceMkdir(dwcaFile.getParentFile());
+      FileUtils.forceMkdir(dwcaFile.getParentFile());
     }
     log.info("Bundling archive at {}", dwcaFile);
     CompressionUtil.zipDir(dwcaDir, dwcaFile);
+
     // remove temp folder
-    //org.apache.commons.io.FileUtils.deleteDirectory(dwcaDir);
+    if (!keepTmp) {
+      FileUtils.deleteDirectory(dwcaDir);
+    }
 
     log.info("Wikipedia dwc archive completed at {} !", dwcaFile);
   };
@@ -120,12 +136,23 @@ public class ChecklistBuilder {
 
   private Eml buildEml(){
     Eml eml = new Eml();
-    eml.setTitle("Wikipedia-"+lang+" Species Pages", "en");
+    eml.setTitle("Wikipedia-" + lang + " Species Pages", "en");
     eml.setAbstract("Parsed taxobox pages of the wikipedia dump");
-    eml.setHomeUrl("http://"+lang+".wikipedia.org");
+    eml.setHomepageUrl("http://" + lang + ".wikipedia.org");
+    eml.setContact(getMarkus(ContactType.METADATA_AUTHOR));
+    eml.setResourceCreator(getMarkus(ContactType.CONTENT_PROVIDER));
+    eml.setLanguage(lang);
     return eml;
   }
 
+  private Agent getMarkus(ContactType role){
+    Agent markus = new Agent();
+    markus.setEmail("mdoering@gbif.org");
+    markus.setFirstName("Markus");
+    markus.setLastName("Döring");
+    markus.setRole(role.name());
+    return markus;
+  }
   public static void main (String[] args) throws IOException {
     Injector injector = Guice.createInjector(new GuiceConfig());
     ChecklistBuilder cmd = injector.getInstance(ChecklistBuilder.class);

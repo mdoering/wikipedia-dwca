@@ -15,8 +15,8 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import org.gbif.api.model.vocabulary.Kingdom;
-import org.gbif.api.model.vocabulary.Language;
+import org.gbif.api.vocabulary.Kingdom;
+import org.gbif.api.vocabulary.Language;
 
 import java.util.List;
 import java.util.Map;
@@ -60,6 +60,7 @@ abstract class TaxonInfoBase {
   private String family;
   private String genus;
   private String subgenus;
+  private String species;
   // synonyms
   private List<String> synonyms = Lists.newArrayList();
   private String synonymsRef;
@@ -168,17 +169,25 @@ abstract class TaxonInfoBase {
     if (name==null) return null;
 
     if (!Strings.isNullOrEmpty(getGenus())) {
-      Pattern gen = Pattern.compile("^ *"+getGenus().charAt(0)+"\\. *");
+      Pattern gen = Pattern.compile("^ *"+genus.charAt(0)+"\\. *");
       Matcher m = gen.matcher(getScientificName());
       if (m.find()) {
-        String expandedName = m.replaceFirst(getGenus()+" ");
-        if (!Strings.isNullOrEmpty(getSpeciesEpithet())) {
-          Pattern spec = Pattern.compile("^"+getGenus()+" "+getSpeciesEpithet().charAt(0)+ "\\. *");
-          m = spec.matcher(expandedName);
+        String expandedName = m.replaceFirst(genus+" ");
+        String epithet=null;
+        if (!Strings.isNullOrEmpty(speciesEpithet)) {
+          epithet = speciesEpithet;
+        } else if (!Strings.isNullOrEmpty(species)) {
+          epithet = StringUtils.substringAfterLast(species, " ");
+        }
+
+        if (!Strings.isNullOrEmpty(epithet)) {
+          Pattern specEpi = Pattern.compile("^"+genus+" "+epithet.charAt(0)+ "\\. *");
+          m = specEpi.matcher(expandedName);
           if (m.find()) {
-            expandedName = m.replaceFirst(getGenus()+" "+getSpeciesEpithet()+" ");
+            expandedName = m.replaceFirst(getGenus()+" "+epithet+" ");
           }
         }
+
         log.debug("Expanding abbreviated name {} with {}", getScientificName(), expandedName);
         return expandedName;
       }
@@ -225,6 +234,14 @@ abstract class TaxonInfoBase {
     this.scientificNameAuthorship = scientificNameAuthorship;
   }
 
+  protected void setScientificNameAndRankIfLowerOrEqual(Rank rank, String name){
+    if (getRank() == null || getRank().isHigherThan(rank) || getRank()==rank) {
+      scientificName = name;
+      this.rank = rank;
+      copyExtinctTmp();
+    }
+  }
+
   protected void setScientificNameAndRankIfLowest(Rank rank, String name){
     if (getRank() == null || getRank().isHigherThan(rank)) {
       scientificName = name;
@@ -254,7 +271,7 @@ abstract class TaxonInfoBase {
    * @param authorship
    */
   protected void setScientificNameAuthorship(Rank rank, String authorship){
-    if (rank == getRank()) {
+    if (rank == getRank() || (Rank.Infraspecies==rank && Rank.Infraspecies.isHigherThan(getRank()))) {
       scientificNameAuthorship = authorship;
     }
   }
@@ -285,6 +302,20 @@ abstract class TaxonInfoBase {
 
   public void setSpeciesEpithet(String speciesEpithet) {
     this.speciesEpithet = speciesEpithet;
+  }
+
+  public String getSpecies() {
+    return species;
+  }
+
+  public void setSpecies(String species) {
+    // can be an epithet or binomial
+    if (species.contains(" ") || species.contains(".")){
+      this.species = species;
+      setScientificNameAndRankIfLowest(Rank.Species, species);
+    } else {
+      setSpeciesEpithet(species);
+    }
   }
 
   public void setTaxStatus(String taxStatus) {

@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
  * http://en.wikipedia.org/wiki/Template:Species_list/doc
  * http://en.wikipedia.org/wiki/Template:Taxon_list
  * http://en.wikipedia.org/wiki/Template:Plainlist
+ * http://en.wikipedia.org/wiki/Template:Flatlist
  * http://en.wikipedia.org/wiki/Template:Collapsible_list
  *
  * http://simple.wikipedia.org/wiki/Template:Fossil_range/doc
@@ -58,13 +59,14 @@ public class TaxonboxWikiModel extends WikiModel {
   private final Set<String> CITATION_TEMPLATES = Sets.newHashSet("cite", "citeweb", "citebook", "citejournal");
   private final Set<String> FOSSIL_RANGE_TEMPLATES = Sets.newHashSet("fossilrange","geologicalrange", "longfossilrange");
   private final Set<String> SPECIES_LIST_TEMPLATES = Sets.newHashSet("specieslist", "taxonlist");
+  private final Set<String> PLAIN_LIST_TEMPLATES = Sets.newHashSet("plainlist", "flatlist");
   private final Logger log = LoggerFactory.getLogger(getClass());
   protected final String lang;
   private TaxonInfo info;
   private boolean multipleTaxa = false;
   private Map<String, String> unknownProperties = Maps.newHashMap();
   private Map<String, String> unknownTemplates = Maps.newHashMap();
-  private static final Pattern REPL_REF_TAG = Pattern.compile("< *ref>[^<>]+</ *ref *>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern REPL_REF_TAG = Pattern.compile("< *ref[a-zA-Z0-9 =\"\'_-]*>[^<>]+</ *ref *>", Pattern.CASE_INSENSITIVE);
   private static final Pattern IS_EXTINCT = Pattern.compile("[†‡]");
   private static final Pattern CLEAN_NAMES = Pattern.compile("[†‡\"'„“+|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
   private static final Pattern REMOVE_QUESTION_MARK = Pattern.compile("\\?");
@@ -131,9 +133,9 @@ public class TaxonboxWikiModel extends WikiModel {
         } else if (CITATION_TEMPLATES.contains(templateName)) {
           processCitation(parameterMap, writer);
 
-        } else if (templateName.equalsIgnoreCase("plainlist")) {
+        } else if (PLAIN_LIST_TEMPLATES.contains(templateName)) {
           if (parameterMap.containsKey("1")) {
-            return parameterMap.get("1");
+            return parameterMap.get("1").replaceAll("#", "*");
           }
           return "";
 
@@ -147,7 +149,7 @@ public class TaxonboxWikiModel extends WikiModel {
         } else{
           // log all other templates
           if (!unknownTemplates.containsKey(templateName)){
-            unknownTemplates.put(templateName, parameterMap.toString());
+            unknownTemplates.put(templateName, parameterMap==null ? "" : parameterMap.toString());
           }
           // remove all other templates
           return "";

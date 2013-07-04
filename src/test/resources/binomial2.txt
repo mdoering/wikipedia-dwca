@@ -1,0 +1,83 @@
+:''This article refers to the animal. For the Indonesian-made military vehicle, see [[Anoa (armoured personnel carrier)]].
+
+{{Taxobox
+| name = Anoa
+| status = EN
+| status_system = IUCN3.1
+| image = Lowland_Anoa_Drawing_historic.jpg
+| image_caption = Lowland Anoa
+| image_width = 300px
+| regnum = [[Animal]]ia
+| phylum = [[Chordate|Chordata]]
+| classis = [[Mammal]]ia
+| ordo = [[Artiodactyla]]
+| familia = [[Bovidae]]
+| subfamilia = [[Bovinae]]
+| genus = ''[[Bubalus]]''
+| species = '''''B. quarlesi'''''<br/>'''''B. depressicornis'''''
+| binomial = ''Bubalus quarlesi''
+| binomial_authority = (Ouwens, 1910)
+| binomial2 = ''Bubalus depressicornis''
+| binomial2_authority = (H. Smith, 1827)
+}}
+'''Anoa''', also known as '''midget buffalo''' and '''sapiutan''', are a subgenus of ''[[Bubalus]]'' comprising two species native to [[Indonesia]]: the '''mountain anoa''' (''Bubalus quarlesi'') and the '''lowland anoa''' (''Bubalus depressicornis''). Both live in undisturbed rainforest, and are essentially miniature [[Domestic buffalo|water buffalo]]. They are similar in appearance to a deer, weighing {{convert|150|-|300|kg|lb|abbr=on}}.
+
+Both are found on the island of [[Sulawesi]] and the nearby island of [[Buton]] in [[Indonesia]]. They apparently live singly or in pairs, rather than in herds like most cattle, except when the cows are about to give birth. One young is born per year.
+
+Both species of anoa have been classified as endangered since the 1960s, and the population continues to decrease.  Fewer than 5000 animals of each species likely remain.  Reasons for their decline include hunting for hide, horns and meat by the local peoples and loss of habitat due to the advancement of settlement.  Currently, hunting is the more serious factor in most areas.
+
+==Lowland anoa==
+[[Image:Lowland anoa.jpg|thumb|left|Lowland anoa]]
+The lowland anoa (''Bubalus depressicornis'') is a small bovid, standing barely over {{convert|90|cm|in|abbr=on}} at the shoulder. They are also known as ''anoa de Ilanura'' or ''anoa des plaines''. It is most closely allied to the larger Asiatic buffaloes, showing the same reversal of the direction of the hair on their backs. The horns are peculiar for their upright direction and comparative straightness, although they have the same triangular section as in other buffaloes. White spots are sometimes present below the eyes, and there may be white markings on the legs and back; the absence or presence of these white markings may be indicative of distinct races. The horns of the cows are very small. The nearest allies of the anoa appear to be certain extinct buffaloes, the remains of which are found in the Siwalik Hills of northern India. In habits, the animal appears to resemble the Indian buffalo. It is usually solitary, living in lowland [[tropical rainforest|forests]] and wetlands, browsing on plants and understory.
+
+==Mountain anoa==
+Mountain anoa (''Bubalus quarlesi'') are also known as ''anoa de montana'', ''anoa de Quarle, anoa des montagnes, anoa pegunungan,'' and Quarle's anoa. Standing at {{convert|70|cm|in|abbr=on}} at the shoulder, it is even smaller than the lowland anoa and the smallest of all [[Bovini|wild cattle]]. They also have longer, woolier hair that moults every February to April, showing faint spots on the head, neck and limbs.<ref name="ARKive">[http://www.arkive.org/mountain-anoa/bubalus-quarlesi ARKive - Mountain anoa videos, photos and facts]</ref>
+
+[[Image:AnoaLyd.jpg|left|thumb]]
+
+==References==
+{{reflist|2}}
+
+==External links==
+{{commonscat|Bubalus depressicornis}}
+{{commonscat|Bubalus quarlesi}}
+* [http://www.wildcattleconservation.org/SpeciesFactSheets/bubalus-depressicornis.html Lowland Anoa ''bubalus depressicornis'' Smith] from [http://www.wildcattleconservation.org wildcattleconservation.org]
+*ARKive - [http://www.arkive.org/species/GES/mammals/Bubalus_quarlesi/ images and movies of the mountain anoa ''(Bubalus quarlesi)'']
+
+{{Artiodactyla|R.4}}
+
+[[Category:Bovines]]
+[[Category:Mammals of Asia]]
+[[Category:Megafauna of Eurasia]]
+[[Category:Mammals of Indonesia]]
+[[Category:Endemic fauna of Indonesia]]
+
+[[av:Аноа]]
+[[az:Cırtdan camış]]
+[[br:Anoa ar plaenennoù]]
+[[ca:Anoa de plana]]
+[[cs:Anoa]]
+[[de:Flachland-Anoa]]
+[[nv:Hodíłchʼil ayáníchilí]]
+[[es:Bubalus depressicornis]]
+[[eu:Anoa]]
+[[fr:Bubalus depressicornis]]
+[[id:Anoa]]
+[[it:Bubalus depressicornis]]
+[[he:אנואה השפלה]]
+[[jv:Anoa]]
+[[ka:ანოა]]
+[[lez:Аноа]]
+[[lt:Mažasis buivolas]]
+[[hu:Alföldi anoa]]
+[[nl:Anoa]]
+[[ja:アノア]]
+[[mhr:Аноа]]
+[[pl:Anoa nizinny]]
+[[ru:Аноа]]
+[[sr:Низијска аноа]]
+[[fi:Anoa]]
+[[sv:Låglandsanoa]]
+[[udm:Аноа]]
+[[uk:Аноа]]
+[[zh:倭水牛]]

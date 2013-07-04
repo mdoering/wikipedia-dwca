@@ -15,7 +15,7 @@
  */
 package org.tdwg.dwca.wikipedia;
 
-import org.gbif.api.model.vocabulary.Language;
+import org.gbif.api.vocabulary.Language;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

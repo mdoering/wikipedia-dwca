@@ -15,8 +15,8 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import org.gbif.api.model.vocabulary.Kingdom;
-import org.gbif.api.model.vocabulary.Language;
+import org.gbif.api.vocabulary.Kingdom;
+import org.gbif.api.vocabulary.Language;
 
 import java.util.Map;
 import java.util.Set;

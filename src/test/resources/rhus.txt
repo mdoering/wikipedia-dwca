@@ -1,0 +1,247 @@
+{{other uses}}
+{{taxobox
+|name = Sumac
+|image = SumacFruit.JPG
+|image_caption = Sumac fruit in fall
+|regnum = [[Plant]]ae
+|unranked_divisio = [[Flowering plant|Angiosperms]]
+|unranked_classis = [[Eudicots]]
+|unranked_ordo = [[Rosids]]
+|ordo = [[Sapindales]]
+|familia = [[Anacardiaceae]]
+|subfamilia = [[Anacardioideae]]
+|genus = '''''Rhus (syn. Searsia)'''''
+|genus_authority = [[Carl Linnaeus|L.]]<ref name="GRIN">{{cite web |url=http://www.ars-grin.gov/cgi-bin/npgs/html/genus.pl?10433
+|title=''Rhus'' L. |work=Germplasm Resources Information Network |publisher=United States Department of Agriculture |date=2009-11-23 |accessdate=2010-02-09}}</ref>
+|type_species = ''[[Rhus coriaria]]''
+|type_species_authority = [[Carl Linnaeus|L.]]<!--1753--><ref>{{cite web |url=http://www.tropicos.org/Name/40025260 |title=''Rhus'' L. |work=TROPICOS |publisher=Missouri Botanical Garden |accessdate=2010-02-09}}</ref>
+|subdivision_ranks = Species
+|subdivision = About 250 species; see text
+|}}
+
+'''Sumac''' ({{IPAc-en|icon|ˈ|sj|uː|m|æ|k}} or {{IPAc-en|ˈ|ʃ|uː|m|æ|k}}; also spelled '''sumach''') is any one of approximately 250 species of [[flowering plant]]s in the [[genus]] '''''Rhus''''' and related genera, in the family [[Anacardiaceae]]. Sumacs grow in [[Subtropics|subtropical]] and [[temperate]] regions throughout the world, especially in [[Africa]] and [[North America]].<ref>[http://www.efloras.org/florataxon.aspx?flora_id=2&taxon_id=128455 12. Rhus Linnaeus], ''Flora of China''</ref><ref>[http://plants.usda.gov/java/profile?symbol=RHUS Rhus L.], USDA PLANTS</ref>
+
+Sumacs are [[shrub]]s and small [[tree]]s that can reach a height of {{convert|1|-|10|m|ft}}. The [[leaf|leaves]] are spirally arranged; they are usually [[Pinnate|pinnately compound]], though some species have trifoliate or simple leaves. The [[flower]]s are in dense [[panicle]]s or spikes {{convert|5|-|30|cm|in}} long, each flower very small, greenish, creamy white or red, with five petals. The [[fruit]]s form dense clusters of reddish [[drupe]]s called sumac bobs. The dried drupes of some species are ground to produce a tangy purple spice.<ref name="taste">Sumac is also used as a tea substitute by boiling the dried leaves.[http://www.taste.com.au/how+to/articles/52/sumac Sumac - Ingredients - Taste.com.au<!-- Bot generated title -->]</ref><ref>[http://landscaping.about.com/cs/landscapecolor/a/sumac.htm Poison Sumach and Good Sumac Shrubs<!-- Bot generated title -->]</ref>
+
+Sumacs propagate both by [[seed]] ([[Seed dispersal#Dispersal by animals|spread]] by [[bird]]s and other animals through their [[feces|droppings]]), and by new [[shoot]]s from [[rhizome]]s, forming large [[Clonal colony|clonal colonies]].<br clear = left>
+
+The word ''sumac'' traces its etymology from Old French ''sumac'' (13th century), from Medieval Latin ''sumach'', from Arabic ''{{transl|ar|summāq}}'' ({{lang|ar|سماق}}), from [[Syriac language|Syriac]] ''{{transl|syc|summāq}}'' ({{lang|syc|ܣܘܡܩ}}) - meaning "red."<ref>Etymology of Sumac at [http://www.etymonline.com/index.php?search=sumac Etymonline.com] and also at [http://www.scribd.com/doc/14047074/Dictionary-English-Etymology-Origins-A-Short-Etymological-Dictionary-of-Modern-English-Rouledge-1958-Parridge] and [http://www.archive.org/details/etymologicaldict00weekuoft/]. Etymology of Rhus at {{cite book |url=http://books.google.com/?id=zIOvJSJs-IkC |first=Umberto |last=Quattrocchi |title=CRC World Dictionary of Plant Names: Common Names, Scientific Names, Eponyms, Synonyms, and Etymology |volume=IV R-Z |year=2000 |publisher=Taylor & Francis US |isbn=978-0-8493-2678-3 |page=2306}}</ref>
+
+
+==Cultivation and uses==
+
+[[File:Sumac.jpg|thumb|180px|Sumac spice]]
+The fruits ([[drupe]]s) of the genus ''Rhus'' are ground into a deep-red or purple powder used as a [[spice]] in [[Middle Eastern cuisine]] to add a [[lemon]]y taste to salads or meat.<ref name="taste" /> In [[Arab cuisine]], it is used as a garnish on [[meze]] dishes such as [[hummus]] and is added to salads in the [[Levant]]. In [[Iranian cuisine|Iranian]] (Persian and [[Kurdish cuisine|Kurdish]]) cuisine, sumac is added to rice or [[kebab]]. In [[Turkish cuisine]], it is added to salad-servings of kebabs and [[lahmacun]]. ''[[Rhus coriaria]]'' is used in the spice mixture [[za'atar]].
+[[File:Matches_from_morocco.jpg|thumb|left|150px|Japan wax matches from Morocco. Sumac wax melts at a higher temperature than paraffin, making it suitable for use in hot countries]]
+In [[East Asia]], in particular in [[Japan]], traditional [[Japan wax |candle fuel]] was produced from [[rhus verniciflua]] and [[rhus succedanea]], among other sumac plants, rather than beeswax or animal fats. The sumac wax was a byproduct of traditional [[Japanese lacquer]] manufacture. The conical [[rousoku]] candles produced from sumac wax burn with smokeless flame and were favored in many respects over candles made from [[lard]] or [[beeswax]] during the [[Tokugawa shogunate]]. The [[Japan wax]] itself is not a true wax but a solid fat that contains 10-15% palmitin, stearin, and olein with about 1% japanic acid (1,21-heneicosanedioic acid). It is still used in many tropical and subtropical countries in the production of wax match sticks.
+
+In North America, the Smooth Sumac (''[[Rhus glabra|R. glabra]]'') and the Staghorn Sumac (''[[Rhus typhina|R. typhina]]'') are sometimes used to make a beverage termed "sumac-ade," "Indian lemonade" or "rhus juice". This drink is made by soaking the drupes in cool water, rubbing them to extract the essence, straining the liquid through a cotton cloth and sweetening it. Native Americans also used the leaves and drupes of the Smooth and Staghorn Sumacs combined with [[tobacco]] in traditional smoking mixtures.
+
+Species including the Fragrant Sumac (''[[Rhus aromatica|R. aromatica]]''), the Littleleaf Sumac (''[[Rhus microphylla|R. microphylla]]''), the Skunkbush Sumac (''R. trilobata''), the Smooth Sumac and the Staghorn Sumac are grown for [[Ornamental plant|ornament]], either as the wild types or as [[cultivar]]s.
+
+The leaves of certain sumacs yield [[tannin]] (mostly [[pyrogallol-type tannin|pyrogallol]]-type), a substance used in vegetable [[tanning]]. Notable sources include the leaves of ''R. coriaria'', Chinese gall on ''[[Rhus chinensis|R. chinensis]]'', and wood and roots of [[Rhus pentaphylla|R. pentaphylla]]. [[Leather]] tanned with sumac is flexible, light in weight, and light in color. One type of leather made with sumac tannins is [[morocco leather]].{{citation needed|date=January 2012}}
+
+Sumac was used as a treatment for half a dozen different ailments in medieval medicine, primarily in Islamic countries (where sumac was more readily available than in Europe). An 11th-century shipwreck off the coast of [[Rhodes]], excavated by archeologists in the 1970s, contained commercial quantities of sumac drupes. These could have been intended for use as medicine, or as a culinary spice, or as a dye.<ref>[http://books.google.co.uk/books?id=E6ZJ-05aC-sC&pg=PA506&lpg=PA506&dq=sumac&source=bl&ved=0CB4Q6AEwAg#v=onepage&q=sumac&f=false Archaeology report of sumac goods in the sunken medieval ship at]</ref>
+
+Some beekeepers use dried sumac bobs as a source of fuel for their smokers.{{citation needed|date=January 2012}}
+
+Sumac stems also have a soft pith in the center that is useful in traditional  native American pipemaking. They were commonly used as pipe stems in the northern United States.{{citation needed|date=January 2012}}
+
+Dried sumac wood [[Fluorescence|fluoresces]] under long-wave [[ultraviolet]] radiation, commonly known as [[black light]].<ref>{{cite book |url=http://books.google.com/?id=zjJTsHvHoZ0C |title=Understanding Wood: a Craftsman's Guide to Wood Technology |first=R. Bruce |last=Hoadley |edition=2 |publisher=Taunton Press |year=2000 |isbn=978-1-56158-358-4 |chapter=Chapter 5: Other Properties of Wood |pages=105–107}}</ref>
+
+==Toxicity and control==
+
+Some species, such as [[Poison ivy]] (''Rhus toxicodendron'', [[syn.]]''Toxicodendron radicans''), Poison oak (''Rhus diversiloba'', syn. ''[[Toxicodendron diversilobum]]'') and [[Poison sumac]] (''Rhus vernix'', syn. ''Toxicodendron vernix''), have the allergen [[urushiol]] and can cause severe allergic reactions. Poison sumac may be  identified by its white [[drupe]]s.
+
+Mowing of sumac is not a good control measure, since the wood is springy, resulting in jagged, sharp pointed stumps when mowed. The plant will quickly recover with new growth after mowing.<ref>{{cite journal |url=http://ianrpubs.unl.edu/range/g1319.htm |first=John |last=Ortmann |coauthors=Katherine L. Miles; James Stubbendieck; Walter H. Schacht |title=Management of Smooth Sumac on Grasslands |publisher=University of Nebraska-Lincoln |year=2000}}{{Dead link|date=December 2011}}</ref> [[Goats]] have long been considered an efficient and quick removal method as they eat the bark, which helps prevent new shoots.
+
+==Taxonomy==
+[[File:Sumac-Drupes.JPG|thumb|150px|Drupes of a [[Staghorn Sumac]] in Coudersport, PA]]
+[[File:Rhus typhina.JPG|thumb|150px|A young branch of [[Staghorn Sumac]]]]
+[[File:Rhulan01.jpg|thumb|150px|''Rhus lancea'' fruit]]
+[[File:Sumac bob 3568.JPG|thumb|right|150px|[[Staghorn Sumac]] bob, Hamilton, Ontario]]
+[[File:Rhus copallinum.jpg|thumb|150px|Winged Sumac leaves and flowers]]
+[[File:Rhus malloryi 01.jpg|thumb|150px|right|''[[Rhus malloryi]]'' fossil]]
+At times ''Rhus'' has held over 250 species.  Recent [[molecular phylogeny]] research suggests breaking ''Rhus'' [[sensu lato]] into ''[[Actinocheita]]'', ''[[Baronia (plant)|Baronia]]'', ''[[Cotinus]]'', ''[[Malosma]]'', ''[[Searsia]]'', ''[[Toxicodendron]]'', and  ''Rhus'' sensu stricto.  If this is done, about 35 species would remain in ''Rhus''.  However, the data are not yet clear enough to settle the proper placement of all species into these genera.<ref>{{cite journal | title = Phylogeny and Biogeography of Rhus (Anacardiaceae) Based on ITS Sequence Data | first = Allison J. | last = Miller |coauthors=David A. Young; Jun Wen | journal = International Journal of Plant Sciences | volume = 162 | year = 2001 | pages = 1401–1407 | doi = 10.1086/322948 | issue = 6}}</ref><ref>{{cite journal | url = http://etd.lsu.edu/docs/available/etd-04152004-101232/  | title=Molecular Systematics of the Cashew Family (Anacardiaceae) |publisher=[[Louisiana State University]] | first=Susan Katherine |last=Pell | date=2004-02-18 |pages =103–108}}</ref>
+
+===Selected species===
+{|
+|- valign=top
+|
+;Africa:
+*''[[Rhus acocksii]]'' <small>Moffett</small>
+*''[[Rhus albomarginata]]'' <small>Sond.</small>
+*''[[Rhus angustifolia]]'' <small>L.</small>
+*''[[Rhus batophylla]]'' <small>Codd</small>
+*''[[Rhus baurii]]'' <small>Schönl.</small>
+*''[[Rhus bolusii]]'' <small>Sond. ex Engl.</small>
+*''[[Rhus burchellii]]'' <small>Sond. ex Engl.</small>
+*''[[Rhus carnosula]]'' <small>Schönl.</small>
+*''[[Rhus chirindensis]]'' <small>Bakh.f.</small>
+*''[[Rhus ciliata]]'' <small>Licht. ex Schult.</small>
+*''[[Rhus crenata]]'' <small>Thunb.</small>
+*''[[Rhus cuneifolia]]'' <small>L.</small>
+*''[[Rhus dentata]]'' <small>Thunb.</small>
+*''[[Rhus discolor]]'' <small>E.Mey. ex Sond.</small>
+*''[[Rhus dissecta]]'' <small>Thunb.</small>
+*''[[Rhus divaricata]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus dracomontana]]'' <small>Moffett</small>
+*''[[Rhus dregeana]]'' <small>Sond.</small>
+*''[[Rhus dura]]'' <small>Schönl.</small>
+*''[[Rhus engleri]]'' <small>Britt.</small>
+*''[[Rhus erosa]]'' <small>Thunb.</small>
+*''[[Rhus fastigiata]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus gerrardii]]'' <small>(Harv. ex Engl.) Diels.</small>
+*''[[Rhus glauca]]'' <small>Thunb.</small>
+*''[[Rhus gracillima]]'' <small>Engl.</small>
+*''[[Rhus grandidens]]'' <small>Harv. ex Engl.</small>
+*''[[Rhus gueinzii]]'' <small>Sond.</small>
+*''[[Rhus harveyi]]'' <small>Moffett</small>
+*''[[Rhus horrida]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus incisa]]'' <small>L.f.</small>
+*''[[Rhus kirkii]]'' <small>Oliv.</small>
+*''[[Rhus keetii]]'' <small>Schönl.</small>
+*''[[Rhus krebsiana]]'' <small>Presl ex Engl.</small>
+*''[[Rhus laevigata]]'' <small>L.</small>
+*''[[Rhus lancea]]'' <small>L.f.</small> ([[syn.]] ''Searsia lancea'')
+*''[[Rhus leptodictya]]'' <small>Diels.</small>
+*''[[Rhus loemnodia]]'' <small>Ruckt.</small>
+*''[[Rhus longispina]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus lucens]]'' <small>Hutch.</small>
+*''[[Rhus lucida]]'' <small>L.</small>
+*''[[Rhus macowanii]]'' <small>Schönl.</small>
+*''[[Rhus magalismontana]]'' <small>Sond.</small>
+*''[[Rhus maricoana]]'' <small>Moffett</small>
+*''[[Rhus marlothii]]'' <small>Engl.</small>
+*''[[Rhus microcarpa]]'' <small>Schönl.</small>
+*''[[Rhus montana]]'' <small>Diels</small>
+*''[[Rhus natalensis]]'' <small>Bernh. ex Krauss</small>
+*''[[Rhus nebulosa]]'' <small>Schönl.</small>
+*''[[Rhus pallens]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus pendulina]]'' <small>Jacq.</small>
+*''[[Rhus pentheri]]'' <small>Zahlbr.</small>
+*''[[Rhus pondoensis]]'' <small>Schönl.</small>
+*''[[Rhus populifolia]]'' <small>E.Mey. ex Sond.</small>
+*''[[Rhus problematodes]]'' <small>Merxm. & Roessl.</small>
+*''[[Rhus pterota]]'' <small>Presl</small>
+*''[[Rhus pygmaea]]'' <small>Moffett</small>
+*''[[Rhus pyroides]]'' <small>Burch.</small>
+*''[[Rhus quartiniana]]'' <small>A.Rich.</small>
+*''[[Rhus refracta]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus rehmanniana]]'' <small>Engl.</small>
+*''[[Rhus rigida]]'' <small>Mill.</small>
+*''[[Rhus rimosa]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus rogersii]]'' <small>Schönl.</small>
+*''[[Rhus rosmarinifolia]]'' <small>Vahl</small>
+*''[[Rhus rudatisii]]'' <small>Engl.</small>
+*''[[Rhus scytophylla]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus sekhukhuniensis]]'' <small>Moffett</small>
+*''[[Rhus stenophylla]]'' <small>Eckl. & Zeyh.</small>
+*''[[Rhus tenuinervis]]'' <small>Engl.</small>
+*''[[Rhus tomentosa]]'' <small>L.</small>
+*''[[Rhus transvaalensis]]'' <small>Engl.</small>
+*''[[Rhus tridactyla]]'' <small>Burch.</small>
+*''[[Rhus tumulicola]]'' <small>S.Moore</small>
+*''[[Rhus undulata]]'' <small>Jacq.</small>
+*''[[Rhus volkii]]'' <small>Suesseng.</small>
+*''[[Rhus wilmsii]]'' <small>Diels.</small>
+*''[[Rhus zeyheri]]'' <small>Sond.</small>
+*[[Rhus sp. nov. A|''Rhus'' sp. nov. A]] <small></small> ([[Yemen]]'s [[Socotra|Socotra Archipelago]])<ref>Miller, A. 2004.  [http://www.iucnredlist.org/search/details.php/44736/all ''Rhus sp. nov. A''].   [http://www.iucnredlist.org 2006 IUCN Red List of Threatened Species. ]  Downloaded on 23 August 2007.</ref>
+|
+;Asia:
+*''[[Rhus chinensis]]'' <small>[[Philip Miller|Mill.]]</small> - Chinese Sumac
+*''[[Rhus hypoleuca]]''
+*''[[Rhus javanica]]''
+*''[[Rhus punjabensis]]'' <small></small> - Punjab Sumac
+*''Rhus verniciflua'' ([[syn.]] ''[[Toxicodendron vernicifluum]]'', Lacquer Tree)
+*''Rhus succedanea'' (syn. ''[[Toxicodendron succedaneum]]'')
+
+;Australia, Pacific:
+*''[[Rhus taitensis]]'' <small>[[Jean Baptiste Antoine Guillemin|Guill.]]</small> (Northeast [[Australia]], [[Malesia]], [[Micronesia]], [[French Polynesia]])
+* ''[[Rhus sandwicensis]]'' <small>[[Asa Gray|A.Gray]]</small> - ''Neneleau'' ([[Hawaii]])
+
+;Mediterranean Basin:
+*''[[Rhus coriaria]]'' <small></small> - Tanner's Sumac
+*''[[Rhus pentaphylla]]'' <small></small>
+*''[[Rhus tripartita]]'' <small></small>
+
+;Eastern North America:
+*''[[Rhus aromatica]]'' <small></small> - Fragrant Sumac
+*''[[Rhus copallina]]'' <small></small> - Winged or Shining Sumac
+*''[[Rhus glabra]]'' <small></small> - Smooth Sumac
+*''[[Rhus lanceolata]]'' <small></small> - Prairie Sumac
+*''[[Rhus michauxii]]'' <small></small> - Michaux's Sumac
+*''[[Rhus typhina]]'' <small></small> - Staghorn Sumac
+*''Rhus toxicodendron'' <small></small> ([[syn.]] ''Toxicodendron radicans'', [[poison ivy]])
+*''Rhus vernix'' (syn. ''Toxicodendron vernix'', [[poison sumac]])
+
+;Western North America:
+*''[[Rhus choriophylla]]'' <small></small> - Mearn's Sumac (Arizona, [[New Mexico]])
+*''Rhus diversiloba'' <small></small> ([[syn.]] ''Toxicodendron diversilobum'', - [[poison oak]])
+*''Rhus laurina'' <small></small> ([[syn.]] ''[[Malosma|Malosma laurina]]'') - Laurel Sumac
+*''[[Rhus integrifolia]]'' <small></small> - Lemonade Sumac
+*''[[Rhus glabra]]'' <small></small> - Smooth Sumac
+*''[[Rhus kearneyi]]'' - Kearney Sumac
+*†''[[Rhus malloryi]]'' <small>[[Jack A. Wolfe|Wolfe]] & [[Wesley C. Wehr|Wehr]]<!--1987--></small> [[Eocene]]
+*''[[Rhus microphylla]]'' <small></small> - Desert Sumac, Littleleaf Sumac
+*''[[Rhus ovata]]'' <small></small> - Sugar Sumac
+*''[[Rhus trilobata]]'' <small>[[Thomas Nuttall|Nutt.]]</small> - Skunkbush Sumac
+*''[[Rhus virens]]'' <small></small> - Evergreen Sumac
+
+;Mexico and Central America:
+*''[[Rhus muelleri]]'' <small></small> - Müller's Sumac (northeast Mexico)
+|}
+
+==See also==
+*[[List of Southern African indigenous trees]]
+*[[Za'atar]]
+
+==References==
+{{Reflist|2}}
+
+== Bibliography ==
+{{refbegin}}
+* RO Moffett. ''A Revision of Southern African Rhus species''  FSA (Flora of South Africa) vol 19 (3) Fascicle 1.
+* Schmidt, E., Lotter, M., & McCleland, W. (2002). ''Trees and Shrubs of Mpumalanga and Kruger National Park''. Jacana. ISBN 1-919777-30-X.
+{{refend}}
+
+==External links==
+{{commons category|Rhus}}
+{{wikispecies|Rhus}}
+*[http://data.gbif.org/species/13192654 Global Biodiversity Information Facility portal: ''Rhus'']
+
+{{Herbs & spices}}
+
+[[Category:Arabic loanwords]]
+[[Category:Rhus| ]]
+[[Category:Spices]]
+
+[[ar:سماق]]
+[[az:Sumaq]]
+[[ca:Sumac]]
+[[cs:Škumpa]]
+[[da:Sumak]]
+[[de:Rhus]]
+[[nv:Kʼįįʼ]]
+[[es:Rhus]]
+[[eo:Sumako]]
+[[eu:Zumake]]
+[[fa:سماق]]
+[[fr:Rhus]]
+[[hsb:Sumak]]
+[[io:Sumako]]
+[[it:Rhus]]
+[[he:אוג (צמח)]]
+[[ka:თუთუბო]]
+[[ku:Simaq]]
+[[lt:Žagrenis]]
+[[nl:Sumak (geslacht)]]
+[[pl:Sumak]]
+[[pt:Rhus]]
+[[ru:Сумах]]
+[[simple:Sumac]]
+[[fi:Sumakit]]
+[[sv:Sumaksläktet]]
+[[tr:Sumak]]
+[[uk:Сумах]]
+[[zh:盐肤木属]]

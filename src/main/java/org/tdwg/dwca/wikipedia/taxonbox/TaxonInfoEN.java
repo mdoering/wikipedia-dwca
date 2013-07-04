@@ -16,8 +16,8 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
 
-import org.gbif.api.model.vocabulary.Kingdom;
-import org.gbif.api.model.vocabulary.Language;
+import org.gbif.api.vocabulary.Kingdom;
+import org.gbif.api.vocabulary.Language;
 
 import java.util.Map;
 import java.util.Set;
@@ -51,7 +51,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setBinomial(String binomial) {
-    setScientificNameAndRankIfLowest(Rank.Species, binomial);
+    setScientificNameAndRankIfLowerOrEqual(Rank.Species, binomial);
   }
 
   /**
@@ -150,15 +150,6 @@ public class TaxonInfoEN extends TaxonInfoBase{
 
   public void setSubfamilia(String familia) {
     setScientificNameAndRankIfLowest(Rank.Subfamily, familia);
-  }
-
-  public void setSpecies(String species) {
-    // can be an epithet or binomial
-    if (species.contains(" ")){
-      setScientificNameAndRankIfLowest(Rank.Species, species);
-    } else {
-      setSpeciesEpithet(species);
-    }
   }
 
   public void setRegnum_authority(String authorship) {
@@ -270,12 +261,13 @@ public class TaxonInfoEN extends TaxonInfoBase{
 
 
   public void setBinomial2(String binomial2) {
-    //TODO: do sth useful with this
-    log.debug("Binomial2 found: {} With current name {}", binomial2, getScientificName());
+    //TODO: create second taxon with the same infos but different species name and authority
+    log.debug("Binomial2 found: {} with current name {}", binomial2, getScientificName());
   }
   public void setBinomial2_authority(String binomial_authority2) {
     //TODO: do sth useful with this
   }
+
   public void setBinomial_authority2(String binomial_authority2) {
     setBinomial2_authority(binomial_authority2);
   }

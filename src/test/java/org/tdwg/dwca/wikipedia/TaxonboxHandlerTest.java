@@ -1,6 +1,6 @@
 package org.tdwg.dwca.wikipedia;
 
-import org.gbif.api.model.vocabulary.Language;
+import org.gbif.api.vocabulary.Language;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.text.DwcaWriter;
 import org.gbif.utils.file.FileUtils;
@@ -136,5 +136,77 @@ public class TaxonboxHandlerTest {
     assertEquals("Apatosaurus", taxon.getVernacularNames().get("es"));
     assertEquals("Late Jurassic, 154-150 Ma", taxon.getFossilRange());
   }
+
+
+  @Test
+  public void testBinomial2() throws Exception {
+    TaxonInfo taxon = processPage("Anoa", "binomial2.txt", Language.ENGLISH);
+
+    assertEquals("Bubalus quarlesi", taxon.getScientificName());
+    assertEquals("(Ouwens, 1910)", taxon.getScientificNameAuthorship());
+    assertEquals("Animalia", taxon.getKingdom());
+    assertEquals("Chordata", taxon.getPhylum());
+    assertEquals("Mammalia", taxon.getClazz());
+    assertEquals("Artiodactyla", taxon.getOrder());
+    assertEquals("Bovidae", taxon.getFamily());
+    assertEquals("Bubalus", taxon.getGenus());
+    assertEquals(Rank.Species, taxon.getRank());
+    assertEquals("Anoa", taxon.getVernacularNamesInDefaultLang().iterator().next());
+    assertEquals(29, taxon.getVernacularNames().size());
+    assertEquals("Flachland-Anoa", taxon.getVernacularNames().get("de"));
+    assertEquals("Аноа", taxon.getVernacularNames().get("av"));
+    assertNull(taxon.getFossilRange());
+  }
+
+  @Test
+  public void testFabaceae() throws Exception {
+    TaxonInfo taxon = processPage("Fabaceae", "fabaceae.txt", Language.ENGLISH);
+
+    assertEquals("Fabaceae", taxon.getScientificName());
+    //TODO: fix assertions, type_genus
+  }
+
+  /**
+   * http://en.wikipedia.org/wiki/Red_wolf
+   */
+  @Test
+  public void testWolf() throws Exception {
+    TaxonInfo taxon = processPage("Red_wolf", "red_wolf.txt", Language.ENGLISH);
+
+    assertEquals("Canis lupus rufus", taxon.getScientificName());
+    assertEquals("Audubon & Bachman, 1851", taxon.getScientificNameAuthorship());
+    assertEquals("Animalia", taxon.getKingdom());
+    assertEquals("Chordata", taxon.getPhylum());
+    assertEquals("Mammalia", taxon.getClazz());
+    assertEquals("Carnivora", taxon.getOrder());
+    assertEquals("Canidae", taxon.getFamily());
+    assertEquals("Canis", taxon.getGenus());
+    assertEquals(Rank.Subspecies, taxon.getRank());
+  }
+
+  /**
+   * http://en.wikipedia.org/wiki/Sumac
+   */
+  @Test
+  public void testRhus() throws Exception {
+    TaxonInfo taxon = processPage("Sumac", "rhus.txt", Language.ENGLISH);
+  }
+
+  /**
+   * http://en.wikipedia.org/wiki/Pansy
+   */
+  @Test
+  public void testPansy() throws Exception {
+    TaxonInfo taxon = processPage("Pansy", "pansy.txt", Language.ENGLISH);
+  }
+
+  /**
+   * http://en.wikipedia.org/wiki/Mirror_carp
+   */
+  @Test
+  public void testCyprinus() throws Exception {
+    TaxonInfo taxon = processPage("Mirror_carp", "cyprinus.txt", Language.ENGLISH);
+  }
+
 
 }

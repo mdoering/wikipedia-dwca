@@ -1,0 +1,49 @@
+{{Taxobox
+| name               = Mirror carp
+| status             = DOM
+| image              = Mirror carp 2008 G1.jpg
+| image_width        = 220px
+| regnum             = [[Animal]]ia
+| phylum             = [[Chordate|Chordata]]
+| classis            = [[Actinopterygii]]
+| ordo               = [[Cypriniformes]]
+| familia            = [[Cyprinidae]]
+| genus              = ''[[Cyprinus]]''
+| species            = '''''[[Cyprinus carpio|C. carpio]]'''''
+| subspecies         = '''''C. c. carpio'''''
+| trinomial           = ''[[Cyprinus carpio carpio]]''
+| trinomial_authority = ([[Carolus Linnaeus|Linnaeus]], 1758)
+}}
+
+'''Mirror carp''' are a type of [[fish]], commonly found in the [[United Kingdom]] and [[Europe]]. The name "Mirror Carp" originates from their scales' resemblance to [[mirror]]s. They can grow in excess of 60[[Pound (mass)|lb]] - the last few British record fish have all been mirror carp.
+
+The difference between mirror and [[common carp]] is both genetic and visual - biologically they are similar. The mirror carp was the first [[mutation]] of common carp, owing to two alternative genes, the S allele and the N allele. The genetic term for a mirror carp is "ssnn" (all minor). Common carp have an even, regular scale pattern, whereas mirrors have irregular and patchy scaling, making many fish unique and possible to identify individual fish by sight, leading to most carp in the UK over 40&nbsp;lb being nicknamed.  This lack of scales is widely believed to have been bred in by [[monk]]s in order to make the fish easier to prepare for the table. The current British record (as of December 13, 2009) is a carp known as 'Two tone' due to its colouration, caught from [[Conningbrook Lake]] in [[Kent]] and weighing in at 67&nbsp;lb 14oz (30.45&nbsp;kg).'Two Tone' was found dead in his lake on August 14, 2010. The current world record (as of November 2010) stands at 99lb (45kg), caught from [[Luke Moffat's Les Graviers]] near to [[Dijon]] in [[France]].
+
+Contrary to popular belief, [[Leather carp]] are not Mirror carp without scales; there is a distinct genetic difference. Leather carp are permitted a few scales; however, the dorsal row of scales is either absent or incomplete. Leathers also have reduced numbers of red blood cells, slowing growth rates.
+
+==See also==
+* [[Carp]]
+
+==References==
+* [http://www.fishbase.org/Summary/FamilySummary.cfm?id=122 Family Cyprinidae - Minnows or carps at FishBase.org]
+
+==External links==
+{{Citation style|date=September 2009}}
+* [http://www.fishingeye.co.uk Carp Fishingeye - information about Mirror carp fishing]
+* [http://www.farnhamanglingsociety.com  Galleries of Mirror & Common carp & UK carp fishing venues]
+* [http://www.carp-fishingholidayfrance.co.uk  Photographs of Mirror carp caught at fishing venue in France]
+* [http://www.carpcorner.co.uk/Conningbrook-Mid-Kent-Fishery-Carp-Fishing-Austin-Holness.html  The British Record Mirror Carp]
+
+{{DEFAULTSORT:Mirror Carp}}
+[[Category:Carp]]
+
+{{cyprinidae-stub}}
+
+[[ko:향어]]
+[[ja:カガミゴイ]]
+[[fr:Carpe miroir]]
+[[de:Spiegelkarpfen]]
+[[it:carpa specchio]]
+[[fi:Peilikarppi]]
+[[sv:Spegelkarp]]
+[[uk:Дзеркальний короп]]

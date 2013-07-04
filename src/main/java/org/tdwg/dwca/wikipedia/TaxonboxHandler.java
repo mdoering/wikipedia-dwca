@@ -1,6 +1,6 @@
 package org.tdwg.dwca.wikipedia;
 
-import org.gbif.api.model.vocabulary.Language;
+import org.gbif.api.vocabulary.Language;
 import org.gbif.dwc.terms.ConceptTerm;
 import org.gbif.dwc.terms.DcTerm;
 import org.gbif.dwc.terms.DwcTerm;
@@ -149,7 +149,7 @@ public class TaxonboxHandler implements IArticleFilter {
     taxon.postprocess(page, lang);
 
     if (taxon.getScientificName() == null) {
-      log.info("No scientific name found in taxon page {}. Use article {} instead", WikipediaUtils.getWikiLink(lang, page.getTitle()), page.getTitle());
+      log.info("No scientific name found in infobox of page {}. Using article title {} as name", WikipediaUtils.getWikiLink(lang, page.getTitle()), page.getTitle());
       taxon.setScientificName(page.getTitle());
     }
 

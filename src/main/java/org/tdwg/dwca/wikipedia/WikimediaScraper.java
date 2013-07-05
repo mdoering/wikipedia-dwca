@@ -23,8 +23,8 @@ public class WikimediaScraper {
   private final Set<String> newLicenses = Sets.newHashSet();
 
   public WikimediaScraper() {
-    licenses.put("pd", "Public domain");
-    licenses.put("pd-self", "Public domain");
+    licenses.put("pd", "Public Domain");
+    licenses.put("pd-self", "Public Domain");
     licenses.put("gfdl", "GNU Free Documentation License");
     licenses.put("fal", "Free Art License");
     licenses.put("odc", "Open Data Commons");
@@ -103,15 +103,7 @@ public class WikimediaScraper {
       Element catFooter = doc.getElementById("mw-hidden-catlinks");
       Elements hiddenCategories = catFooter.getElementsByTag("a");
       for (Element a : hiddenCategories) {
-        String v = a.text().toLowerCase();
-        if (this.licenses.containsKey(v)) {
-          if (Strings.isNullOrEmpty(img.getLicense())) {
-            img.setLicense(this.licenses.get(v));
-          }
-        } else if (!newLicenses.contains(v)) {
-          LOG.info("Unknown license: " + v);
-          newLicenses.add(v);
-        }
+        setLicense(img, a.text());
       }
     }
   }
@@ -119,6 +111,28 @@ public class WikimediaScraper {
   public void logNewLicenses() {
     for (String l : newLicenses) {
       LOG.info("Unknown license: " + l);
+    }
+  }
+
+  /**
+   * Sets a license if none is yet set and we can interpret the value as a real license value.
+   */
+  private void setLicense(Image img, String val) {
+    if (!Strings.isNullOrEmpty(val) && Strings.isNullOrEmpty(img.getLicense())) {
+      String v = val.toLowerCase();
+      if (licenses.containsKey(v)) {
+        img.setLicense(this.licenses.get(v));
+      } else {
+        // accept any license value that starts with cc-
+        if (v.startsWith("cc-")) {
+          LOG.debug("Use unknown CC license: " + val);
+          img.setLicense(val);
+        }
+        if (!newLicenses.contains(v)) {
+          LOG.info("Unknown license: " + v);
+          newLicenses.add(v);
+        }
+      }
     }
   }
 
@@ -134,7 +148,7 @@ public class WikimediaScraper {
       } else if (prop.startsWith("source")) {
         img.setSource(val.trim());
       } else if (prop.startsWith("permission")) {
-        img.setLicense(val.trim());
+        setLicense(img, val.trim());
       }
     }
   }

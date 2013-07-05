@@ -36,15 +36,15 @@ public class WikimediaScraperTest {
     img = new Image();
     img.setUrl("Eichh%C3%B6rnchen_D%C3%BCsseldorf_Hofgarten.jpg");
     scraper.scrape(img);
-    assertEquals("Own work", img.getSource());
+    assertEquals("Creative Commons Attribution Share Alike 2.0 Germany", img.getLicense());
   }
 
   @Test
   public void testScrapeLicenses() throws Exception {
     List<String> files = Lists.newArrayList(
+      "Eichhörnchen_Düsseldorf_Hofgarten_edit.jpg",
       "Sciurus-vulgaris_hernandeangelis_stockholm_2008-06-04.jpg",
       "Ab_sciurus_vulgaris.jpg",
-      "Eichhörnchen_Düsseldorf_Hofgarten_edit.jpg",
       "Young_aberts.jpg",
       "Puma_Sleeping.jpg",
       "\"Biman_Bangladesh_Airlines,Boeing_777-3E9ER.jpg",

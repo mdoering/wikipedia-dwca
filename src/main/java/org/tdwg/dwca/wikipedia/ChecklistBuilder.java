@@ -46,7 +46,7 @@ public class ChecklistBuilder {
   @Parameter(names = {"-repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia-data")
   public File repo = new File("/tmp/wikipedia-data");
 
-  @Parameter(names = {"-dwca"}, description = "Dwc archive file to be created. Defaults to a tmp file")
+  @Parameter(names = {"-dwca"}, description = "Dwc archive file to be created. Defaults to wikipedia-LANG-dwca.zip in the repository")
   public File dwcaFile;
 
   @Parameter(names = {"-lang"}, description = "Wikipedia language file to parse (en, es, fr, de, etc.). Defaults to english")
@@ -57,6 +57,9 @@ public class ChecklistBuilder {
 
   @Parameter(names = {"-keepTmp"}, description = "If true temporay files during archive build will be kept. Defaults to false")
   public boolean keepTmp = false;
+
+  @Parameter(names = "--help", help = true)
+  private boolean help;
 
   @Inject
   public ChecklistBuilder(){

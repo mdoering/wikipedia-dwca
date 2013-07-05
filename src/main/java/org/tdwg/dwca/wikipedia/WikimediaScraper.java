@@ -1,11 +1,12 @@
 package org.tdwg.dwca.wikipedia;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
-import java.util.Set;
 
 import com.beust.jcommander.internal.Maps;
-import com.beust.jcommander.internal.Sets;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import org.jsoup.Jsoup;
@@ -20,17 +21,28 @@ public class WikimediaScraper {
   private static final String WIKI_URL = "http://commons.wikimedia.org/wiki/File:";
   private static final Logger LOG = LoggerFactory.getLogger(WikimediaScraper.class);
   private final Map<String, String> licenses = Maps.newHashMap();
-  private final Set<String> newLicenses = Sets.newHashSet();
+  private Writer noLicenses;
+
+  public WikimediaScraper(File noLicenseFile) throws IOException {
+    this();
+    if (noLicenseFile != null) {
+      noLicenses = new FileWriter(noLicenseFile);
+    }
+  }
 
   public WikimediaScraper() {
     licenses.put("pd", "Public Domain");
     licenses.put("pd-self", "Public Domain");
+    licenses.put("pd-us-nps", "Public Domain images from the U.S. National Park Service");
+    licenses.put("pd-author", "Public Domain");
+    licenses.put("pd-user", "Public Domain");
+    licenses.put("pd-us", "Public Domain");
+    licenses.put("pd-usda", "Public Domain from United States Department of Agriculture");
     licenses.put("gfdl", "GNU Free Documentation License");
     licenses.put("fal", "Free Art License");
     licenses.put("odc", "Open Data Commons");
     licenses.put("cc0", "CC0 No Rights Reserved");
-    licenses.put("pd us nps", "Public Domain images from the U.S. National Park Service");
-
+    licenses.put("cc-pd-mark", "Public Domain Mark 1.0");
 
     Map<String, String> commons = ImmutableMap.<String, String>builder()
       .put("by", "Attribution")
@@ -51,6 +63,7 @@ public class WikimediaScraper {
       .put("-es", " Spain")
       .put("-us", " United States")
       .put("-uk", " UK")
+      .put("-migrated", " Migrated")
       .build();
     final String prefix = "Creative Commons ";
 
@@ -105,12 +118,16 @@ public class WikimediaScraper {
       for (Element a : hiddenCategories) {
         setLicense(img, a.text());
       }
-    }
-  }
 
-  public void logNewLicenses() {
-    for (String l : newLicenses) {
-      LOG.info("Unknown license: " + l);
+      // log images without a license
+      if (noLicenses != null && Strings.isNullOrEmpty(img.getLicense())) {
+        noLicenses.write("No image license found for " + url);
+      }
+
+    } else {
+      if (noLicenses != null) {
+        noLicenses.write("No image metadata found for " + url);
+      }
     }
   }
 
@@ -119,18 +136,13 @@ public class WikimediaScraper {
    */
   private void setLicense(Image img, String val) {
     if (!Strings.isNullOrEmpty(val) && Strings.isNullOrEmpty(img.getLicense())) {
-      String v = val.toLowerCase();
+      String v = val.toLowerCase().trim().replace(" ", "-").replace("_", "-");
       if (licenses.containsKey(v)) {
         img.setLicense(this.licenses.get(v));
       } else {
-        // accept any license value that starts with cc-
-        if (v.startsWith("cc-")) {
-          LOG.debug("Use unknown CC license: " + val);
+        // accept any license value that starts with cc- pd or gfdl
+        if (v.startsWith("cc-") || v.startsWith("pd-") || v.startsWith("gfdl-")) {
           img.setLicense(val);
-        }
-        if (!newLicenses.contains(v)) {
-          LOG.info("Unknown license: " + v);
-          newLicenses.add(v);
         }
       }
     }

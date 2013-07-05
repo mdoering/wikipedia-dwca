@@ -32,7 +32,7 @@ public class TaxonboxHandlerTest {
     File tmpDir = FileUtils.createTempDir();
     tmpDir.deleteOnExit();
     DwcaWriter writer = new DwcaWriter(DwcTerm.Taxon, tmpDir);
-    TaxonboxHandler th = new TaxonboxHandler(lang.getIso2LetterCode(), writer);
+    TaxonboxHandler th = new TaxonboxHandler(lang.getIso2LetterCode(), writer, null);
     th.process(page, null);
     return th.getWikiModel().getTaxonInfo();
   }

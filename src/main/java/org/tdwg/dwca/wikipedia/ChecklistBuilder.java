@@ -97,7 +97,7 @@ public class ChecklistBuilder {
 
     // parse file
     log.info("Parsing dump file {}", wikiDumpBz.getAbsolutePath());
-    TaxonboxHandler handler = new TaxonboxHandler(lang, writer);
+    TaxonboxHandler handler = new TaxonboxHandler(lang, writer, new File(repo, "missing_licenses-"+lang+".txt"));
     try {
       WikiXMLParser wxp = new WikiXMLParser(wikiDumpBz.getAbsolutePath(), handler);
       wxp.parse();
@@ -117,10 +117,10 @@ public class ChecklistBuilder {
     }
     log.info("Bundling archive at {}", dwcaFile);
     writer.setEml(buildEml());
-    writer.finalize();
+    writer.close(); // adds eml and meta.xml file
 
     if (dwcaFile.exists()) {
-      log.debug("Delete existing archive {}", dwcaFile);
+      log.info("Delete existing archive {}", dwcaFile);
       dwcaFile.delete();
     } else {
       FileUtils.forceMkdir(dwcaFile.getParentFile());
@@ -130,6 +130,7 @@ public class ChecklistBuilder {
 
     // remove temp folder
     if (!keepTmp) {
+      log.info("Remove temp working dir {}", dwcaDir);
       FileUtils.deleteDirectory(dwcaDir);
     }
 

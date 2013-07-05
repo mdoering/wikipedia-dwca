@@ -8,6 +8,7 @@ import org.gbif.dwc.terms.GbifTerm;
 import org.gbif.dwc.terms.TermFactory;
 import org.gbif.dwc.text.DwcaWriter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Language lang;
   private final DwcaWriter writer;
   private Integer taxonCount = 0;
-  private final WikimediaScraper imgScraper = new WikimediaScraper();
+  private final WikimediaScraper imgScraper;
 
   // extra terms
   private final TermFactory termFactory;
@@ -64,12 +65,13 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Pattern EXTRACT_VERNACULARS = Pattern.compile("\\[\\[([a-z]{2,3}):([^\\]\\[]+)\\]\\]");
   private final Pattern REDIRECT = Pattern.compile("^.REDIRECT", Pattern.CASE_INSENSITIVE);
 
-  public TaxonboxHandler(String lang, DwcaWriter writer) {
+  public TaxonboxHandler(String lang, DwcaWriter writer, File missingLicenseFile) throws IOException {
     this.writer = writer;
     this.lang = Language.fromIsoCode(lang);
     if (lang == null) {
-      throw new IllegalArgumentException("Language {} not udnerstood. Please use iso 2 or 3 character codes");
+      throw new IllegalArgumentException("Language {} not understood. Please use iso 2 or 3 character codes");
     }
+    imgScraper = new WikimediaScraper(missingLicenseFile);
     wikiModel = new TaxonboxWikiModel(lang);
     termFactory = new TermFactory();
     termFossil = termFactory.findTerm("http://wikipedia.org/taxon/fossilRange");
@@ -246,7 +248,6 @@ public class TaxonboxHandler implements IArticleFilter {
         writer.addExtensionRecord(GbifTerm.Image, row);
       }
     }
-    imgScraper.logNewLicenses();
 
     // description extension
     for (Map.Entry<String, String> section : sections.entrySet()) {

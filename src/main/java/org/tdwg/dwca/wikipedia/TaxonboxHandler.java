@@ -37,11 +37,12 @@ import org.xml.sax.SAXException;
 
 public class TaxonboxHandler implements IArticleFilter {
 
-  private final Logger log = LoggerFactory.getLogger(TaxonboxHandler.class);
+  private final static Logger log = LoggerFactory.getLogger(TaxonboxHandler.class);
   private final Language lang;
   private final DwcaWriter writer;
   private Integer taxonCount = 0;
   private final WikimediaScraper imgScraper;
+  private static final String TEXT_LICENSE = "CC-BY-SA 3.0";
 
   // extra terms
   private final TermFactory termFactory;
@@ -255,6 +256,7 @@ public class TaxonboxHandler implements IArticleFilter {
       row.put(DcTerm.type, section.getKey());
       row.put(DcTerm.description, section.getValue());
       row.put(DcTerm.language, lang.getIso2LetterCode());
+      row.put(DcTerm.license, TEXT_LICENSE);
       writer.addExtensionRecord(GbifTerm.Description, row);
     }
 

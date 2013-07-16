@@ -92,7 +92,7 @@ public enum Rank {
     if (StringUtils.isBlank(rank)){
       return null;
     }
-    rank=rank.trim().replaceAll(";:-_", "");
+    rank=rank.trim().replaceAll("[-_:]", "");
     for (Rank r : Rank.values()){
       if (r.name().equalsIgnoreCase(rank)){
         return r;

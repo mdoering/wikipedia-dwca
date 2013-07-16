@@ -628,4 +628,21 @@ abstract class TaxonInfoBase {
     }
     return mio.toString();
   }
+
+  @Override
+  public String toString() {
+    return "TaxonInfoBase{" +
+           "scientificName='" + scientificName + '\'' +
+           ", rank=" + rank +
+           ", kingdom='" + kingdom + '\'' +
+           ", phylum='" + phylum + '\'' +
+           ", clazz='" + clazz + '\'' +
+           ", order='" + order + '\'' +
+           ", family='" + family + '\'' +
+           ", genus='" + genus + '\'' +
+           ", subgenus='" + subgenus + '\'' +
+           ", species='" + species + '\'' +
+           ", extinct='" + extinct + '\'' +
+           '}';
+  }
 }

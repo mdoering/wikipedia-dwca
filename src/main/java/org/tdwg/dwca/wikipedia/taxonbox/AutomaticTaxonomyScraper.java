@@ -21,9 +21,9 @@ public class AutomaticTaxonomyScraper {
       try {
         parse(url, taxon);
       } catch (IOException e) {
-        LOG.error("Error parsing automatic taxonomy template for url {}", url);
+        LOG.error("Error parsing automatic taxonomy template for url {}: {}", url, e);
       } catch (Exception e) {
-        LOG.error("Error parsing automatic taxonomy template for url {}", url);
+        LOG.error("Error parsing automatic taxonomy template for url {}: {}", url, e);
       }
     }
   }
@@ -41,7 +41,7 @@ public class AutomaticTaxonomyScraper {
           for (Element row : rows) {
             Elements cols = row.getElementsByTag("td");
             if (cols.size() == 2) {
-              setKeyVal(taxon, cols.get(0).text(), cols.get(1).getElementsByTag("code").first());
+              setKeyVal(taxon, cols.get(0).text(), cols.get(1));
             }
           }
         }
@@ -67,7 +67,7 @@ public class AutomaticTaxonomyScraper {
    * We ignore all clades and unranked parents and only keep the recognizable ranks.
    */
   private static void setHigherTaxon(TaxonInfo taxon, String rankVerbatim, Element valueElem) {
-    if (!Strings.isNullOrEmpty(rankVerbatim)) {
+    if (valueElem != null && !Strings.isNullOrEmpty(rankVerbatim)) {
       Rank rank = Rank.fromString(rankVerbatim);
       if (rank != null) {
         // value is the first span
@@ -90,9 +90,16 @@ public class AutomaticTaxonomyScraper {
   }
 
 
-  private static void setKeyVal(TaxonInfo taxon, String key, Element codeValue) {
-    if (codeValue != null) {
-      String val = codeValue.text();
+  private static void setKeyVal(TaxonInfo taxon, String key, Element valueElem) {
+    if (valueElem != null) {
+      Element codeElem = valueElem.getElementsByTag("code").first();
+      String val;
+      if (codeElem != null) {
+        val = codeElem.text();
+      } else {
+        val = valueElem.text();
+      }
+      key = key.replaceAll("[-_:]", "").trim();
       if ("extinct".equalsIgnoreCase(key)) {
         taxon.setExtinct(val);
 

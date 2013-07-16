@@ -238,6 +238,7 @@ public class TaxonboxHandler implements IArticleFilter {
         image = imgScraper.scrape(image);
         row = Maps.newHashMap();
         row.put(DcTerm.identifier, WikipediaUtils.getImageLink(image.getUrl()));
+        row.put(DcTerm.references, WikipediaUtils.getImageWikiLink(image.getUrl()));
         row.put(DcTerm.title, image.getImageCaption());
         row.put(DcTerm.creator, image.getAuthor());
         row.put(DcTerm.created, image.getDate());

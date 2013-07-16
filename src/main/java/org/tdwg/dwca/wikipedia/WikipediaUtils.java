@@ -25,6 +25,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class WikipediaUtils {
 
+  private static final String WIKI_URL = "http://commons.wikimedia.org/wiki/File:";
+
   public static String getWikiLink(Language lang, String title) {
     try {
       return "http://"+lang.getIso2LetterCode()+".wikipedia.org/wiki/" + URLEncoder.encode(title.replaceAll(" +", "_"), "UTF-8");
@@ -49,6 +51,14 @@ public class WikipediaUtils {
    */
   public static String getImageFilename(String image) {
     return image.replaceAll(" +", "_");
+  }
+
+  /**
+   * @param image the image name
+   * @return the wikipedia commons image wiki page for a given image.
+   */
+  public static String getImageWikiLink(String image) {
+    return WIKI_URL + WikipediaUtils.getImageFilename(image);
   }
 
   /**

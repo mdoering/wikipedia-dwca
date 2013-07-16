@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.taxonbox.Image;
 
 public class WikimediaScraper {
-  private static final String WIKI_URL = "http://commons.wikimedia.org/wiki/File:";
   private static final Logger LOG = LoggerFactory.getLogger(WikimediaScraper.class);
   private final Map<String, String> licenses = Maps.newHashMap();
   private Writer noLicenses;
@@ -81,7 +80,7 @@ public class WikimediaScraper {
 
   public Image scrape(Image img) {
     try {
-      parse(WIKI_URL + WikipediaUtils.getImageFilename(img.getUrl()), img);
+      parse(WikipediaUtils.getImageWikiLink(img.getUrl()), img);
       img.setPublisher("Wikimedia Commons");
 
     } catch (Exception e) {

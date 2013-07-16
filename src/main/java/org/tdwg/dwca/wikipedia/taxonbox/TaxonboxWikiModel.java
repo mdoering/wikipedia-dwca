@@ -53,6 +53,9 @@ import org.slf4j.LoggerFactory;
  * TODO: support more templates:
  * http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Tree_of_Life/Cultivar_infobox
  * http://de.wikipedia.org/wiki/Wikipedia:Viroboxen
+ *
+ * TODO: support sound files: http://en.wikipedia.org/wiki/Barn_Swallow
+ * http://en.wikipedia.org/wiki/Template:Listen
  */
 public class TaxonboxWikiModel extends WikiModel {
   private final Set<String> TAXOBOX_TEMPLATES = Sets.newHashSet("taxobox", "automatictaxobox", "fichadetaxón", "fichadetaxon");
@@ -121,6 +124,10 @@ public class TaxonboxWikiModel extends WikiModel {
         } else if (templateName.equalsIgnoreCase("infraspeciesbox")){
           processSpeciesBox(Rank.Infraspecies, parameterMap);
 
+        // Sound templates
+        } else if (templateName.equalsIgnoreCase("listen")){
+          processSoundBox(parameterMap);
+
         //
         // append to writer
         //
@@ -161,6 +168,37 @@ public class TaxonboxWikiModel extends WikiModel {
       }
     }
     return null;
+  }
+
+  private void processSoundBox(Map<String,String> parameterMap) {
+    if (info != null) {
+      Sound sound = new Sound();
+      for (String param : parameterMap.keySet()) {
+        String key = param2Key(param);
+        // not all properties are names, but most are
+        String value = cleanNameValue(parameterMap.get(param));
+        try {
+          PropertyUtils.setProperty(sound, key, value);
+        } catch (IllegalAccessException e) {
+          log.error("IllegalAccessException Sound param={}", param);
+        } catch (NoSuchMethodException e) {
+          // expected - Sound bean doesnt cover all props
+        } catch (IllegalArgumentException e) {
+          // strange property names?
+          log.warn("Illegal Sound property {} : {}", key, e.getMessage());
+        } catch (InvocationTargetException e) {
+          log.error("InvocationTargetException Sound param={}", param);
+        }
+      }
+      // if a url exists keep it
+      if (!Strings.isNullOrEmpty(sound.getUrl())) {
+        info.getSounds().add(sound);
+      }
+    }
+  }
+
+  private String param2Key(String param) {
+    return StringUtils.trimToEmpty(param.toLowerCase().replaceAll(" ", "_"));
   }
 
   private void processSpeciesBox(Rank rank, Map<String,String> parameterMap) {
@@ -208,7 +246,7 @@ public class TaxonboxWikiModel extends WikiModel {
     info = new TaxonInfo();
     info.setRawParams(ImmutableMap.copyOf(parameterMap));
     for (String param : parameterMap.keySet()){
-      String key = StringUtils.trimToEmpty(param.toLowerCase().replaceAll(" ", "_"));
+      String key = param2Key(param);
 
       if (key.equals("status_ref")){
         // ignore for now

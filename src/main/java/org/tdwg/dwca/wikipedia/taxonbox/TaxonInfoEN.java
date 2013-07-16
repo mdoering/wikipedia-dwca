@@ -117,7 +117,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setImage_caption(String image_caption) {
-    image(0).setImageCaption(image_caption);
+    image(0).setTitle(image_caption);
   }
 
   public void setImage2(String url) {
@@ -129,7 +129,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setImage2_caption(String image_caption) {
-    image(1).setImageCaption(image_caption);
+    image(1).setTitle(image_caption);
   }
 
   public void setRegnum(String regnum) {
@@ -156,7 +156,6 @@ public class TaxonInfoEN extends TaxonInfoBase{
     setScientificNameAuthorship(Rank.Kingdom, authorship);
   }
 
-
   public void setOrder_authority(String authorship) {
     setScientificNameAuthorship(Rank.Order, authorship);
   }
@@ -172,7 +171,6 @@ public class TaxonInfoEN extends TaxonInfoBase{
   public void setType_species(String type_species) {
     setTypeSpecies(type_species);
   }
-
 
   public void setType_species_authority(String type_species_authority) {
     setTypeSpeciesAuthority(type_species_authority);
@@ -191,7 +189,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setRange_map_caption(String range_map_caption) {
-    rangeMap(0).setImageCaption(range_map_caption);
+    rangeMap(0).setTitle(range_map_caption);
   }
 
   public void setRange_map2(String range_map) {
@@ -203,7 +201,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setRange_map2_caption(String range_map_caption) {
-    rangeMap(1).setImageCaption(range_map_caption);
+    rangeMap(1).setTitle(range_map_caption);
   }
 
   public void setRange_map3(String range_map) {
@@ -215,7 +213,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setRange_map3_caption(String range_map_caption) {
-    rangeMap(2).setImageCaption(range_map_caption);
+    rangeMap(2).setTitle(range_map_caption);
   }
 
   public void setRange_map4(String range_map) {
@@ -227,7 +225,7 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setRange_map4_caption(String range_map_caption) {
-    rangeMap(3).setImageCaption(range_map_caption);
+    rangeMap(3).setTitle(range_map_caption);
   }
 
 
@@ -272,10 +270,8 @@ public class TaxonInfoEN extends TaxonInfoBase{
     setBinomial2_authority(binomial_authority2);
   }
 
-
-
   public void setType_genus(String type_genus) {
-    setType_genus(type_genus);
+    setTypeGenus(type_genus);
   }
 
   public void setType_genus_authority(String typeGenusAuthority) {

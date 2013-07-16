@@ -243,7 +243,7 @@ public class TaxonInfoDE extends TaxonInfoEN {
   }
 
   public void setBildbeschreibung3(String image_caption) {
-    image(2).setImageCaption(image_caption);
+    image(2).setTitle(image_caption);
   }
 
   public void setBild3(String image) {

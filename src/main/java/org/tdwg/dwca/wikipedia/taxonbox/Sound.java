@@ -15,10 +15,18 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-public class Image implements Media{
+/**
+ {{listen
+ | filename = JMJ-20110717-070140-000392-barn-swallow.oga
+ | title = Recording of Barn Swallows
+ | description = A Barn Swallow song recorded at the [[Minnesota Valley National Wildlife Refuge]]
+ | format = [[oggg]]
+ | align = left
+ }}
+ */
+public class Sound implements Media {
   private String url;
   private String title;
-  private String imageAlt;
   // further metadata
   private String author;
   private String publisher;
@@ -28,74 +36,87 @@ public class Image implements Media{
   private String description;
 
 
+  @Override
   public String getUrl() {
     return url;
   }
 
+  @Override
   public void setUrl(String url) {
     this.url = url;
   }
 
-  public String getImageAlt() {
-    return imageAlt;
+  public void setFilename(String filename) {
+    setUrl(filename);
   }
 
-  public void setImageAlt(String imageAlt) {
-    this.imageAlt = imageAlt;
-  }
 
+  @Override
   public String getTitle() {
     return title;
   }
 
+  @Override
   public void setTitle(String imageCaption) {
     this.title = imageCaption;
   }
 
+  @Override
   public String getAuthor() {
     return author;
   }
 
+  @Override
   public void setAuthor(String author) {
     this.author = author;
   }
 
+  @Override
   public String getLicense() {
     return license;
   }
 
+  @Override
   public void setLicense(String license) {
     this.license = license;
   }
 
+  @Override
   public String getSource() {
     return source;
   }
 
+  @Override
   public void setSource(String source) {
     this.source = source;
   }
 
+  @Override
   public String getDate() {
     return date;
   }
 
+  @Override
   public void setDate(String date) {
     this.date = date;
   }
 
+  @Override
   public String getDescription() {
     return description;
   }
 
+  @Override
   public void setDescription(String description) {
     this.description = description;
   }
 
+  @Override
   public String getPublisher() {
     return publisher;
   }
 
+  @Override
   public void setPublisher(String publisher) {
     this.publisher = publisher;
   }
@@ -110,7 +131,6 @@ public class Image implements Media{
            ", publisher='" + publisher + '\'' +
            ", author='" + author + '\'' +
            ", title='" + title + '\'' +
-           ", imageAlt='" + imageAlt + '\'' +
            ", url='" + url + '\'' +
            '}';
   }

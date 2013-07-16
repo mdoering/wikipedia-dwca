@@ -15,7 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tdwg.dwca.wikipedia.taxonbox.Image;
+import org.tdwg.dwca.wikipedia.taxonbox.Media;
 
 public class WikimediaScraper {
   private static final Logger LOG = LoggerFactory.getLogger(WikimediaScraper.class);
@@ -78,7 +78,7 @@ public class WikimediaScraper {
     }
   }
 
-  public Image scrape(Image img) {
+  public void scrape(Media img) {
     try {
       parse(WikipediaUtils.getImageWikiLink(img.getUrl()), img);
       img.setPublisher("Wikimedia Commons");
@@ -86,11 +86,9 @@ public class WikimediaScraper {
     } catch (Exception e) {
       LOG.warn("Cannot scrape image metadata for {}", img.getUrl());
     }
-
-    return img;
   }
 
-  private void parse(String url, Image img) throws IOException {
+  private void parse(String url, Media img) throws IOException {
     Document doc = Jsoup.connect(url).get();
 
     Element summary = doc.getElementById("mw-imagepage-content");
@@ -133,7 +131,7 @@ public class WikimediaScraper {
   /**
    * Sets a license if none is yet set and we can interpret the value as a real license value.
    */
-  private void setLicense(Image img, String val) {
+  private void setLicense(Media img, String val) {
     if (!Strings.isNullOrEmpty(val) && Strings.isNullOrEmpty(img.getLicense())) {
       String v = val.toLowerCase().trim().replace(" ", "-").replace("_", "-");
       if (licenses.containsKey(v)) {
@@ -147,7 +145,7 @@ public class WikimediaScraper {
     }
   }
 
-  private void setKeyVal(Image img, String key, String val) {
+  private void setKeyVal(Media img, String key, String val) {
     if (!Strings.isNullOrEmpty(key)) {
       String prop = key.trim().toLowerCase();
       if (prop.startsWith("description")) {

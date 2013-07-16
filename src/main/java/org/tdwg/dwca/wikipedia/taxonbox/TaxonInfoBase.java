@@ -71,6 +71,8 @@ abstract class TaxonInfoBase {
   private List<Image> images = Lists.newArrayList();
   // range maps
   private List<Image> rangeMaps = Lists.newArrayList();
+  // sounds
+  private List<Sound> sounds = Lists.newArrayList();
   // conservation status
   private String status; // iucn status
   private String extinct; // year
@@ -543,6 +545,10 @@ abstract class TaxonInfoBase {
 
   public List<Image> getImages() {
     return images;
+  }
+
+  public List<Sound> getSounds() {
+    return sounds;
   }
 
   protected Image image(int idx) {

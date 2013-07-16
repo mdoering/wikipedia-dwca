@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.taxonbox.Image;
+import org.tdwg.dwca.wikipedia.taxonbox.Sound;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoDE;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoEN;
@@ -51,6 +52,7 @@ public class TaxonboxHandler implements IArticleFilter {
   private final ConceptTerm wikipediaImage;
   private final ConceptTerm wikipediaThumb;
   private final ConceptTerm taxobox;
+  private final ConceptTerm soundRowtype;
   private final TaxonboxWikiModel wikiModel;
 
   private final Pattern SPLIT_SECTIONS = Pattern.compile("(?<!=)==([^=]+)==");
@@ -80,6 +82,7 @@ public class TaxonboxHandler implements IArticleFilter {
     wikipediaImage = termFactory.findTerm("http://wikipedia.org/image/link");
     wikipediaThumb = termFactory.findTerm("http://wikipedia.org/image/thumbnail");
     taxobox = termFactory.findTerm("http://wikipedia.org/taxobox");
+    soundRowtype = termFactory.findTerm("http://wikipedia.org/Sound");
   }
 
   @Override
@@ -227,7 +230,7 @@ public class TaxonboxHandler implements IArticleFilter {
         row = Maps.newHashMap();
         row.put(wikipediaImage, WikipediaUtils.getImageLink(image.getUrl()));
         row.put(wikipediaThumb, WikipediaUtils.getImageThumbnailLink(image.getUrl()));
-        row.put(DwcTerm.locality, image.getImageCaption());
+        row.put(DwcTerm.locality, image.getTitle());
         writer.addExtensionRecord(GbifTerm.Distribution, row);
       }
     }
@@ -235,11 +238,11 @@ public class TaxonboxHandler implements IArticleFilter {
     // image extension
     for (Image image : taxon.getImages()) {
       if (!StringUtils.isBlank(image.getUrl())) {
-        image = imgScraper.scrape(image);
+        imgScraper.scrape(image);
         row = Maps.newHashMap();
         row.put(DcTerm.identifier, WikipediaUtils.getImageLink(image.getUrl()));
         row.put(DcTerm.references, WikipediaUtils.getImageWikiLink(image.getUrl()));
-        row.put(DcTerm.title, image.getImageCaption());
+        row.put(DcTerm.title, image.getTitle());
         row.put(DcTerm.creator, image.getAuthor());
         row.put(DcTerm.created, image.getDate());
         row.put(DcTerm.license, image.getLicense());
@@ -248,6 +251,24 @@ public class TaxonboxHandler implements IArticleFilter {
         row.put(wikipediaThumb, WikipediaUtils.getImageThumbnailLink(image.getUrl()));
         row.put(DcTerm.description, image.getDescription());
         writer.addExtensionRecord(GbifTerm.Image, row);
+      }
+    }
+
+    // sounds
+    for (Sound sound : taxon.getSounds()) {
+      if (!StringUtils.isBlank(sound.getUrl())) {
+        imgScraper.scrape(sound);
+        row = Maps.newHashMap();
+        row.put(DcTerm.identifier, WikipediaUtils.getImageLink(sound.getUrl()));
+        row.put(DcTerm.references, WikipediaUtils.getImageWikiLink(sound.getUrl()));
+        row.put(DcTerm.title, sound.getTitle());
+        row.put(DcTerm.creator, sound.getAuthor());
+        row.put(DcTerm.created, sound.getDate());
+        row.put(DcTerm.license, sound.getLicense());
+        row.put(DcTerm.publisher, sound.getPublisher());
+        row.put(DcTerm.source, sound.getSource());
+        row.put(DcTerm.description, sound.getDescription());
+        writer.addExtensionRecord(soundRowtype, row);
       }
     }
 
@@ -269,7 +290,7 @@ public class TaxonboxHandler implements IArticleFilter {
       row.put(DwcTerm.scientificName, concatSciName(taxon.getTypeSpecies(), taxon.getTypeSpeciesAuthority()));
       writer.addExtensionRecord(GbifTerm.TypesAndSpecimen, row);
 
-    } else if (Strings.isNullOrEmpty(taxon.getTypeGenus())) {
+    } else if (!Strings.isNullOrEmpty(taxon.getTypeGenus())) {
       row = Maps.newHashMap();
       row.put(DwcTerm.typeStatus, "type genus");
       row.put(DwcTerm.scientificName, concatSciName(taxon.getTypeGenus(), taxon.getTypeGenusAuthority()));

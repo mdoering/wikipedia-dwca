@@ -40,6 +40,10 @@ public class TaxonInfo extends TaxonInfoES{
     return nullFreeList(super.getImages());
   }
 
+  public List<Sound> getSounds() {
+    return nullFreeList(super.getSounds());
+  }
+
   private List nullFreeList(List<?> list){
     Iterator iter = list.iterator();
     while(iter.hasNext()){

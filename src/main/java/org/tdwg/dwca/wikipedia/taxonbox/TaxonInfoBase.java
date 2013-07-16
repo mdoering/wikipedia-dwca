@@ -312,7 +312,7 @@ abstract class TaxonInfoBase {
 
   public void setSpecies(String species) {
     // can be an epithet or binomial
-    if (species.contains(" ") || species.contains(".")){
+    if (!Strings.isNullOrEmpty(species) && (species.contains(" ") || species.contains("."))){
       this.species = species;
       setScientificNameAndRankIfLowest(Rank.Species, species);
     } else {

@@ -46,11 +46,11 @@ public class WikipediaUtils {
 
   /**
    * @See http://commons.wikimedia.org/wiki/Commons:Reusing%5Fcontent%5Foutside%5FWikimedia#Hotlinking
-   * @param image
+   * @param filename
    * @return
    */
-  public static String getImageFilename(String image) {
-    return image.replaceAll(" +", "_");
+  public static String normalizeFilename(String filename) {
+    return filename.replaceAll(" +", "_");
   }
 
   /**
@@ -58,7 +58,7 @@ public class WikipediaUtils {
    * @return the wikipedia commons image wiki page for a given image.
    */
   public static String getImageWikiLink(String image) {
-    return WIKI_URL + WikipediaUtils.getImageFilename(image);
+    return WIKI_URL + WikipediaUtils.normalizeFilename(image);
   }
 
   /**
@@ -68,7 +68,8 @@ public class WikipediaUtils {
    * @return
    */
   public static String getImageThumbnailLink(String image, int size) {
-    return "http://upload.wikimedia.org/wikipedia/commons/thumb/" + wikipediaImagePath(image)+"/"+size+"px-"+getImageFilename(image);
+    return "http://upload.wikimedia.org/wikipedia/commons/thumb/" + wikipediaImagePath(image)+"/"+size+"px-"+ normalizeFilename(
+      image);
   }
 
   /**
@@ -91,7 +92,7 @@ public class WikipediaUtils {
    */
   public static String wikipediaImagePath(String image) {
     try {
-      String filename = getImageFilename(image);
+      String filename = normalizeFilename(image);
       String digest = md5Hash(filename);
       return String.format("%s/%s%s/%s", digest.charAt(0), digest.charAt(0), digest.charAt(1), URLEncoder.encode(filename, "UTF-8"));
     } catch (UnsupportedEncodingException e) {

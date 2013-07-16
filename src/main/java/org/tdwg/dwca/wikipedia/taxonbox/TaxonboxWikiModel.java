@@ -20,12 +20,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Wiki model that is aware of most taxonomic templates plus the major citation and fossil/palaeo templates.
+ * For automatic taxonboxes the classification from the Taxonomy templates are scraped.
  * In detail the supported templates are:
  *
  * http://en.wikipedia.org/wiki/Template:Taxobox
  * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
  * http://de.wikipedia.org/wiki/Wikipedia:Pal%C3%A4oboxen
- * TODO: find out ways to retrieve the classification from the Taxonomy templates for automatic boxes
  * http://en.wikipedia.org/wiki/Template:Automatic_taxobox/doc
  *
  * http://en.wikipedia.org/wiki/Template:Speciesbox/doc
@@ -49,13 +49,11 @@ import org.slf4j.LoggerFactory;
  * http://en.wikipedia.org/wiki/Template:Cite_book
  * http://en.wikipedia.org/wiki/Template:Cite_web
  *
+ * http://en.wikipedia.org/wiki/Template:Listen
  *
  * TODO: support more templates:
  * http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Tree_of_Life/Cultivar_infobox
  * http://de.wikipedia.org/wiki/Wikipedia:Viroboxen
- *
- * TODO: support sound files: http://en.wikipedia.org/wiki/Barn_Swallow
- * http://en.wikipedia.org/wiki/Template:Listen
  */
 public class TaxonboxWikiModel extends WikiModel {
   private final Set<String> TAXOBOX_TEMPLATES = Sets.newHashSet("taxobox", "automatictaxobox", "fichadetaxón", "fichadetaxon");
@@ -114,6 +112,10 @@ public class TaxonboxWikiModel extends WikiModel {
         //
         if (TAXOBOX_TEMPLATES.contains(templateName)) {
           processTaxoBox(parameterMap);
+          // check taxonomy templates for auto boxes
+          if (templateName.equalsIgnoreCase("automatictaxobox")) {
+            AutomaticTaxonomyScraper.updateTaxonInfo(info);
+          }
 
         } else if (templateName.equalsIgnoreCase("speciesbox")){
           processSpeciesBox(Rank.Species, parameterMap);
@@ -172,6 +174,7 @@ public class TaxonboxWikiModel extends WikiModel {
 
   private void processSoundBox(Map<String,String> parameterMap) {
     if (info != null) {
+      log.debug("Sound box found for name {}", info.getScientificName());
       Sound sound = new Sound();
       for (String param : parameterMap.keySet()) {
         String key = param2Key(param);
@@ -236,6 +239,8 @@ public class TaxonboxWikiModel extends WikiModel {
     info.setGenus(cleanNameValue(parameterMap.get("genus")));
     info.setSubgenus(cleanNameValue(parameterMap.get("subgenus")));
     info.setExtinct(cleanNameValue(parameterMap.get("extinct")));
+    // check taxonomy templates
+    AutomaticTaxonomyScraper.updateTaxonInfo(info);
   }
 
   private void processTaxoBox(Map<String, String> parameterMap) {

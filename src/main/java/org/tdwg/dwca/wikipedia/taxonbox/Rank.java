@@ -72,9 +72,9 @@ public enum Rank {
   Subsection("subsectio"),
   Series,
   Subseries,
-  Species_Group,
-  Species_Subgroup,
-  Species_Complex,
+  SpeciesGroup,
+  SpeciesSubgroup,
+  SpeciesComplex,
   Species("art"),
   Infraspecies,
   Subspecies("unterart"),
@@ -92,7 +92,7 @@ public enum Rank {
     if (StringUtils.isBlank(rank)){
       return null;
     }
-    rank=rank.toLowerCase().trim();
+    rank=rank.trim().replaceAll(";:-_", "");
     for (Rank r : Rank.values()){
       if (r.name().equalsIgnoreCase(rank)){
         return r;

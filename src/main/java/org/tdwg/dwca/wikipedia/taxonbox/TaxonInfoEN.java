@@ -424,15 +424,15 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setSpecies_group(String name) {
-    setScientificNameAndRankIfLowest(Rank.Species_Group, name);
+    setScientificNameAndRankIfLowest(Rank.SpeciesGroup, name);
   }
 
   public void setSpecies_subgroup(String name) {
-    setScientificNameAndRankIfLowest(Rank.Species_Subgroup, name);
+    setScientificNameAndRankIfLowest(Rank.SpeciesSubgroup, name);
   }
 
   public void setSpecies_complex(String name) {
-    setScientificNameAndRankIfLowest(Rank.Species_Complex, name);
+    setScientificNameAndRankIfLowest(Rank.SpeciesComplex, name);
   }
 
   public void setSubspecies(String name) {
@@ -592,15 +592,15 @@ public class TaxonInfoEN extends TaxonInfoBase{
   }
 
   public void setSpecies_group_authority(String author) {
-    setScientificNameAuthorship(Rank.Species_Group, author);
+    setScientificNameAuthorship(Rank.SpeciesGroup, author);
   }
 
   public void setSpecies_subgroup_authority(String author) {
-    setScientificNameAuthorship(Rank.Species_Subgroup, author);
+    setScientificNameAuthorship(Rank.SpeciesSubgroup, author);
   }
 
   public void setSpecies_complex_authority(String author) {
-    setScientificNameAuthorship(Rank.Species_Complex, author);
+    setScientificNameAuthorship(Rank.SpeciesComplex, author);
   }
 
   public void setSubspecies_authority(String author) {

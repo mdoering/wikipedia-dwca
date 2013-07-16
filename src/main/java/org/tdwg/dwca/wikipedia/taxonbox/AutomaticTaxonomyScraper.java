@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.WikipediaUtils;
 
 public class AutomaticTaxonomyScraper {
-  private static final String PREFIX = "http://en.wikipedia.org/wiki/Template:Taxonomy/Quetzalcoatlus";
+  private static final String PREFIX = "http://en.wikipedia.org/wiki/Template:Taxonomy/";
   private static final Logger LOG = LoggerFactory.getLogger(AutomaticTaxonomyScraper.class);
 
   public static void updateTaxonInfo(TaxonInfo taxon) {

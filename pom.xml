@@ -24,7 +24,7 @@
   </parent>
 
   <artifactId>wikipedia-dwca</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>DwC Archive Generator for Wikipedia</name>
@@ -35,7 +35,7 @@
     <connection>scm:git:git@github.com:mdoering/wikipedia-dwca.git</connection>
     <url>https://github.com/mdoering/wikipedia-dwca</url>
     <developerConnection>scm:git:git@github.com:mdoering/wikipedia-dwca.git</developerConnection>
-    <tag>wikipedia-dwca-1.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <build>

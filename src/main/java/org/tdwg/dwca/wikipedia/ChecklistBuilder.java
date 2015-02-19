@@ -15,24 +15,23 @@
  */
 package org.tdwg.dwca.wikipedia;
 
+import org.gbif.api.model.registry.Contact;
+import org.gbif.api.model.registry.Dataset;
 import org.gbif.api.vocabulary.ContactType;
+import org.gbif.api.vocabulary.Country;
+import org.gbif.api.vocabulary.Language;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.text.DwcaWriter;
-import org.gbif.metadata.eml.Agent;
-import org.gbif.metadata.eml.Eml;
 import org.gbif.utils.HttpUtil;
 import org.gbif.utils.file.CompressionUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 import info.bliki.wiki.dump.WikiXMLParser;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -41,38 +40,19 @@ import org.slf4j.LoggerFactory;
 public class ChecklistBuilder {
   private Logger log = LoggerFactory.getLogger(ChecklistBuilder.class);
   private DwcaWriter writer;
-  private static String DUMP_NAME = "wiki-latest-pages-articles.xml.bz2";
 
-  @Parameter(names = {"-repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia-data")
-  public File repo = new File("/tmp/wikipedia-data");
+  private final WikipediaConfig cfg;
 
-  @Parameter(names = {"-dwca"}, description = "Dwc archive file to be created. Defaults to wikipedia-LANG-dwca.zip in the repository")
-  public File dwcaFile;
-
-  @Parameter(names = {"-lang"}, description = "Wikipedia language file to parse (en, es, fr, de, etc.). Defaults to english")
-  public String lang= "en";
-
-  @Parameter(names = {"-offline"}, description = "If true no wikipedia dumps will be downloaded and only local dump files will be used. Defaults to false")
-  public boolean offline = false;
-
-  @Parameter(names = {"-keepTmp"}, description = "If true temporay files during archive build will be kept. Defaults to false")
-  public boolean keepTmp = false;
-
-  @Parameter(names = "--help", help = true)
-  private boolean help;
-
-  @Inject
-  public ChecklistBuilder(){
+  public ChecklistBuilder(WikipediaConfig cfg) {
+    this.cfg = cfg;
   }
 
-  private File download(String dumpName) throws IOException {
-    File wikiDumpBz = new File(repo, dumpName);
-
-    if (!offline){
-      final URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%s", lang, dumpName));
-
+  private File download() throws IOException {
+    final File wikiDumpBz = cfg.getRepoFile(cfg.lang+"-wikipedia.xml.bz");
+    if (!cfg.offline){
+      final URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/wiki-latest-pages-articles.xml.bz2", cfg.lang));
       log.info("Downloading latest wikipedia dump from " + url.toString());
-      HttpUtil http = new HttpUtil();
+      HttpUtil http = new HttpUtil(HttpUtil.newMultithreadedClient(5000,10,10));
       boolean success = http.downloadIfChanged(url, wikiDumpBz);
       if (success){
         log.info("Downloaded new wikipedia dump");
@@ -80,15 +60,12 @@ public class ChecklistBuilder {
         log.info("No newer wikipedia dump, use existing copy");
       }
     }
-
     return wikiDumpBz;
   }
 
   public void parse() throws IOException{
     // download file?
-    final String dumpName = lang + DUMP_NAME;
-
-    File wikiDumpBz = download(dumpName);
+    File wikiDumpBz = download();
 
     // new writer
     File dwcaDir = org.gbif.utils.file.FileUtils.createTempDir("wikipedia-", "-dwca");
@@ -97,7 +74,7 @@ public class ChecklistBuilder {
 
     // parse file
     log.info("Parsing dump file {}", wikiDumpBz.getAbsolutePath());
-    TaxonboxHandler handler = new TaxonboxHandler(lang, writer, new File(repo, "missing_licenses-"+lang+".txt"));
+    TaxonboxHandler handler = new TaxonboxHandler(cfg.getLanguage(), writer, new File(cfg.repo, "missing_licenses-"+cfg.lang+".txt"));
     try {
       WikiXMLParser wxp = new WikiXMLParser(wikiDumpBz.getAbsolutePath(), handler);
       wxp.parse();
@@ -112,9 +89,7 @@ public class ChecklistBuilder {
     }
 
     // finish archive and zip it
-    if (dwcaFile == null) {
-      dwcaFile = new File(repo, "wikipedia-" + lang + "-dwca.zip");
-    }
+    final File dwcaFile = cfg.getDwcaFile();
     log.info("Bundling archive at {}", dwcaFile);
     writer.setEml(buildEml());
     writer.close(); // adds eml and meta.xml file
@@ -129,38 +104,43 @@ public class ChecklistBuilder {
     CompressionUtil.zipDir(dwcaDir, dwcaFile);
 
     // remove temp folder
-    if (!keepTmp) {
+    if (!cfg.keepTmp) {
       log.info("Remove temp working dir {}", dwcaDir);
       FileUtils.deleteDirectory(dwcaDir);
     }
-
     log.info("Wikipedia dwc archive completed at {} !", dwcaFile);
-  };
+  }
 
 
-  private Eml buildEml(){
-    Eml eml = new Eml();
-    eml.setTitle("Wikipedia-" + lang + " Species Pages", "en");
-    eml.setAbstract("Parsed taxobox pages of the wikipedia dump");
-    eml.setHomepageUrl("http://" + lang + ".wikipedia.org");
-    eml.setContact(getMarkus(ContactType.METADATA_AUTHOR));
-    eml.setResourceCreator(getMarkus(ContactType.CONTENT_PROVIDER));
-    eml.setLanguage(lang);
+  private Dataset buildEml(){
+    Dataset eml = new Dataset();
+    eml.setTitle(cfg.getLanguage().getTitleEnglish() + " Wikipedia - Species Pages");
+    eml.setLanguage(Language.ENGLISH);
+    eml.setDataLanguage(cfg.getLanguage());
+    eml.setDescription("Parsed taxobox pages of the wikipedia dump");
+    eml.setHomepage(URI.create("http://" + cfg.lang + ".wikipedia.org"));
+    addContacts(eml, ContactType.METADATA_AUTHOR, ContactType.ORIGINATOR, ContactType.POINT_OF_CONTACT);
     return eml;
   }
 
-  private Agent getMarkus(ContactType role){
-    Agent markus = new Agent();
-    markus.setEmail("mdoering@gbif.org");
-    markus.setFirstName("Markus");
-    markus.setLastName("Döring");
-    markus.setRole(role.name());
-    return markus;
+  private void addContacts(Dataset dataset, ContactType ... roles){
+    for (ContactType role : roles) {
+      Contact markus = new Contact();
+      markus.addEmail("mdoering@gbif.org");
+      markus.setFirstName("Markus");
+      markus.setLastName("Döring");
+      markus.setCity("Berlin");
+      markus.setCountry(Country.GERMANY);
+      markus.setType(role);
+      dataset.getContacts().add(markus);
+    }
   }
+
   public static void main (String[] args) throws IOException {
-    Injector injector = Guice.createInjector(new GuiceConfig());
-    ChecklistBuilder cmd = injector.getInstance(ChecklistBuilder.class);
-    new JCommander(cmd,args);
+    WikipediaConfig cfg = new WikipediaConfig();
+    new JCommander(cfg,args);
+
+    ChecklistBuilder cmd = new ChecklistBuilder(cfg);
     cmd.parse();
   }
 }

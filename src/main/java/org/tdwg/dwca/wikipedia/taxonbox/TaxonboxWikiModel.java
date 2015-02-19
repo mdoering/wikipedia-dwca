@@ -50,7 +50,8 @@ import org.slf4j.LoggerFactory;
  * http://en.wikipedia.org/wiki/Template:Cite_web
  *
  * http://en.wikipedia.org/wiki/Template:Listen
- *
+ * http://en.wikipedia.org/wiki/Template:Convert
+
  * TODO: support more templates:
  * http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Tree_of_Life/Cultivar_infobox
  * http://de.wikipedia.org/wiki/Wikipedia:Viroboxen
@@ -148,6 +149,9 @@ public class TaxonboxWikiModel extends WikiModel {
           }
           return "";
 
+        } else if (templateName.equalsIgnoreCase("convert")) {
+          processConvert(parameterMap, writer);
+
         } else if (templateName.equalsIgnoreCase("collapsiblelist")) {
           processCollapsibleList(parameterMap, writer);
 
@@ -170,6 +174,18 @@ public class TaxonboxWikiModel extends WikiModel {
       }
     }
     return null;
+  }
+
+  private void processConvert(Map<String, String> parameterMap, Appendable writer) {
+    try {
+      String val = parameterMap.get("1");
+      String unit = parameterMap.get("2");
+      writer.append(val);
+      writer.append(" ");
+      writer.append(unit);
+    } catch (Exception e) {
+      // ignore
+    }
   }
 
   private void processSoundBox(Map<String,String> parameterMap) {

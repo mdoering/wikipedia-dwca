@@ -8,6 +8,7 @@ import org.gbif.utils.file.InputStreamUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import info.bliki.wiki.dump.WikiArticle;
 import org.junit.Test;
@@ -21,20 +22,27 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class TaxonboxHandlerTest {
-  private WikiArticle page = new WikiArticle();
 
   private TaxonInfo processPage(String title, String filename, Language lang) throws IOException, SAXException {
+    TaxonboxHandler th = getHandler(lang);
+    th.process(article(title, filename), null);
+    return th.getWikiModel().getTaxonInfo();
+  }
+
+  private WikiArticle article(String title, String filename) throws IOException {
     InputStreamUtils isu = new InputStreamUtils();
+    WikiArticle page = new WikiArticle();
     page.setId("1");
     page.setTitle(title);
     page.setText(isu.readEntireStream(FileUtils.classpathStream(filename)));
+    return page;
+  }
 
+  private TaxonboxHandler getHandler(Language lang) throws IOException, SAXException {
     File tmpDir = FileUtils.createTempDir();
     tmpDir.deleteOnExit();
     DwcaWriter writer = new DwcaWriter(DwcTerm.Taxon, tmpDir);
-    TaxonboxHandler th = new TaxonboxHandler(lang.getIso2LetterCode(), writer, null);
-    th.process(page, null);
-    return th.getWikiModel().getTaxonInfo();
+    return new TaxonboxHandler(lang, writer, null);
   }
 
   @Test
@@ -206,6 +214,19 @@ public class TaxonboxHandlerTest {
   @Test
   public void testCyprinus() throws Exception {
     TaxonInfo taxon = processPage("Mirror_carp", "cyprinus.txt", Language.ENGLISH);
+  }
+
+  /**
+   * missing values for height and trunk diameter
+   * https://github.com/mdoering/wikipedia-dwca/issues/11
+   */
+  @Test
+  public void testSplitPage() throws Exception {
+    TaxonboxHandler h = getHandler(Language.ENGLISH);
+    WikiArticle page = article("Agathis microstachya", "agathis.txt");
+    LinkedHashMap<String, String> sections = h.splitPage(page);
+    assertEquals(5, sections.size());
+    assertEquals("A. microstachya grows up to about 50 m in height and 2.7 m in diameter. The trunk is unbuttressed, straight and with little taper. Distinctive features are coarse, flaky bark, medium-sized cones with 160-210 scales, and leaves with numerous longitudinal, parallel veins.", sections.get("Description"));
   }
 
 

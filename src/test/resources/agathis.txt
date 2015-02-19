@@ -1,0 +1,45 @@
+{{italic title}}
+{{ Taxobox
+ | name = Bull Kauri
+ | image = Agathis microstachya Bull Kauri.jpg
+ | image_width = 258px
+ | image_caption = <br/>&nbsp;<br/><span style="font-size:100%;">Bull Kauri, [[Lake Barrine]] circuit walk, [[Atherton Tablelands]], [[Queensland]], [[Australia]]</span><br/>&nbsp;
+ | status = LR/cd
+ | status_system = IUCN2.3
+ | status_ref = <ref name=iucn>{{ cite web |url={{IUCNlink|30536}} |title=''Agathis microstachya'' In: IUCN 2009 |author=Conifer Specialist Group |work=[[IUCN Red List of Threatened Species]] Version 2009.1 |publisher=[[International Union for Conservation of Nature and Natural Resources]] |year=1998 |accessdate=September 22, 2009}}</ref>
+ | regnum = [[Plant]]ae
+ | divisio = [[Pinophyta]]
+ | classis = [[Pinophyta|Pinopsida]]
+ | ordo = [[Pinales]]
+ | familia = [[Araucariaceae]]
+ | genus = ''[[Agathis]]''
+ | species = '''''A. microstachya'''''
+ | binomial = ''Agathis microstachya''
+ | binomial_authority = [[John Frederick Bailey|J.F.Bailey]] & C.White<ref name=ipni>{{ cite web |url=http://www.ipni.org:80/ipni/idPlantNameSearch.do?id=676649-1&back_page=%2Fipni%2FeditSimplePlantNameSearch.do%3Ffind_wholeName%3DAgathis%2Bmicrostachya%26output_format%3Dnormal |title=Plant Name Details for ''Agathis microstachya'' |publisher=[[International Plant Names Index|IPNI]] |accessdate=September 22, 2009}}</ref>
+ | synonyms = }}
+'''''Agathis microstachya''''' (the '''Bull Kauri''') is a [[species]] of [[Pinophyta|conifer]] in the [[Araucariaceae]] family, [[Endemism|endemic]] to [[Australia]]. It was described in 1918 by [[John Frederick Bailey]] and [[Cyril Tenison White]].<ref name=ipni/> It is threatened by [[Habitat destruction|habitat loss]].
+
+==Description==
+''A. microstachya'' grows up to about {{Convert|50|m|abbr = on}} in height and {{Convert|2.7|m|abbr = on}} in diameter. The [[Trunk (botany)|trunk]] is unbuttressed, straight and with little taper. Distinctive features are coarse, flaky [[bark]], medium-sized [[Conifer cone|cones]] with 160-210 scales, and [[Leaf|leaves]] with numerous longitudinal, parallel veins.<ref name=Boland/>
+
+==Distribution==
+It has a very restricted distribution, being almost limited to the [[Atherton Tableland]] in [[Far North Queensland]], with its elevational range {{Convert|400-900|m|abbr = on}} above [[sea level]].<ref name=Boland>Boland ''et al'', p.38.</ref>
+
+==Timber==
+The [[wood]] has an even texture, is easy to work and polishes well. The heartwood is cream to pale brown in colour. It is soft and light with a density of about {{Convert|480|kg/m3|lb/ft3|abbr = on}}. It is not durable in contact with the ground, but can be used for house framing and flooring.<ref name=Boland/>
+
+==References==
+{{reflist}}
+
+==Notes==
+* Boland, D.J.; Brooker, M.I.H.; Chippendale, G.M.; Hall, N.; Hyland, B.P.M.; Johnston, R.D.; Kleinig, D.A.; & Turner, J.D. (1984). ''Forest Trees of Australia''. (4th edition). Thomas Nelson, Australia; and CSIRO: Melbourne. ISBN 0-17-006264-3.
+* '''Agathis microstachya''' at www.conifers.org http://www.conifers.org/ar/ag/microstachya.html]
+
+[[Category:Agathis|microstachya]]
+[[Category:Pinales of Australia]]
+[[Category:Plants described in 1918]]
+[[Category:Conservation dependent biota of Queensland]]
+[[Category:Conservation dependent flora of Australia]]
+[[Category:Nature Conservation Act rare biota]]
+[[Category:Rare flora of Australia]]
+[[Category:Flora of Queensland]]

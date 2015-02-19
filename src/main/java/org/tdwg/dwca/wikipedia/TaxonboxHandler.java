@@ -1,10 +1,10 @@
 package org.tdwg.dwca.wikipedia;
 
 import org.gbif.api.vocabulary.Language;
-import org.gbif.dwc.terms.ConceptTerm;
 import org.gbif.dwc.terms.DcTerm;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.terms.GbifTerm;
+import org.gbif.dwc.terms.Term;
 import org.gbif.dwc.terms.TermFactory;
 import org.gbif.dwc.text.DwcaWriter;
 
@@ -16,12 +16,14 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import info.bliki.wiki.dump.IArticleFilter;
 import info.bliki.wiki.dump.Siteinfo;
 import info.bliki.wiki.dump.WikiArticle;
+import info.bliki.wiki.filter.ITextConverter;
 import info.bliki.wiki.filter.PlainTextConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -47,13 +49,14 @@ public class TaxonboxHandler implements IArticleFilter {
 
   // extra terms
   private final TermFactory termFactory;
-  private final ConceptTerm termFossil;
-  private final ConceptTerm termTrend;
-  private final ConceptTerm wikipediaImage;
-  private final ConceptTerm wikipediaThumb;
-  private final ConceptTerm taxobox;
-  private final ConceptTerm soundRowtype;
+  private final Term termFossil;
+  private final Term termTrend;
+  private final Term wikipediaImage;
+  private final Term wikipediaThumb;
+  private final Term taxobox;
+  private final Term soundRowtype;
   private final TaxonboxWikiModel wikiModel;
+  private final ITextConverter converter = new PlainTextConverter();
 
   private final Pattern SPLIT_SECTIONS = Pattern.compile("(?<!=)==([^=]+)==");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
@@ -68,15 +71,15 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Pattern EXTRACT_VERNACULARS = Pattern.compile("\\[\\[([a-z]{2,3}):([^\\]\\[]+)\\]\\]");
   private final Pattern REDIRECT = Pattern.compile("^.REDIRECT", Pattern.CASE_INSENSITIVE);
 
-  public TaxonboxHandler(String lang, DwcaWriter writer, File missingLicenseFile) throws IOException {
+  public TaxonboxHandler(Language lang, DwcaWriter writer, File missingLicenseFile) throws IOException {
     this.writer = writer;
-    this.lang = Language.fromIsoCode(lang);
+    this.lang = lang;
     if (lang == null) {
       throw new IllegalArgumentException("Language {} not understood. Please use iso 2 or 3 character codes");
     }
     imgScraper = new WikimediaScraper(missingLicenseFile);
-    wikiModel = new TaxonboxWikiModel(lang);
-    termFactory = new TermFactory();
+    wikiModel = new TaxonboxWikiModel(lang.getIso2LetterCode());
+    termFactory = TermFactory.instance();
     termFossil = termFactory.findTerm("http://wikipedia.org/taxon/fossilRange");
     termTrend = termFactory.findTerm("http://wikipedia.org/taxon/trend");
     wikipediaImage = termFactory.findTerm("http://wikipedia.org/image/link");
@@ -102,7 +105,8 @@ public class TaxonboxHandler implements IArticleFilter {
     }
   }
 
-  private LinkedHashMap<String, String> splitPage(WikiArticle page) {
+  @VisibleForTesting
+  protected LinkedHashMap<String, String> splitPage(WikiArticle page) {
     LinkedHashMap<String, String> sections = Maps.newLinkedHashMap();
     Matcher m = SPLIT_SECTIONS.matcher(page.getText());
     String title = "Abstract";
@@ -136,7 +140,7 @@ public class TaxonboxHandler implements IArticleFilter {
   private void addSection(Map<String, String> sections, String title, String body) {
     String titleNormed = wikiModel.render(new PlainTextConverter(), title).trim();
     if (!Strings.isNullOrEmpty(titleNormed) && !IGNORE_SETIONS.contains(titleNormed.toLowerCase()) && !titleNormed.toLowerCase().startsWith("additional ")) {
-      String plain = wikiModel.render(new PlainTextConverter(), body);
+      String plain = wikiModel.render(converter, body);
       // replace remaining {{xyz}}
       plain = REMOVE_TEMPLATES.matcher(plain).replaceAll(" ").trim();
       // remove [1], [2] etc
@@ -175,7 +179,7 @@ public class TaxonboxHandler implements IArticleFilter {
     writer.addCoreColumn(DwcTerm.verbatimTaxonRank, taxon.getRankVerbatim());
     writer.addCoreColumn(DwcTerm.kingdom, taxon.getKingdom());
     writer.addCoreColumn(DwcTerm.phylum, taxon.getPhylum());
-    writer.addCoreColumn(DwcTerm.classs, taxon.getClazz());
+    writer.addCoreColumn(DwcTerm.class_, taxon.getClazz());
     writer.addCoreColumn(DwcTerm.order, taxon.getOrder());
     writer.addCoreColumn(DwcTerm.family, taxon.getFamily());
     writer.addCoreColumn(DwcTerm.genus, taxon.getGenus());
@@ -185,7 +189,7 @@ public class TaxonboxHandler implements IArticleFilter {
     writer.addCoreColumn(termFossil, taxon.getFossilRange());
     writer.addCoreColumn(taxobox, taxon.getRawParams().toString());
 
-    Map<ConceptTerm, String> row;
+    Map<Term, String> row;
 
     // vernacular name extension
     for (String vname : taxon.getVernacularNamesInDefaultLang()) {

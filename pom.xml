@@ -17,23 +17,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.gbif</groupId>
     <artifactId>motherpom</artifactId>
-    <version>8</version>
+    <version>19</version>
   </parent>
 
-    <artifactId>wikipedia-dwca</artifactId>
-    <version>1.0-SNAPSHOT</version>
+  <artifactId>wikipedia-dwca</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>DwC Archive Generator for Wikipedia</name>
   <description>Wikipedia Parser generating a dwca for species pages using the taxobox template</description>
+  <url>https://github.com/mdoering/wikipedia-dwca</url>
 
-  <properties>
-  </properties>
+  <scm>
+    <connection>scm:git:git@github.com:mdoering/wikipedia-dwca.git</connection>
+    <url>https://github.com/mdoering/wikipedia-dwca</url>
+    <developerConnection>scm:git:git@github.com:mdoering/wikipedia-dwca.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <build>
     <defaultGoal>process-resources</defaultGoal>
@@ -88,29 +93,29 @@
       <url>http://repository.gbif.org/content/groups/gbif</url>
     </repository>
     <repository>
-            <id>info-bliki-repository</id>
-            <url>http://gwtwiki.googlecode.com/svn/maven-repository/</url>
-            <releases>
-                    <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                    <enabled>false</enabled>
-            </snapshots>
+      <id>info-bliki-repository</id>
+      <url>http://gwtwiki.googlecode.com/svn/maven-repository/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
     </repository>
-</repositories>
+  </repositories>
 
   <dependencies>
-  <!-- GBIF -->
-  <dependency>
-    <groupId>org.gbif</groupId>
-    <artifactId>gbif-httputils</artifactId>
-    <version>0.4</version>
-  </dependency>
-  <dependency>
-    <groupId>org.gbif</groupId>
-    <artifactId>gbif-common</artifactId>
-    <version>0.12</version>
-  </dependency>
+    <!-- GBIF -->
+    <dependency>
+      <groupId>org.gbif</groupId>
+      <artifactId>gbif-httputils</artifactId>
+      <version>0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.gbif</groupId>
+      <artifactId>gbif-common</artifactId>
+      <version>0.12</version>
+    </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
       <artifactId>gbif-api</artifactId>
@@ -136,9 +141,9 @@
       <version>3.0.19</version>
     </dependency>
     <dependency>
-        <groupId>org.jsoup</groupId>
-        <artifactId>jsoup</artifactId>
-        <version>1.7.2</version>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.7.2</version>
     </dependency>
 
     <!-- Logging -->

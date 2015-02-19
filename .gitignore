@@ -2,7 +2,6 @@ classes/
 target/
 .idea/
 *.iml
-
 .DS_Store
-
+*.log
 wikipedia.jar

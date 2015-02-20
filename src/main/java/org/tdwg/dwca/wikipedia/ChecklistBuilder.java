@@ -17,6 +17,7 @@ package org.tdwg.dwca.wikipedia;
 
 import org.gbif.api.model.registry.Contact;
 import org.gbif.api.model.registry.Dataset;
+import org.gbif.api.model.registry.eml.DataDescription;
 import org.gbif.api.vocabulary.ContactType;
 import org.gbif.api.vocabulary.Country;
 import org.gbif.api.vocabulary.Language;
@@ -29,11 +30,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 
 import com.beust.jcommander.JCommander;
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import info.bliki.wiki.dump.WikiXMLParser;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,17 +47,19 @@ public class ChecklistBuilder {
   private DwcaWriter writer;
 
   private final WikipediaConfig cfg;
+  private Date modifiedDate;
+  private URL url;
 
   public ChecklistBuilder(WikipediaConfig cfg) {
     this.cfg = cfg;
   }
 
   private File download() throws IOException {
-    final File wikiDumpBz = cfg.getRepoFile(cfg.lang+"-wikipedia.xml.bz");
+    final File wikiDumpBz = cfg.getRepoFile(cfg.lang+"-wikipedia.xml.bz2");
+    url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%swiki-latest-pages-articles.xml.bz2", cfg.lang, cfg.lang));
     if (!cfg.offline){
-      final URL url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/wiki-latest-pages-articles.xml.bz2", cfg.lang));
       log.info("Downloading latest wikipedia dump from " + url.toString());
-      HttpUtil http = new HttpUtil(HttpUtil.newMultithreadedClient(5000,10,10));
+      HttpUtil http = new HttpUtil(HttpUtil.newMultithreadedClient(61000,10,10));
       boolean success = http.downloadIfChanged(url, wikiDumpBz);
       if (success){
         log.info("Downloaded new wikipedia dump");
@@ -60,6 +67,7 @@ public class ChecklistBuilder {
         log.info("No newer wikipedia dump, use existing copy");
       }
     }
+    modifiedDate = new Date(wikiDumpBz.lastModified());
     return wikiDumpBz;
   }
 
@@ -74,7 +82,7 @@ public class ChecklistBuilder {
 
     // parse file
     log.info("Parsing dump file {}", wikiDumpBz.getAbsolutePath());
-    TaxonboxHandler handler = new TaxonboxHandler(cfg.getLanguage(), writer, new File(cfg.repo, "missing_licenses-"+cfg.lang+".txt"));
+    TaxonboxHandler handler = new TaxonboxHandler(cfg, writer, new File(cfg.repo, "missing_licenses-"+cfg.lang+".txt"));
     try {
       WikiXMLParser wxp = new WikiXMLParser(wikiDumpBz.getAbsolutePath(), handler);
       wxp.parse();
@@ -83,8 +91,8 @@ public class ChecklistBuilder {
       e.printStackTrace();
     } finally {
       log.info("Unknown Taxoninfo properties: {}", handler.getWikiModel().getUnknownProperties());
-      for (Map.Entry<String, String> tmpl : handler.getWikiModel().getUnknownTemplates().entrySet()) {
-        log.debug("Unknown template >>{}<< {}", tmpl.getKey(), tmpl.getValue());
+      for (Map.Entry<String, Integer> tmpl : handler.getWikiModel().getUnknownTemplatesCounter().entrySet()) {
+        log.debug("Unknown template >>{}<< {}x {}", tmpl.getKey(), tmpl.getValue(), handler.getWikiModel().getUnknownTemplates().get(tmpl.getKey()));
       }
     }
 
@@ -111,19 +119,28 @@ public class ChecklistBuilder {
     log.info("Wikipedia dwc archive completed at {} !", dwcaFile);
   }
 
-
-  private Dataset buildEml(){
+  private Dataset buildEml() throws IOException {
     Dataset eml = new Dataset();
     eml.setTitle(cfg.getLanguage().getTitleEnglish() + " Wikipedia - Species Pages");
     eml.setLanguage(Language.ENGLISH);
     eml.setDataLanguage(cfg.getLanguage());
-    eml.setDescription("Parsed taxobox pages of the wikipedia dump");
+    String description = Resources.toString(Resources.getResource(""), Charsets.UTF_8);
+    eml.setDescription(description.replaceAll("$LANGUAGE", cfg.getLanguage().getTitleEnglish())
+      .replaceAll("$DATE", DateFormatUtils.ISO_DATE_FORMAT.format(modifiedDate)));
+    eml.setPubDate(modifiedDate);
     eml.setHomepage(URI.create("http://" + cfg.lang + ".wikipedia.org"));
-    addContacts(eml, ContactType.METADATA_AUTHOR, ContactType.ORIGINATOR, ContactType.POINT_OF_CONTACT);
+    addMarkus(eml, ContactType.METADATA_AUTHOR, ContactType.ORIGINATOR, ContactType.ADMINISTRATIVE_POINT_OF_CONTACT);
+
+    DataDescription d = new DataDescription();
+    d.setUrl(URI.create(url.toString()));
+    d.setFormat("XML");
+    d.setName("Wikipedia Article Dump");
+    eml.getDataDescriptions().add(d);
+
     return eml;
   }
 
-  private void addContacts(Dataset dataset, ContactType ... roles){
+  private void addMarkus(Dataset dataset, ContactType... roles){
     for (ContactType role : roles) {
       Contact markus = new Contact();
       markus.addEmail("mdoering@gbif.org");

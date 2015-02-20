@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 public class TaxonboxHandler implements IArticleFilter {
 
   private final static Logger log = LoggerFactory.getLogger(TaxonboxHandler.class);
+  private final WikipediaConfig cfg;
   private final Language lang;
   private final DwcaWriter writer;
   private Integer taxonCount = 0;
@@ -60,7 +61,6 @@ public class TaxonboxHandler implements IArticleFilter {
 
   private final Pattern SPLIT_SECTIONS = Pattern.compile("(?<!=)==([^=]+)==");
   private final Pattern REMOVE_TEMPLATES = Pattern.compile("\\{\\{[a-zA-Z0-9-_ ]*\\}\\}");
-  private final Pattern REMOVE_FOOTNOTES = Pattern.compile("\\[[0-9]{1,2}\\]");
   private final Set<String> IGNORE_SETIONS = ImmutableSet.<String>builder()
     .addAll(TaxonInfoEN.IGNORE_SETIONS)
     .addAll(TaxonInfoDE.IGNORE_SETIONS)
@@ -71,14 +71,15 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Pattern EXTRACT_VERNACULARS = Pattern.compile("\\[\\[([a-z]{2,3}):([^\\]\\[]+)\\]\\]");
   private final Pattern REDIRECT = Pattern.compile("^.REDIRECT", Pattern.CASE_INSENSITIVE);
 
-  public TaxonboxHandler(Language lang, DwcaWriter writer, File missingLicenseFile) throws IOException {
+  public TaxonboxHandler(WikipediaConfig cfg, DwcaWriter writer, File missingLicenseFile) throws IOException {
     this.writer = writer;
-    this.lang = lang;
+    this.cfg = cfg;
+    this.lang = cfg.getLanguage();
     if (lang == null) {
       throw new IllegalArgumentException("Language {} not understood. Please use iso 2 or 3 character codes");
     }
     imgScraper = new WikimediaScraper(missingLicenseFile);
-    wikiModel = new TaxonboxWikiModel(lang.getIso2LetterCode());
+    wikiModel = new TaxonboxWikiModel(cfg);
     termFactory = TermFactory.instance();
     termFossil = termFactory.findTerm("http://wikipedia.org/taxon/fossilRange");
     termTrend = termFactory.findTerm("http://wikipedia.org/taxon/trend");
@@ -169,7 +170,7 @@ public class TaxonboxHandler implements IArticleFilter {
     log.debug("Processing #" + taxonCount + " {}: {}", WikipediaUtils.getWikiLink(lang, page.getTitle()), taxon.getScientificName());
     // write core record
     writer.newRecord(page.getId());
-    writer.addCoreColumn(DcTerm.source, WikipediaUtils.getWikiLink(lang, page.getTitle()));
+    writer.addCoreColumn(DcTerm.references, WikipediaUtils.getWikiLink(lang, page.getTitle()));
     writer.addCoreColumn(DcTerm.modified, page.getTimeStamp());
     writer.addCoreColumn(DwcTerm.scientificName, taxon.getScientificName());
     writer.addCoreColumn(DwcTerm.scientificNameAuthorship, taxon.getScientificNameAuthorship());
@@ -283,6 +284,7 @@ public class TaxonboxHandler implements IArticleFilter {
       row.put(DcTerm.description, section.getValue());
       row.put(DcTerm.language, lang.getIso2LetterCode());
       row.put(DcTerm.license, TEXT_LICENSE);
+      row.put(DcTerm.references, WikipediaUtils.getWikiLink(lang, page.getTitle(), section.getKey()));
       writer.addExtensionRecord(GbifTerm.Description, row);
     }
 

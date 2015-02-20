@@ -1,0 +1,5 @@
+Species pages extracted from the $LANG Wikipedia article XML dump downloaded on $DATE.
+Multimedia, vernacular names and textual descriptions are extracted, but only pages with a taxobox or speciesbox template are recognized.
+
+See https://github.com/mdoering/wikipedia-dwca for details.
+

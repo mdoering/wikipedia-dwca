@@ -2,16 +2,21 @@ package org.tdwg.dwca.wikipedia.taxonbox;
 
 import org.gbif.utils.file.InputStreamUtils;
 
+import java.util.Map;
+
 import info.bliki.wiki.filter.PlainTextConverter;
 import info.bliki.wiki.model.WikiModel;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.tdwg.dwca.wikipedia.WikipediaConfig;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TaxonboxWikiModelTest {
-
-  private WikiModel wiki = new TaxonboxWikiModel("en");
+  private static WikipediaConfig cfg = new WikipediaConfig();
+  private WikiModel wiki = new TaxonboxWikiModel(cfg);
   private PlainTextConverter converter = new PlainTextConverter();
   private InputStreamUtils isu = new InputStreamUtils();
 
@@ -20,8 +25,25 @@ public class TaxonboxWikiModelTest {
   }
 
   @Test
+  public void testCounterOrdering() throws Exception {
+    TaxonboxWikiModel wm = new TaxonboxWikiModel(cfg);
+    wm.unknownTemplatesCounter.put("converter", 29);
+    wm.unknownTemplatesCounter.put("converter-min", 1);
+    wm.unknownTemplatesCounter.put("converter-max", 45);
+    wm.unknownTemplatesCounter.put("converter2", 12);
+    wm.unknownTemplatesCounter.put("converter3", 1);
+
+    assertEquals(5, wm.getUnknownTemplatesCounter().size());
+    int last = 100;
+    for (Map.Entry<String, Integer> entry : wm.getUnknownTemplatesCounter().entrySet()) {
+      assertTrue(entry.getValue() <= last);
+      last = entry.getValue();
+    }
+  }
+
+  @Test
   public void testRender() throws Exception {
-    WikiModel wiki = new TaxonboxWikiModel("en");
+    WikiModel wiki = new TaxonboxWikiModel(cfg);
     PlainTextConverter converter = new PlainTextConverter();
     assertEquals("68-65 Ma", wiki.render(converter, "{{Fossil range|68|65|}}"));
     assertEquals("Hello", wiki.render(converter, "Hello"));
@@ -65,9 +87,29 @@ public class TaxonboxWikiModelTest {
 
   @Test
   public void testCitation() throws Exception {
+    cfg.footnotes=true;
     assertEquals("citation", render("citation"));
     assertEquals("UniProt: Order Rosales", render("{{cite web|url = http://beta.uniprot.org/taxonomy/3744| title = Order '''Rosales'''| accessdate = 2008-04-24| author = UniProt| authorlink = UniProt}}"));
     assertEquals("Döring, Markus (2000): PonTaurus: pp. 121-133", render("{{cite book| title = PonTaurus| year = 2000 | first = Markus| last = Döring | pages=121-133}}"));
   }
+
+
+  @Test
+  public void testConvert() throws Exception {
+    assertEquals("Convert", render("Convert"));
+    assertEquals("about 50 m in height and 2.7 m in diameter", render("about {{Convert|50|m|abbr = on}} in height and {{Convert|2.7|m|abbr = on}} in diameter"));
+  }
+
+  /**
+   * https://github.com/mdoering/wikipedia-dwca/issues/10
+   * http://en.wikipedia.org/wiki/Template:RFK6.1
+   */
+  @Test
+  @Ignore
+  public void testRFPK61() throws Exception {
+    assertEquals("Convert", render("Convert"));
+    assertEquals("", render("<ref name=AustTRFPK6.1>{{AustTRFPK6.1 |url= http://keys.trin.org.au:8080/key-server/data/0e0f0504-0103-430d-8004-060d07080d04/media/Html/taxon/Scaevola_taccada.htm |accessdate=16 Mar 2013 }}</ref>"));
+  }
+
 
 }

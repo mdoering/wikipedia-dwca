@@ -7,9 +7,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Functions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import info.bliki.wiki.filter.PlainTextConverter;
 import info.bliki.wiki.model.WikiModel;
@@ -17,57 +21,25 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tdwg.dwca.wikipedia.WikipediaConfig;
+import org.tdwg.dwca.wikipedia.bliki.TaxonConfiguration;
 
 /**
  * Wiki model that is aware of most taxonomic templates plus the major citation and fossil/palaeo templates.
  * For automatic taxonboxes the classification from the Taxonomy templates are scraped.
- * In detail the supported templates are:
- *
- * http://en.wikipedia.org/wiki/Template:Taxobox
- * http://de.wikipedia.org/wiki/Wikipedia:Taxoboxen
- * http://de.wikipedia.org/wiki/Wikipedia:Pal%C3%A4oboxen
- * http://en.wikipedia.org/wiki/Template:Automatic_taxobox/doc
- *
- * http://en.wikipedia.org/wiki/Template:Speciesbox/doc
- * http://en.wikipedia.org/wiki/Template:Subspeciesbox/doc
- * http://en.wikipedia.org/wiki/Template:Infraspeciesbox/doc
- *
- * http://en.wikipedia.org/wiki/Template:Hybrid
- *
- * http://en.wikipedia.org/wiki/Template:Species_list/doc
- * http://en.wikipedia.org/wiki/Template:Taxon_list
- * http://en.wikipedia.org/wiki/Template:Plainlist
- * http://en.wikipedia.org/wiki/Template:Flatlist
- * http://en.wikipedia.org/wiki/Template:Collapsible_list
- *
- * http://simple.wikipedia.org/wiki/Template:Fossil_range/doc
- * http://en.wikipedia.org/wiki/Template:Long_fossil_range
- * http://en.wikipedia.org/wiki/Template:Geological_range
- *
- * http://en.wikipedia.org/wiki/Template:Cite
- * http://en.wikipedia.org/wiki/Template:Cite_journal
- * http://en.wikipedia.org/wiki/Template:Cite_book
- * http://en.wikipedia.org/wiki/Template:Cite_web
- *
- * http://en.wikipedia.org/wiki/Template:Listen
- * http://en.wikipedia.org/wiki/Template:Convert
-
- * TODO: support more templates:
- * http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Tree_of_Life/Cultivar_infobox
- * http://de.wikipedia.org/wiki/Wikipedia:Viroboxen
+ * See README.md for details on supported templates!
  */
 public class TaxonboxWikiModel extends WikiModel {
-  private final Set<String> TAXOBOX_TEMPLATES = Sets.newHashSet("taxobox", "automatictaxobox", "fichadetaxón", "fichadetaxon");
-  private final Set<String> CITATION_TEMPLATES = Sets.newHashSet("cite", "citeweb", "citebook", "citejournal");
-  private final Set<String> FOSSIL_RANGE_TEMPLATES = Sets.newHashSet("fossilrange","geologicalrange", "longfossilrange");
-  private final Set<String> SPECIES_LIST_TEMPLATES = Sets.newHashSet("specieslist", "taxonlist");
-  private final Set<String> PLAIN_LIST_TEMPLATES = Sets.newHashSet("plainlist", "flatlist");
-  private final Logger log = LoggerFactory.getLogger(getClass());
-  protected final String lang;
-  private TaxonInfo info;
-  private boolean multipleTaxa = false;
-  private Map<String, String> unknownProperties = Maps.newHashMap();
-  private Map<String, String> unknownTemplates = Maps.newHashMap();
+  private final static Logger LOG = LoggerFactory.getLogger(TaxonboxWikiModel.class);
+
+  private final static Set<String> TAXOBOX_TEMPLATES = Sets.newHashSet("taxobox", "automatictaxobox", "fichadetaxón",
+    "fichadetaxon");
+  private final static Set<String> CITATION_TEMPLATES = Sets.newHashSet("cite", "citeweb", "citebook", "citejournal");
+  private final static Set<String> FOSSIL_RANGE_TEMPLATES = Sets.newHashSet("fossilrange", "geologicalrange",
+    "longfossilrange");
+  private final static Set<String> SPECIES_LIST_TEMPLATES = Sets.newHashSet("specieslist", "taxonlist");
+  private final static Set<String> PLAIN_LIST_TEMPLATES = Sets.newHashSet("plainlist", "flatlist");
+
   private static final Pattern REPL_REF_TAG = Pattern.compile("< *ref[a-zA-Z0-9 =\"\'_-]*>[^<>]+</ *ref *>", Pattern.CASE_INSENSITIVE);
   private static final Pattern IS_EXTINCT = Pattern.compile("[†‡]");
   private static final Pattern CLEAN_NAMES = Pattern.compile("[†‡\"'„“+|<>\\[\\]]", Pattern.CASE_INSENSITIVE);
@@ -80,18 +52,31 @@ public class TaxonboxWikiModel extends WikiModel {
   private static final String[] CITE_suffix = new String[]{"","1","2","3","4","5","6","7","8","9"};
   private static final String[] CITE_last_aliases = new String[]{"author","authors","last"};
 
-  private PlainTextConverter converter = new PlainTextConverter();
-  private TaxonboxWikiModel internalWiki;
+  private static final PlainTextConverter converter = new PlainTextConverter();
 
-  public TaxonboxWikiModel(String lang) {
-    super("http://image.wikipedia.org/${image}", "http://"+lang+".wikipedia.org/${title}");
-    this.lang = lang;
+  private final WikipediaConfig cfg;
+  protected final String lang;
+  private TaxonInfo info;
+  private TaxonboxWikiModel internalWiki;
+  private boolean multipleTaxa = false;
+  private Map<String, String> unknownProperties = Maps.newHashMap();
+  private Map<String, String> unknownTemplates = Maps.newHashMap();
+  @VisibleForTesting
+  protected Map<String, Integer> unknownTemplatesCounter = Maps.newHashMap();
+
+  public TaxonboxWikiModel(WikipediaConfig cfg) {
+    super(TaxonConfiguration.DEFAULT_CONFIGURATION, "http://image.wikipedia.org/${image}", "http://"+cfg.lang+".wikipedia.org/${title}");
+    this.cfg = cfg;
+    this.lang = cfg.lang;
     internalWiki = new TaxonboxWikiModel(this);
+    // update TaxonConfiguration with a reference to this wikimodel
+    TaxonConfiguration.setWikiModel(this);
   }
 
-  private TaxonboxWikiModel(TaxonboxWikiModel wiki) {
-    super("http://image.wikipedia.org/${image}", "http://"+wiki.lang+".wikipedia.org/${title}");
+  public TaxonboxWikiModel(TaxonboxWikiModel wiki) {
+    super(TaxonConfiguration.DEFAULT_CONFIGURATION, wiki.getImageBaseURL(), wiki.getWikiBaseURL());
     this.lang = wiki.lang;
+    this.cfg = wiki.cfg;
   }
 
   @Override
@@ -141,7 +126,9 @@ public class TaxonboxWikiModel extends WikiModel {
           processFossilRange(parameterMap, writer);
 
         } else if (CITATION_TEMPLATES.contains(templateName)) {
-          processCitation(parameterMap, writer);
+          if (cfg.footnotes) {
+            processCitation(parameterMap, writer);
+          }
 
         } else if (PLAIN_LIST_TEMPLATES.contains(templateName)) {
           if (parameterMap.containsKey("1")) {
@@ -163,6 +150,9 @@ public class TaxonboxWikiModel extends WikiModel {
           // log all other templates
           if (!unknownTemplates.containsKey(templateName)){
             unknownTemplates.put(templateName, parameterMap==null ? "" : parameterMap.toString());
+            unknownTemplatesCounter.put(templateName, 1);
+          } else {
+            unknownTemplatesCounter.put(templateName, unknownTemplatesCounter.get(templateName)+1);
           }
           // remove all other templates
           return "";
@@ -190,7 +180,7 @@ public class TaxonboxWikiModel extends WikiModel {
 
   private void processSoundBox(Map<String,String> parameterMap) {
     if (info != null) {
-      log.debug("Sound box found for name {}", info.getScientificName());
+      LOG.debug("Sound box found for name {}", info.getScientificName());
       Sound sound = new Sound();
       for (String param : parameterMap.keySet()) {
         String key = param2Key(param);
@@ -199,14 +189,14 @@ public class TaxonboxWikiModel extends WikiModel {
         try {
           PropertyUtils.setProperty(sound, key, value);
         } catch (IllegalAccessException e) {
-          log.error("IllegalAccessException Sound param={}", param);
+          LOG.error("IllegalAccessException Sound param={}", param);
         } catch (NoSuchMethodException e) {
           // expected - Sound bean doesnt cover all props
         } catch (IllegalArgumentException e) {
           // strange property names?
-          log.warn("Illegal Sound property {} : {}", key, e.getMessage());
+          LOG.warn("Illegal Sound property {} : {}", key, e.getMessage());
         } catch (InvocationTargetException e) {
-          log.error("InvocationTargetException Sound param={}", param);
+          LOG.error("InvocationTargetException Sound param={}", param);
         }
       }
       // if a url exists keep it
@@ -245,7 +235,7 @@ public class TaxonboxWikiModel extends WikiModel {
           info.setTaxon(species);
           info.setRank(Rank.Species);
           if (Rank.Species != rank) {
-            log.warn("{} box found with species name {}. Raw params {}", new Object[]{rank, species, parameterMap});
+            LOG.warn("{} box found with species name {}. Raw params {}", new Object[] {rank, species, parameterMap});
           }
         }
       }
@@ -320,18 +310,18 @@ public class TaxonboxWikiModel extends WikiModel {
         try {
           PropertyUtils.setProperty(info, key, value);
         } catch (IllegalAccessException e) {
-          log.error("IllegalAccessException param={}", param);
+          LOG.error("IllegalAccessException param={}", param);
         } catch (NoSuchMethodException e) {
           // expected - TaxonInfo bean doesnt cover all props
-          // only log unknown props once
+          // only LOG unknown props once
           if (!unknownProperties.containsKey(key)){
             unknownProperties.put(key, parameterMap.get(param));
           }
         } catch (IllegalArgumentException e) {
           // strange property names?
-          log.warn("Illegal property {} : {}", key, e.getMessage());
+          LOG.warn("Illegal property {} : {}", key, e.getMessage());
         } catch (InvocationTargetException e) {
-          log.error("InvocationTargetException param={}", param);
+          LOG.error("InvocationTargetException param={}", param);
         }
       }
     }
@@ -586,5 +576,13 @@ public class TaxonboxWikiModel extends WikiModel {
 
   public Map<String, String> getUnknownTemplates() {
     return unknownTemplates;
+  }
+
+  public Map<String, Integer> getUnknownTemplatesCounter() {
+    return ImmutableSortedMap.copyOf(unknownTemplatesCounter,
+      Ordering.natural().reverse().nullsLast()
+        .onResultOf(Functions.forMap(unknownTemplatesCounter, null))
+        .compound(Ordering.natural())
+    );
   }
 }

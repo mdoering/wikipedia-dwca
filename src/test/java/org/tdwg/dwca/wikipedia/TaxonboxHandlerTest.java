@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import info.bliki.wiki.dump.WikiArticle;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.tdwg.dwca.wikipedia.taxonbox.Rank;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
@@ -42,7 +43,9 @@ public class TaxonboxHandlerTest {
     File tmpDir = FileUtils.createTempDir();
     tmpDir.deleteOnExit();
     DwcaWriter writer = new DwcaWriter(DwcTerm.Taxon, tmpDir);
-    return new TaxonboxHandler(lang, writer, null);
+    WikipediaConfig cfg = new WikipediaConfig();
+    cfg.lang = lang.getIso2LetterCode();
+    return new TaxonboxHandler(cfg, writer, null);
   }
 
   @Test
@@ -227,6 +230,26 @@ public class TaxonboxHandlerTest {
     LinkedHashMap<String, String> sections = h.splitPage(page);
     assertEquals(5, sections.size());
     assertEquals("A. microstachya grows up to about 50 m in height and 2.7 m in diameter. The trunk is unbuttressed, straight and with little taper. Distinctive features are coarse, flaky bark, medium-sized cones with 160-210 scales, and leaves with numerous longitudinal, parallel veins.", sections.get("Description"));
+  }
+
+  @Test
+  public void testImageGalleryTag() throws Exception {
+    TaxonInfo taxon = processPage("Scaevola taccada", "scaevola_taccada.txt", Language.ENGLISH);
+    assertEquals(11, taxon.getImages().size());
+  }
+
+  /**
+   * https://github.com/mdoering/wikipedia-dwca/issues/10
+   * http://en.wikipedia.org/wiki/Scaevola_taccada#Use
+   */
+  @Test
+  @Ignore("Fix is incomplete")
+  public void testFooterCitations() throws Exception {
+    TaxonboxHandler h = getHandler(Language.ENGLISH);
+    WikiArticle page = article("Scaevola taccada", "scaevola_taccada.txt");
+    LinkedHashMap<String, String> sections = h.splitPage(page);
+    assertEquals(6, sections.size());
+    assertEquals("In some islands of the Pacific, Scaevola taccada is used to prevent coastal erosion as well as for landscaping. It is also planted on the beach crests to protect other cultivated plants from the salt spray. Parts of the plant are also used in Polynesian and Asian traditional medicine. It has also been proven to be \"an excellent remedy as antidiabetic, antipyretic, antiinflamatory, anticoagulant and as skeletal muscle relaxant without any adverse reactions\" by the department of pharmacy of Annamalai University, India - Amelia Earhart May Have Survived Months as CastawayHistorically tn the Maldives the leaves of this bush were often used as famine food.Eating on the Islands - As times have changed, so has the Maldives' unique cuisine and culture", sections.get("Use"));
   }
 
 

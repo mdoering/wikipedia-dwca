@@ -35,6 +35,14 @@ public class WikipediaUtils {
     return null;
   }
 
+  public static String getWikiLink(Language lang, String title, String section) {
+    String link = getWikiLink(lang, title);
+    if (link != null) {
+      return link + "#" + section.replaceAll(" +", "_");
+    }
+    return null;
+  }
+
   /**
    * @See http://commons.wikimedia.org/wiki/Commons:Reusing%5Fcontent%5Foutside%5FWikimedia#Hotlinking
    * @param image

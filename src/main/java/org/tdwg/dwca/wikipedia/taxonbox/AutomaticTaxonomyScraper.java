@@ -21,45 +21,48 @@ public class AutomaticTaxonomyScraper {
       try {
         parse(url, taxon);
       } catch (IOException e) {
-        LOG.error("Error parsing automatic taxonomy template for url {}: {}", url, e);
-      } catch (Exception e) {
-        LOG.error("Error parsing automatic taxonomy template for url {}: {}", url, e);
+        // keep it with a remark
+        taxon.addRemark("Failed to retrieve taxonomy from {}", url);
       }
     }
   }
 
   private static void parse(String url, TaxonInfo taxon) throws IOException {
-    Document doc = Jsoup.connect(url).get();
-    Element content = doc.getElementById("mw-content-text");
-    if(content != null){
+    try {
+      Document doc = Jsoup.connect(url).get();
+      Element content = doc.getElementById("mw-content-text");
+      if(content != null){
 
-      // extinct & rank
-      Element table = content.getElementsByClass("wikitable").first();
-      if (table != null) {
-        Elements rows = table.getElementsByTag("tr");
-        if(rows != null){
-          for (Element row : rows) {
-            Elements cols = row.getElementsByTag("td");
-            if (cols.size() == 2) {
-              setKeyVal(taxon, cols.get(0).text(), cols.get(1));
+        // extinct & rank
+        Element table = content.getElementsByClass("wikitable").first();
+        if (table != null) {
+          Elements rows = table.getElementsByTag("tr");
+          if(rows != null){
+            for (Element row : rows) {
+              Elements cols = row.getElementsByTag("td");
+              if (cols.size() == 2) {
+                setKeyVal(taxon, cols.get(0).text(), cols.get(1));
+              }
+            }
+          }
+        }
+
+        // classification
+        Element classification = content.getElementsByClass("biota").first();
+        if (classification != null) {
+          Elements rows = classification.getElementsByTag("tr");
+          if(rows != null){
+            for (Element row : rows) {
+              Elements cols = row.getElementsByTag("td");
+              if (cols.size() == 2) {
+                setHigherTaxon(taxon, cols.get(0).text(), cols.get(1).getElementsByTag("span").first());
+              }
             }
           }
         }
       }
-
-      // classification
-      Element classification = content.getElementsByClass("biota").first();
-      if (classification != null) {
-        Elements rows = classification.getElementsByTag("tr");
-        if(rows != null){
-          for (Element row : rows) {
-            Elements cols = row.getElementsByTag("td");
-            if (cols.size() == 2) {
-              setHigherTaxon(taxon, cols.get(0).text(), cols.get(1).getElementsByTag("span").first());
-            }
-          }
-        }
-      }
+    } catch (Exception e) {
+      throw new IOException(e);
     }
   }
 

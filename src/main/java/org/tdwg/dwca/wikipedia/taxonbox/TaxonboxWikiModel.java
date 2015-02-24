@@ -147,12 +147,14 @@ public class TaxonboxWikiModel extends WikiModel {
 
 
         } else{
-          // log all other templates
-          if (!unknownTemplates.containsKey(templateName)){
-            unknownTemplates.put(templateName, parameterMap==null ? "" : parameterMap.toString());
-            unknownTemplatesCounter.put(templateName, 1);
-          } else {
-            unknownTemplatesCounter.put(templateName, unknownTemplatesCounter.get(templateName)+1);
+          // log all other templates found on known species pages!
+          if (info != null) {
+            if (!unknownTemplates.containsKey(templateName)){
+              unknownTemplates.put(templateName, parameterMap==null ? "" : parameterMap.toString());
+              unknownTemplatesCounter.put(templateName, 1);
+            } else {
+              unknownTemplatesCounter.put(templateName, unknownTemplatesCounter.get(templateName)+1);
+            }
           }
           // remove all other templates
           return "";
@@ -161,6 +163,7 @@ public class TaxonboxWikiModel extends WikiModel {
         return writer.toString();
 
       } catch (IOException e) {
+        LOG.error("IO error parsing wiki content for article {}", articleName, e);
       }
     }
     return null;

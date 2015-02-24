@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
 
 public class TaxonboxHandler implements IArticleFilter {
 
-  private final static Logger log = LoggerFactory.getLogger(TaxonboxHandler.class);
+  private final static Logger LOG = LoggerFactory.getLogger(TaxonboxHandler.class);
   private final WikipediaConfig cfg;
   private final Language lang;
   private final DwcaWriter writer;
@@ -52,8 +52,6 @@ public class TaxonboxHandler implements IArticleFilter {
   private final TermFactory termFactory;
   private final Term termFossil;
   private final Term termTrend;
-  private final Term wikipediaImage;
-  private final Term wikipediaThumb;
   private final Term taxobox;
   private final Term soundRowtype;
   private final TaxonboxWikiModel wikiModel;
@@ -83,8 +81,6 @@ public class TaxonboxHandler implements IArticleFilter {
     termFactory = TermFactory.instance();
     termFossil = termFactory.findTerm("http://wikipedia.org/taxon/fossilRange");
     termTrend = termFactory.findTerm("http://wikipedia.org/taxon/trend");
-    wikipediaImage = termFactory.findTerm("http://wikipedia.org/image/link");
-    wikipediaThumb = termFactory.findTerm("http://wikipedia.org/image/thumbnail");
     taxobox = termFactory.findTerm("http://wikipedia.org/taxobox");
     soundRowtype = termFactory.findTerm("http://wikipedia.org/Sound");
   }
@@ -100,7 +96,7 @@ public class TaxonboxHandler implements IArticleFilter {
         try {
           processTaxonPage(page, wikiModel.getTaxonInfo(), sections);
         } catch (IOException e) {
-          log.error("IOException writing taxon page {}", page.getTitle());
+          LOG.error("IOException writing taxon page {}", page.getTitle());
         }
       }
     }
@@ -162,12 +158,16 @@ public class TaxonboxHandler implements IArticleFilter {
     taxon.postprocess(page, lang);
 
     if (taxon.getScientificName() == null) {
-      log.info("No scientific name found in infobox of page {}. Using article title {} as name", WikipediaUtils.getWikiLink(lang, page.getTitle()), page.getTitle());
+      LOG.info("No scientific name found in infobox of page {}. Using article title {} as name",
+        WikipediaUtils.getWikiLink(lang, page.getTitle()), page.getTitle());
       taxon.setScientificName(page.getTitle());
+      taxon.addRemark("No scientific name found in Wikipedia infobox template of page %s. Using article title %s as scientific name",
+        WikipediaUtils.getWikiLink(lang, page.getTitle()), page.getTitle());
     }
 
     taxonCount++;
-    log.debug("Processing #" + taxonCount + " {}: {}", WikipediaUtils.getWikiLink(lang, page.getTitle()), taxon.getScientificName());
+    LOG.debug("Processing #" + taxonCount + " {}: {}", WikipediaUtils.getWikiLink(lang, page.getTitle()),
+      taxon.getScientificName());
     // write core record
     writer.newRecord(page.getId());
     writer.addCoreColumn(DcTerm.references, WikipediaUtils.getWikiLink(lang, page.getTitle()));
@@ -185,6 +185,8 @@ public class TaxonboxHandler implements IArticleFilter {
     writer.addCoreColumn(DwcTerm.family, taxon.getFamily());
     writer.addCoreColumn(DwcTerm.genus, taxon.getGenus());
     writer.addCoreColumn(DwcTerm.subgenus, taxon.getSubgenus());
+    writer.addCoreColumn(DwcTerm.taxonRemarks, taxon.getRemarks());
+
     // other non core
     writer.addCoreColumn(termTrend, taxon.getTrend());
     writer.addCoreColumn(termFossil, taxon.getFossilRange());
@@ -230,15 +232,16 @@ public class TaxonboxHandler implements IArticleFilter {
 
     // distribution extension
     //TODO: publish distribution maps as images or html formatted textual descriptions???
+    /**
     for (Image image : taxon.getRangeMaps()) {
       if (!StringUtils.isBlank(image.getUrl())) {
         row = Maps.newHashMap();
-        row.put(wikipediaImage, WikipediaUtils.getImageLink(image.getUrl()));
-        row.put(wikipediaThumb, WikipediaUtils.getImageThumbnailLink(image.getUrl()));
+        row.put(DcTerm.identifier, WikipediaUtils.getImageLink(image.getUrl()));
         row.put(DwcTerm.locality, image.getTitle());
         writer.addExtensionRecord(GbifTerm.Distribution, row);
       }
     }
+     */
 
     // image extension
     for (Image image : taxon.getImages()) {
@@ -253,7 +256,6 @@ public class TaxonboxHandler implements IArticleFilter {
         row.put(DcTerm.license, image.getLicense());
         row.put(DcTerm.publisher, image.getPublisher());
         row.put(DcTerm.source, image.getSource());
-        row.put(wikipediaThumb, WikipediaUtils.getImageThumbnailLink(image.getUrl()));
         row.put(DcTerm.description, image.getDescription());
         writer.addExtensionRecord(GbifTerm.Image, row);
       }

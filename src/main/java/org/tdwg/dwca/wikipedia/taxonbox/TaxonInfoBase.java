@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -73,6 +74,8 @@ abstract class TaxonInfoBase {
   private List<Image> rangeMaps = Lists.newArrayList();
   // sounds
   private List<Sound> sounds = Lists.newArrayList();
+  // taxonRemarks
+  private List<String> remarks = Lists.newArrayList();
   // conservation status
   private String status; // iucn status
   private String extinct; // year
@@ -620,6 +623,22 @@ abstract class TaxonInfoBase {
       sb.append(mioToString(fossilRangeToMio));
     }
     return StringUtils.trimToNull(sb.toString());
+  }
+
+  public String getRemarks() {
+    if (remarks.isEmpty()) {
+      return null;
+    } else {
+      return Joiner.on("\n").join(remarks);
+    }
+  }
+
+  public void addRemark(String remark) {
+    this.remarks.add(remark);
+  }
+
+  public void addRemark(String format, Object ... args) {
+    this.remarks.add(String.format(format, args));
   }
 
   private String mioToString(Double mio){

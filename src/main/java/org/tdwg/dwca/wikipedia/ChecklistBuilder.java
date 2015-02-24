@@ -57,7 +57,9 @@ public class ChecklistBuilder {
   private File download() throws IOException {
     final File wikiDumpBz = cfg.getRepoFile(cfg.lang+"-wikipedia.xml.bz2");
     url = new URL(String.format("http://dumps.wikimedia.org/%swiki/latest/%swiki-latest-pages-articles.xml.bz2", cfg.lang, cfg.lang));
-    if (!cfg.offline){
+    if (cfg.offline) {
+      log.info("Offline mode, use existing dump file {}", wikiDumpBz.getAbsolutePath());
+    } else {
       log.info("Downloading latest wikipedia dump from " + url.toString());
       HttpUtil http = new HttpUtil(HttpUtil.newMultithreadedClient(61000,10,10));
       boolean success = http.downloadIfChanged(url, wikiDumpBz);
@@ -120,27 +122,28 @@ public class ChecklistBuilder {
   }
 
   private Dataset buildEml() throws IOException {
-    Dataset eml = new Dataset();
-    eml.setTitle(cfg.getLanguage().getTitleEnglish() + " Wikipedia - Species Pages");
-    eml.setLanguage(Language.ENGLISH);
-    eml.setDataLanguage(cfg.getLanguage());
+    Dataset dataset = new Dataset();
+    dataset.setTitle(cfg.getLanguage().getTitleEnglish() + " Wikipedia - Species Pages");
+    dataset.setLanguage(Language.ENGLISH);
+    dataset.setDataLanguage(cfg.getLanguage());
     String description = Resources.toString(Resources.getResource(""), Charsets.UTF_8);
-    eml.setDescription(description.replaceAll("$LANGUAGE", cfg.getLanguage().getTitleEnglish())
+    dataset.setDescription(description.replaceAll("$LANGUAGE", cfg.getLanguage().getTitleEnglish())
       .replaceAll("$DATE", DateFormatUtils.ISO_DATE_FORMAT.format(modifiedDate)));
-    eml.setPubDate(modifiedDate);
-    eml.setHomepage(URI.create("http://" + cfg.lang + ".wikipedia.org"));
-    addMarkus(eml, ContactType.METADATA_AUTHOR, ContactType.ORIGINATOR, ContactType.ADMINISTRATIVE_POINT_OF_CONTACT);
+    dataset.setPubDate(modifiedDate);
+    dataset.setHomepage(URI.create("http://" + cfg.lang + ".wikipedia.org"));
+    addDeveloper(dataset, ContactType.METADATA_AUTHOR, ContactType.ORIGINATOR,
+      ContactType.ADMINISTRATIVE_POINT_OF_CONTACT);
 
     DataDescription d = new DataDescription();
     d.setUrl(URI.create(url.toString()));
     d.setFormat("XML");
     d.setName("Wikipedia Article Dump");
-    eml.getDataDescriptions().add(d);
+    dataset.getDataDescriptions().add(d);
 
-    return eml;
+    return dataset;
   }
 
-  private void addMarkus(Dataset dataset, ContactType... roles){
+  private void addDeveloper(Dataset dataset, ContactType... roles){
     for (ContactType role : roles) {
       Contact markus = new Contact();
       markus.addEmail("mdoering@gbif.org");

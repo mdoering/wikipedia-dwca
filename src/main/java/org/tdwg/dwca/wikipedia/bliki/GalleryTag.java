@@ -52,7 +52,6 @@ public class GalleryTag extends NowikiTag {
           Image img = new Image();
           img.setUrl(m.group(1));
           img.setTitle( internal.render(converter, m.group(2)) );
-          System.out.println(img);
           taxon.getImages().add(img);
         }
       }

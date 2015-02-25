@@ -126,7 +126,7 @@ public class ChecklistBuilder {
     dataset.setTitle(cfg.getLanguage().getTitleEnglish() + " Wikipedia - Species Pages");
     dataset.setLanguage(Language.ENGLISH);
     dataset.setDataLanguage(cfg.getLanguage());
-    String description = Resources.toString(Resources.getResource(""), Charsets.UTF_8);
+    String description = Resources.toString(Resources.getResource("description.txt"), Charsets.UTF_8);
     dataset.setDescription(description.replaceAll("$LANGUAGE", cfg.getLanguage().getTitleEnglish())
       .replaceAll("$DATE", DateFormatUtils.ISO_DATE_FORMAT.format(modifiedDate)));
     dataset.setPubDate(modifiedDate);

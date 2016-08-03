@@ -6,7 +6,7 @@ import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.terms.GbifTerm;
 import org.gbif.dwc.terms.Term;
 import org.gbif.dwc.terms.TermFactory;
-import org.gbif.dwc.text.DwcaWriter;
+import org.gbif.dwca.io.DwcaWriter;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +36,6 @@ import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoEN;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoES;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoFR;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonboxWikiModel;
-import org.xml.sax.SAXException;
 
 public class TaxonboxHandler implements IArticleFilter {
 
@@ -72,7 +71,7 @@ public class TaxonboxHandler implements IArticleFilter {
   public TaxonboxHandler(WikipediaConfig cfg, DwcaWriter writer, File missingLicenseFile) throws IOException {
     this.writer = writer;
     this.cfg = cfg;
-    this.lang = cfg.getLanguage();
+    this.lang = cfg.lang;
     if (lang == null) {
       throw new IllegalArgumentException("Language {} not understood. Please use iso 2 or 3 character codes");
     }
@@ -86,7 +85,7 @@ public class TaxonboxHandler implements IArticleFilter {
   }
 
   @Override
-  public void process(WikiArticle page, Siteinfo siteinfo) throws SAXException {
+  public void process(WikiArticle page, Siteinfo siteinfo) {
     wikiModel.reset();
     // ignore categories, templates, etc. Only process main articles
     if (page.isMain() && !REDIRECT.matcher(page.getText()).find()) {
@@ -135,22 +134,27 @@ public class TaxonboxHandler implements IArticleFilter {
   }
 
   private void addSection(Map<String, String> sections, String title, String body) {
-    String titleNormed = wikiModel.render(new PlainTextConverter(), title).trim();
-    if (!Strings.isNullOrEmpty(titleNormed) && !IGNORE_SETIONS.contains(titleNormed.toLowerCase()) && !titleNormed.toLowerCase().startsWith("additional ")) {
-      String plain = wikiModel.render(converter, body);
-      // replace remaining {{xyz}}
-      plain = REMOVE_TEMPLATES.matcher(plain).replaceAll(" ").trim();
-      // remove [1], [2] etc
-      //plain = REMOVE_FOOTNOTES.matcher(plain).replaceAll(" ");
-      // replace newlines with <br/>
-      plain = plain.replaceAll("\n *\n", "<br/><br/>");
+    try {
+      String titleNormed = wikiModel.render(new PlainTextConverter(), title).trim();
+      if (!Strings.isNullOrEmpty(titleNormed) && !IGNORE_SETIONS.contains(titleNormed.toLowerCase()) && !titleNormed.toLowerCase().startsWith("additional ")) {
+        String plain = wikiModel.render(converter, body);
+        // replace remaining {{xyz}}
+        plain = REMOVE_TEMPLATES.matcher(plain).replaceAll(" ").trim();
+        // remove [1], [2] etc
+        //plain = REMOVE_FOOTNOTES.matcher(plain).replaceAll(" ");
+        // replace newlines with <br/>
+        plain = plain.replaceAll("\n *\n", "<br/><br/>");
 
-      if (!Strings.isNullOrEmpty(plain)) {
-        sections.put(titleNormed, plain);
+        if (!Strings.isNullOrEmpty(plain)) {
+          sections.put(titleNormed, plain);
+        }
       }
+      // discover vernacular name links
+      extractVernacularNames(body);
+
+    } catch (IOException e) {
+      LOG.error("Failed to parse sections for {}", title, e);
     }
-    // discover vernacular name links
-    extractVernacularNames(body);
   }
 
   private void processTaxonPage(WikiArticle page, TaxonInfo taxon, LinkedHashMap<String, String> sections) throws IOException {

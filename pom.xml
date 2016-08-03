@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.gbif</groupId>
     <artifactId>motherpom</artifactId>
-    <version>19</version>
+    <version>37</version>
   </parent>
 
   <artifactId>wikipedia-dwca</artifactId>
@@ -44,7 +44,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.4.2</version>
         <configuration>
           <createDependencyReducedPom>true</createDependencyReducedPom>
           <filters>
@@ -68,17 +68,13 @@
               <finalName>${project.artifactId}</finalName>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <transformers>
-                <!-- This bit sets the main class for the executable jar as you otherwise -->
-                <!-- would with the assembly plugin                                       -->
+                <!-- This bit sets the main class for the executable jar -->
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <manifestEntries>
                     <Main-Class>org.tdwg.dwca.wikipedia.ChecklistBuilder</Main-Class>
                   </manifestEntries>
                 </transformer>
-                <!-- This bit merges the various GeoTools META-INF/services files         -->
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
               </transformers>
-
             </configuration>
           </execution>
         </executions>
@@ -121,51 +117,62 @@
     <dependency>
       <groupId>org.gbif</groupId>
       <artifactId>gbif-httputils</artifactId>
-      <version>0.6</version>
+      <version>0.10</version>
     </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
       <artifactId>gbif-common</artifactId>
-      <version>0.17</version>
+      <version>0.28</version>
     </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
       <artifactId>gbif-api</artifactId>
-      <version>0.17</version>
+      <version>0.41</version>
     </dependency>
     <dependency>
       <groupId>org.gbif</groupId>
-      <artifactId>dwca-reader</artifactId>
-      <version>1.21-SNAPSHOT</version>
+      <artifactId>dwc-api</artifactId>
+      <version>1.16</version>
+    </dependency>
+    <dependency>
+      <groupId>org.gbif</groupId>
+      <artifactId>dwca-io</artifactId>
+      <version>1.27</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!--  Wikipedia text -->
     <dependency>
       <groupId>info.bliki.wiki</groupId>
       <artifactId>bliki-core</artifactId>
-      <version>3.0.19</version>
+      <version>3.1.0</version>
     </dependency>
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
-      <version>1.8.1</version>
+      <version>1.9.2</version>
     </dependency>
 
     <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.10</version>
+      <version>1.7.21</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.10</version>
+      <version>1.7.21</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.1.2</version>
+      <version>1.1.6</version>
     </dependency>
 
     <!-- Test -->
@@ -186,17 +193,17 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.4</version>
+      <version>2.5</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
-      <version>1.9</version>
+      <version>1.8.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.3.2</version>
+      <version>3.4</version>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -213,7 +220,7 @@
     <dependency>
       <groupId>com.beust</groupId>
       <artifactId>jcommander</artifactId>
-      <version>1.47</version>
+      <version>1.48</version>
     </dependency>
 
   </dependencies>

@@ -15,14 +15,20 @@ import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import info.bliki.htmlcleaner.TagToken;
+import info.bliki.wiki.filter.ITextConverter;
+import info.bliki.wiki.filter.ParsedPageName;
 import info.bliki.wiki.filter.PlainTextConverter;
 import info.bliki.wiki.model.WikiModel;
+import info.bliki.wiki.model.WikiModelContentException;
+import info.bliki.wiki.namespaces.INamespace;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.WikipediaConfig;
 import org.tdwg.dwca.wikipedia.bliki.TaxonConfiguration;
+import org.tdwg.dwca.wikipedia.bliki.TaxonTag;
 
 /**
  * Wiki model that is aware of most taxonomic templates plus the major citation and fossil/palaeo templates.
@@ -55,7 +61,6 @@ public class TaxonboxWikiModel extends WikiModel {
   private static final PlainTextConverter converter = new PlainTextConverter();
 
   private final WikipediaConfig cfg;
-  protected final String lang;
   private TaxonInfo info;
   private TaxonboxWikiModel internalWiki;
   private boolean multipleTaxa = false;
@@ -67,7 +72,6 @@ public class TaxonboxWikiModel extends WikiModel {
   public TaxonboxWikiModel(WikipediaConfig cfg) {
     super(TaxonConfiguration.DEFAULT_CONFIGURATION, "http://image.wikipedia.org/${image}", "http://"+cfg.lang+".wikipedia.org/${title}");
     this.cfg = cfg;
-    this.lang = cfg.lang;
     internalWiki = new TaxonboxWikiModel(this);
     // update TaxonConfiguration with a reference to this wikimodel
     TaxonConfiguration.setWikiModel(this);
@@ -75,19 +79,18 @@ public class TaxonboxWikiModel extends WikiModel {
 
   public TaxonboxWikiModel(TaxonboxWikiModel wiki) {
     super(TaxonConfiguration.DEFAULT_CONFIGURATION, wiki.getImageBaseURL(), wiki.getWikiBaseURL());
-    this.lang = wiki.lang;
     this.cfg = wiki.cfg;
   }
 
   @Override
-  public String getRawWikiContent(String namespace, String articleName, Map<String, String> parameterMap) {
-    String result = super.getRawWikiContent(namespace, articleName, parameterMap);
+  public String getRawWikiContent(ParsedPageName parsedPagename, Map<String, String> templateParameters) throws WikiModelContentException {
+    String result = super.getRawWikiContent(parsedPagename, templateParameters);
     if (result != null) {
       // found magic word template
       return result;
     }
-    String name = encodeTitleToUrl(articleName, true);
-    if (isTemplateNamespace(namespace)) {
+    String name = encodeTitleToUrl(parsedPagename.pagename, true);
+    if (parsedPagename.namespace.isType(INamespace.NamespaceCode.TEMPLATE_NAMESPACE_KEY)) {
 
       String templateName = name.toLowerCase().replaceAll("[ _-]","");
       Appendable writer = new StringBuilder();
@@ -97,60 +100,60 @@ public class TaxonboxWikiModel extends WikiModel {
         // exceptional - we dont render the taxon boxes, but only extract the information !!!
         //
         if (TAXOBOX_TEMPLATES.contains(templateName)) {
-          processTaxoBox(parameterMap);
+          processTaxoBox(templateParameters);
           // check taxonomy templates for auto boxes
           if (templateName.equalsIgnoreCase("automatictaxobox")) {
             AutomaticTaxonomyScraper.updateTaxonInfo(info);
           }
 
         } else if (templateName.equalsIgnoreCase("speciesbox")){
-          processSpeciesBox(Rank.Species, parameterMap);
+          processSpeciesBox(Rank.Species, templateParameters);
 
         } else if (templateName.equalsIgnoreCase("subspeciesbox")){
-          processSpeciesBox(Rank.Subspecies, parameterMap);
+          processSpeciesBox(Rank.Subspecies, templateParameters);
 
         } else if (templateName.equalsIgnoreCase("infraspeciesbox")){
-          processSpeciesBox(Rank.Infraspecies, parameterMap);
+          processSpeciesBox(Rank.Infraspecies, templateParameters);
 
-        // Sound templates
+          // Sound templates
         } else if (templateName.equalsIgnoreCase("listen")){
-          processSoundBox(parameterMap);
+          processSoundBox(templateParameters);
 
-        //
-        // append to writer
-        //
+          //
+          // append to writer
+          //
         } else if (templateName.equalsIgnoreCase("hybrid")){
           return " × ";
 
         } else if (FOSSIL_RANGE_TEMPLATES.contains(templateName)){
-          processFossilRange(parameterMap, writer);
+          processFossilRange(templateParameters, writer);
 
         } else if (CITATION_TEMPLATES.contains(templateName)) {
           if (cfg.footnotes) {
-            processCitation(parameterMap, writer);
+            processCitation(templateParameters, writer);
           }
 
         } else if (PLAIN_LIST_TEMPLATES.contains(templateName)) {
-          if (parameterMap.containsKey("1")) {
-            return parameterMap.get("1").replaceAll("#", "*");
+          if (templateParameters.containsKey("1")) {
+            return templateParameters.get("1").replaceAll("#", "*");
           }
           return "";
 
         } else if (templateName.equalsIgnoreCase("convert")) {
-          processConvert(parameterMap, writer);
+          processConvert(templateParameters, writer);
 
         } else if (templateName.equalsIgnoreCase("collapsiblelist")) {
-          processCollapsibleList(parameterMap, writer);
+          processCollapsibleList(templateParameters, writer);
 
         } else if (SPECIES_LIST_TEMPLATES.contains(templateName)) {
-          processSpeciesList(parameterMap, writer);
+          processSpeciesList(templateParameters, writer);
 
 
         } else{
           // log all other templates found on known species pages!
           if (info != null) {
             if (!unknownTemplates.containsKey(templateName)){
-              unknownTemplates.put(templateName, parameterMap==null ? "" : parameterMap.toString());
+              unknownTemplates.put(templateName, templateParameters==null ? "" : templateParameters.toString());
               unknownTemplatesCounter.put(templateName, 1);
             } else {
               unknownTemplatesCounter.put(templateName, unknownTemplatesCounter.get(templateName)+1);
@@ -163,10 +166,25 @@ public class TaxonboxWikiModel extends WikiModel {
         return writer.toString();
 
       } catch (IOException e) {
-        LOG.error("IO error parsing wiki content for article {}", articleName, e);
+        LOG.error("IO error parsing wiki content for article {}", parsedPagename, e);
       }
     }
     return null;
+  }
+
+  @Override
+  public String render(ITextConverter converter, String rawWikiText, boolean templateTopic) throws IOException {
+    String text = super.render(converter, rawWikiText, templateTopic);
+    return text == null ? null : text.trim();
+  }
+
+  @Override
+  public boolean pushNode(TagToken tag) {
+    // call taxon process interface if needed
+    if (tag instanceof TaxonTag) {
+      ((TaxonTag) tag).setTaxon(getTaxonInfo());
+    }
+    return super.pushNode(tag);
   }
 
   private void processConvert(Map<String, String> parameterMap, Appendable writer) {
@@ -370,7 +388,7 @@ public class TaxonboxWikiModel extends WikiModel {
   private void processFossilRange(Map<String, String> parameterMap, Appendable writer) throws IOException {
     // parse fossil range
     boolean closeBrackets = false;
-    if (parameterMap.containsKey("3")) {
+    if (parameterMap.containsKey("3") && !StringUtils.isBlank(parameterMap.get("3"))) {
       writer.append(parameterMap.get("3"));
       writer.append(" (");
       closeBrackets = true;
@@ -523,11 +541,18 @@ public class TaxonboxWikiModel extends WikiModel {
   }
 
   private String internalRender(String wikiText){
-    if (wikiText==null) return null;
-    if (internalWiki != null) {
-      return internalWiki.render(converter, wikiText);
+    if (wikiText!=null) {
+      try {
+        if (internalWiki != null) {
+          return internalWiki.render(converter, wikiText);
+        }
+        return render(converter, wikiText);
+
+      } catch (IOException e) {
+        LOG.error("Error rendering wikiText: {}", wikiText, e);
+      }
     }
-    return render(converter, wikiText);
+    return null;
   }
 
   private String removeTemplateRemains(String x){

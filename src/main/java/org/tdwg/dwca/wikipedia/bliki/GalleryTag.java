@@ -6,7 +6,8 @@ import java.util.regex.Pattern;
 
 import info.bliki.htmlcleaner.ContentToken;
 import info.bliki.wiki.filter.PlainTextConverter;
-import info.bliki.wiki.tags.NowikiTag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.taxonbox.Image;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonboxWikiModel;
@@ -15,34 +16,22 @@ import org.tdwg.dwca.wikipedia.taxonbox.TaxonboxWikiModel;
 /**
  * http://en.wikipedia.org/wiki/Help:Gallery_tag
  */
-public class GalleryTag extends NowikiTag {
+public class GalleryTag extends TaxonTag {
+  private final static Logger LOG = LoggerFactory.getLogger(GalleryTag.class);
   private static Pattern IMAGES = Pattern.compile("(?:File|Image):([^|\n]+)\\s*(?:\\| *([^|\n]+))?", Pattern.CASE_INSENSITIVE);
-  private static TaxonboxWikiModel WIKI_MODEL;
   private static TaxonboxWikiModel internal;
   private static PlainTextConverter converter = new PlainTextConverter();
-  private TaxonInfo taxon;
 
   public GalleryTag() {
     super("gallery");
   }
 
   void setWikiModel(TaxonboxWikiModel wikiModel) {
-    GalleryTag.WIKI_MODEL = wikiModel;
     internal = new TaxonboxWikiModel(wikiModel);
   }
 
   @Override
-  public Object clone() {
-    GalleryTag tag = (GalleryTag) super.clone();
-    tag.taxon = WIKI_MODEL.getTaxonInfo();
-    return tag;
-  }
-
-  @Override
-  public void getBodyString(Appendable buf) throws IOException {
-    // only parse galleries if there is a taxon to attach to
-    if (taxon == null) return;
-
+  public void processTaxon(TaxonInfo taxon) {
     for (Object child : getChildren()) {
       if (child instanceof ContentToken) {
         String content = ((ContentToken) child).getContent();
@@ -51,11 +40,20 @@ public class GalleryTag extends NowikiTag {
         while (m.find()) {
           Image img = new Image();
           img.setUrl(m.group(1));
-          img.setTitle( internal.render(converter, m.group(2)) );
+          img.setTitle( parseTitle(m.group(2)) );
           taxon.getImages().add(img);
         }
       }
     }
+  }
+
+  private String parseTitle(String title) {
+    try {
+      return internal.render(converter, title);
+    } catch (IOException e) {
+      LOG.error("Error parsing title {}", title, e);
+    }
+    return title;
   }
 
 }

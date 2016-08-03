@@ -2,7 +2,7 @@ package org.tdwg.dwca.wikipedia;
 
 import org.gbif.api.vocabulary.Language;
 import org.gbif.dwc.terms.DwcTerm;
-import org.gbif.dwc.text.DwcaWriter;
+import org.gbif.dwca.io.DwcaWriter;
 import org.gbif.utils.file.FileUtils;
 import org.gbif.utils.file.InputStreamUtils;
 
@@ -34,7 +34,7 @@ public class TaxonboxHandlerTest {
     InputStreamUtils isu = new InputStreamUtils();
     WikiArticle page = new WikiArticle();
     page.setId("1");
-    page.setTitle(title);
+    page.setTitle(title, null);
     page.setText(isu.readEntireStream(FileUtils.classpathStream(filename)));
     return page;
   }
@@ -44,7 +44,7 @@ public class TaxonboxHandlerTest {
     tmpDir.deleteOnExit();
     DwcaWriter writer = new DwcaWriter(DwcTerm.Taxon, tmpDir);
     WikipediaConfig cfg = new WikipediaConfig();
-    cfg.lang = lang.getIso2LetterCode();
+    cfg.lang = lang;
     return new TaxonboxHandler(cfg, writer, null);
   }
 

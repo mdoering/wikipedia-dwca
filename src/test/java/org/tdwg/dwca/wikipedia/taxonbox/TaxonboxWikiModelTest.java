@@ -2,6 +2,7 @@ package org.tdwg.dwca.wikipedia.taxonbox;
 
 import org.gbif.utils.file.InputStreamUtils;
 
+import java.io.IOException;
 import java.util.Map;
 
 import info.bliki.wiki.filter.PlainTextConverter;
@@ -21,7 +22,11 @@ public class TaxonboxWikiModelTest {
   private InputStreamUtils isu = new InputStreamUtils();
 
   private String render(String wikiText) {
-    return StringUtils.normalizeSpace(wiki.render(converter, wikiText));
+    try {
+      return StringUtils.normalizeSpace(wiki.render(converter, wikiText));
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   @Test

@@ -2,6 +2,9 @@ A Wikipedia Parser generating a [Darwin Core Archive](http://rs.tdwg.org/dwc/ter
 
 [Multimedia](http://rs.gbif.org/extension/gbif/1.0/multimedia.xml), [vernacular names](http://rs.gbif.org/extension/gbif/1.0/vernacularname.xml) and [textual descriptions](http://rs.gbif.org/extension/gbif/1.0/description.xml) are extracted. Every section of a wiki page will become a distinct description record with the section title becoming the description "type". 
 
+# How to run it
+java -jar wikipedia.jar
+
 # Supported Wikitext Templates
 
 ## Taxon information

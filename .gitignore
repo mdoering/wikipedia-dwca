@@ -4,4 +4,5 @@ target/
 *.iml
 .DS_Store
 *.log
+en-wikipedia.xml.bz2
 wikipedia.jar

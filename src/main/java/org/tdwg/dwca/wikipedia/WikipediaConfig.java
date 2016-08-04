@@ -33,7 +33,7 @@ public class WikipediaConfig {
   private boolean help;
 
   public File getDwcaFile() {
-    return getRepoFile("wikipedia-" + lang.getIso2LetterCode() + "-dwca.zip");
+    return getRepoFile("wikipedia-" + langIso() + "-dwca.zip");
   }
 
   public File getRepoFile(String name) {
@@ -41,7 +41,11 @@ public class WikipediaConfig {
   }
 
   public File getDumpFile() {
-    return getRepoFile(lang.getIso2LetterCode()+"-wikipedia.xml.bz2");
+    return getRepoFile(langIso()+"-wikipedia.xml.bz2");
+  }
+
+  private String langIso() {
+    return lang.getIso2LetterCode();
   }
 
   public URL getWikipediaDumpUrl() {
@@ -52,11 +56,11 @@ public class WikipediaConfig {
     }
   }
   public URI getWikipediaDumpUri() {
-    return URI.create(String.format("https://dumps.wikimedia.org/%swiki/latest/%swiki-latest-pages-articles.xml.bz2", lang, lang));
+    return URI.create(String.format("https://dumps.wikimedia.org/%swiki/latest/%swiki-latest-pages-articles.xml.bz2", langIso(), langIso()));
   }
 
 
   public URI getWikipediaHomepage() {
-    return URI.create("https://" + lang + ".wikipedia.org");
+    return URI.create("https://" + langIso() + ".wikipedia.org");
   }
 }

@@ -30,7 +30,8 @@
 
     <logger name="org.tdwg.dwca" level="DEBUG"/>
     <logger name="org.apache.http" level="ERROR"/>
-
+    <logger name="info.bliki.extensions.scribunto.template" level="OFF"/>
+    
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
     </root>

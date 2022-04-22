@@ -1,16 +1,15 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import org.gbif.utils.file.InputStreamUtils;
-
-import java.io.IOException;
-import java.util.Map;
-
 import info.bliki.wiki.filter.PlainTextConverter;
 import info.bliki.wiki.model.WikiModel;
 import org.apache.commons.lang3.StringUtils;
+import org.gbif.utils.file.InputStreamUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.tdwg.dwca.wikipedia.WikipediaConfig;
+
+import java.io.IOException;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

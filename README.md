@@ -1,9 +1,19 @@
-A Wikipedia Parser generating a [Darwin Core Archive](http://rs.tdwg.org/dwc/terms/guides/text/index.htm) for species pages using the [taxobox](http://en.wikipedia.org/wiki/Template:Taxobox) or [speciesbox](http://en.wikipedia.org/wiki/Template:Speciesbox/doc) template and their derivates. The parser focuses on the English, German, Spanish and French wikipedias currently and works on the [article xml dumps](http://dumps.wikimedia.org/backup-index.html)
+A Wikipedia Parser generating a [Darwin Core Archive](https://rs.tdwg.org/dwc/terms/guides/text/index.htm) 
+for species pages using the [taxobox](https://en.wikipedia.org/wiki/Template:Taxobox) 
+or [speciesbox](https://en.wikipedia.org/wiki/Template:Speciesbox/doc) template and their derivates. 
+The parser focuses on the English, German, Spanish and French wikipedias currently 
+and works on the [article xml dumps](https://dumps.wikimedia.org/backup-index.html)
 
-[Multimedia](http://rs.gbif.org/extension/gbif/1.0/multimedia.xml), [vernacular names](http://rs.gbif.org/extension/gbif/1.0/vernacularname.xml) and [textual descriptions](http://rs.gbif.org/extension/gbif/1.0/description.xml) are extracted. Every section of a wiki page will become a distinct description record with the section title becoming the description "type". 
+[Multimedia](https://rs.gbif.org/extension/gbif/1.0/multimedia.xml), 
+[vernacular names](https://rs.gbif.org/extension/gbif/1.0/vernacularname.xml) and 
+[textual descriptions](https://rs.gbif.org/extension/gbif/1.0/description.xml) are extracted. 
+Every section of a wiki page will become a distinct description record with the section title becoming the description "type". 
+
 
 # How to run it
 java -jar wikipedia.jar
+Downloading and processing the entire english wikipedia takes a long time. 
+Depending on your network and CPU expect the program to run for several days.
 
 # Supported Wikitext Templates
 

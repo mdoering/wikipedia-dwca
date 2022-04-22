@@ -15,15 +15,6 @@
  */
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import org.gbif.api.vocabulary.Kingdom;
-import org.gbif.api.vocabulary.Language;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -31,8 +22,16 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import info.bliki.wiki.dump.WikiArticle;
 import org.apache.commons.lang3.StringUtils;
+import org.gbif.api.vocabulary.Kingdom;
+import org.gbif.api.vocabulary.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Base taxon info with all of the properties of interest.
@@ -101,6 +100,12 @@ abstract class TaxonInfoBase {
   public boolean extinctTmp;
 
   public void postprocess(WikiArticle page, Language lang) {
+    // clean image URLs
+    images.forEach(i -> {
+      if (i.getUrl() != null) {
+        i.setUrl(i.getUrl().replaceFirst("^ *imagemap *File: *", ""));
+      }
+    });
     // set classification and scientific name from flexible rank names
     for (Name n : names) {
       if (n != null){
@@ -120,6 +125,8 @@ abstract class TaxonInfoBase {
             setGenus(n.getScientific());
           } else if (n.getRank()==Rank.Subgenus) {
             setSubgenus(n.getScientific());
+          } else {
+            System.out.println(n.getRank());
           }
         }
       }

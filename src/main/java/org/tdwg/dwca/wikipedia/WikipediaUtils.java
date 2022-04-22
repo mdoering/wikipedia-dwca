@@ -25,7 +25,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class WikipediaUtils {
 
-  private static final String WIKI_URL = "https://commons.wikimedia.org/wiki/File:";
+  public static final String WIKI_BASE = "https://commons.wikimedia.org/wiki/";
+  private static final String WIKI_URL = WIKI_BASE + "File:";
 
   public static String getWikiLink(Language lang, String title) {
     try {

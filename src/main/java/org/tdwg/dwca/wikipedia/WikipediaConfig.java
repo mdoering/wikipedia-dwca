@@ -1,16 +1,14 @@
 package org.tdwg.dwca.wikipedia;
 
+import com.beust.jcommander.Parameter;
 import org.gbif.api.vocabulary.Language;
+import org.tdwg.dwca.wikipedia.cli.LanguageConverter;
 
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-
-import javax.validation.constraints.NotNull;
-
-import com.beust.jcommander.Parameter;
-import org.tdwg.dwca.wikipedia.cli.LanguageConverter;
 
 public class WikipediaConfig {
   @Parameter(names = {"-r", "--repo"}, description = "Directory to download wikipedia dumps to. If last versions are found a conditional get download will be done. Defaults to /tmp/wikipedia-data")
@@ -23,7 +21,7 @@ public class WikipediaConfig {
   @Parameter(names = {"-o", "--offline"}, description = "If true no wikipedia dumps will be downloaded and only local dump files will be used. Defaults to false")
   public boolean offline = false;
 
-  @Parameter(names = {"-tmp", "--keepTmp"}, description = "If true temporay files during archive build will be kept. Defaults to false")
+  @Parameter(names = {"-tmp", "--keepTmp"}, description = "If true temporary files during archive build will be kept. Defaults to false")
   public boolean keepTmp = false;
 
   @Parameter(names = {"-f", "--footnotes"}, description = "If true footnotes found in descriptions are expanded and kept")

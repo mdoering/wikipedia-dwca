@@ -15,35 +15,38 @@
  */
 package org.tdwg.dwca.wikipedia;
 
-import org.gbif.api.model.registry.Contact;
-import org.gbif.api.model.registry.Dataset;
-import org.gbif.api.model.registry.eml.DataDescription;
-import org.gbif.api.vocabulary.ContactType;
-import org.gbif.api.vocabulary.Country;
-import org.gbif.api.vocabulary.Language;
-import org.gbif.dwc.terms.DwcTerm;
-import org.gbif.dwca.io.DwcaWriter;
-import org.gbif.utils.HttpUtil;
-import org.gbif.utils.file.CompressionUtil;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Date;
-import java.util.Map;
-
 import com.beust.jcommander.JCommander;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import info.bliki.wiki.dump.WikiXMLParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.gbif.api.model.registry.Contact;
+import org.gbif.api.model.registry.Dataset;
+import org.gbif.api.model.registry.eml.DataDescription;
+import org.gbif.api.vocabulary.ContactType;
+import org.gbif.api.vocabulary.Country;
+import org.gbif.api.vocabulary.Language;
+import org.gbif.dwc.DwcaWriter;
+import org.gbif.dwc.terms.DwcTerm;
+import org.gbif.registry.metadata.EMLWriter;
+import org.gbif.utils.HttpClient;
+import org.gbif.utils.HttpUtil;
+import org.gbif.utils.file.CompressionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.URL;
+import java.util.Date;
+import java.util.Map;
 
 
 public class ChecklistBuilder {
   private static final Logger LOG = LoggerFactory.getLogger(ChecklistBuilder.class);
+  private final HttpClient http;
   private DwcaWriter writer;
 
   private WikipediaConfig cfg;
@@ -52,6 +55,7 @@ public class ChecklistBuilder {
 
   public ChecklistBuilder(WikipediaConfig cfg) {
     this.cfg = cfg;
+    this.http = HttpUtil.newMultithreadedClient(1000 * 60 * 60 * 10, 5, 5);
   }
 
   public void run() {
@@ -74,7 +78,6 @@ public class ChecklistBuilder {
     final File wikiDumpBz = cfg.getDumpFile();
     URL url = cfg.getWikipediaDumpUrl();
     LOG.info("Downloading latest wikipedia dump from " + url.toString());
-    HttpUtil http = new HttpUtil(HttpUtil.newMultithreadedClient(1000*60*60*10, 5, 5));
     boolean success = http.downloadIfChanged(url, wikiDumpBz);
     if (success){
       LOG.info("Downloaded new wikipedia dump");
@@ -92,7 +95,7 @@ public class ChecklistBuilder {
 
     // parse file
     LOG.info("Parsing dump file {}", wikiDumpBz.getAbsolutePath());
-    TaxonboxHandler handler = new TaxonboxHandler(cfg, writer, new File(cfg.repo, "missing_licenses-"+cfg.lang+".txt"));
+    TaxonboxHandler handler = new TaxonboxHandler(cfg, http, writer, new File(cfg.repo, "missing_licenses-"+cfg.lang+".txt"));
     try {
       WikiXMLParser wxp = new WikiXMLParser(wikiDumpBz, handler);
       wxp.parse();
@@ -109,7 +112,7 @@ public class ChecklistBuilder {
     // finish archive and zip it
     final File dwcaFile = cfg.getDwcaFile();
     LOG.info("Bundling archive at {}", dwcaFile);
-    writer.setEml(buildEml());
+    writer.setMetadata(buildEml(), "eml.xml");
     writer.close(); // adds eml and meta.xml file
 
     if (dwcaFile.exists()) {
@@ -129,15 +132,15 @@ public class ChecklistBuilder {
     LOG.info("Wikipedia dwc archive completed at {} !", dwcaFile);
   }
 
-  private Dataset buildEml() throws IOException {
+  private String buildEml() throws IOException {
     Dataset dataset = new Dataset();
     dataset.setTitle(cfg.lang.getTitleEnglish() + " Wikipedia - Species Pages");
     dataset.setLanguage(Language.ENGLISH);
     dataset.setDataLanguage(cfg.lang);
     String description = Resources.toString(Resources.getResource("description.txt"), Charsets.UTF_8);
     dataset.setDescription(description
-        .replaceAll("$LANGUAGE", cfg.lang.getTitleEnglish())
-        .replaceAll("$DATE", DateFormatUtils.ISO_DATE_FORMAT.format(modifiedDate))
+        .replaceAll("\\$LANG", cfg.lang.getTitleEnglish())
+        .replaceAll("\\$DATE", DateFormatUtils.ISO_8601_EXTENDED_DATE_FORMAT.format(modifiedDate))
     );
     dataset.setPubDate(modifiedDate);
     dataset.setHomepage(cfg.getWikipediaHomepage());
@@ -150,7 +153,10 @@ public class ChecklistBuilder {
     d.setName("Wikipedia Article Dump");
     dataset.getDataDescriptions().add(d);
 
-    return dataset;
+    StringWriter sw = new StringWriter();
+    EMLWriter.newInstance().writeTo(dataset, sw);
+    sw.close();
+    return sw.toString();
   }
 
   private void addDeveloper(Dataset dataset, ContactType... roles){

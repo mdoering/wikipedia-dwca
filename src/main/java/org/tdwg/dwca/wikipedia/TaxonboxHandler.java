@@ -1,21 +1,5 @@
 package org.tdwg.dwca.wikipedia;
 
-import org.gbif.api.vocabulary.Language;
-import org.gbif.dwc.terms.DcTerm;
-import org.gbif.dwc.terms.DwcTerm;
-import org.gbif.dwc.terms.GbifTerm;
-import org.gbif.dwc.terms.Term;
-import org.gbif.dwc.terms.TermFactory;
-import org.gbif.dwca.io.DwcaWriter;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
@@ -26,22 +10,28 @@ import info.bliki.wiki.dump.WikiArticle;
 import info.bliki.wiki.filter.ITextConverter;
 import info.bliki.wiki.filter.PlainTextConverter;
 import org.apache.commons.lang3.StringUtils;
+import org.gbif.api.vocabulary.Language;
+import org.gbif.dwc.DwcaWriter;
+import org.gbif.dwc.terms.*;
+import org.gbif.utils.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tdwg.dwca.wikipedia.taxonbox.Image;
-import org.tdwg.dwca.wikipedia.taxonbox.Sound;
-import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
-import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoDE;
-import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoEN;
-import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoES;
-import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfoFR;
-import org.tdwg.dwca.wikipedia.taxonbox.TaxonboxWikiModel;
+import org.tdwg.dwca.wikipedia.taxonbox.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaxonboxHandler implements IArticleFilter {
 
   private final static Logger LOG = LoggerFactory.getLogger(TaxonboxHandler.class);
   private final WikipediaConfig cfg;
   private final Language lang;
+  private final HttpClient http;
   private final DwcaWriter writer;
   private Integer taxonCount = 0;
   private final WikimediaScraper imgScraper;
@@ -52,7 +42,6 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Term termFossil;
   private final Term termTrend;
   private final Term taxobox;
-  private final Term soundRowtype;
   private final TaxonboxWikiModel wikiModel;
   private final ITextConverter converter = new PlainTextConverter();
 
@@ -68,27 +57,27 @@ public class TaxonboxHandler implements IArticleFilter {
   private final Pattern EXTRACT_VERNACULARS = Pattern.compile("\\[\\[([a-z]{2,3}):([^\\]\\[]+)\\]\\]");
   private final Pattern REDIRECT = Pattern.compile("^.REDIRECT", Pattern.CASE_INSENSITIVE);
 
-  public TaxonboxHandler(WikipediaConfig cfg, DwcaWriter writer, File missingLicenseFile) throws IOException {
+  public TaxonboxHandler(WikipediaConfig cfg, HttpClient http, DwcaWriter writer, File missingLicenseFile) throws IOException {
     this.writer = writer;
+    this.http = http;
     this.cfg = cfg;
     this.lang = cfg.lang;
     if (lang == null) {
       throw new IllegalArgumentException("Language {} not understood. Please use iso 2 or 3 character codes");
     }
-    imgScraper = new WikimediaScraper(missingLicenseFile);
+    imgScraper = new WikimediaScraper(http, missingLicenseFile);
     wikiModel = new TaxonboxWikiModel(cfg);
     termFactory = TermFactory.instance();
     termFossil = termFactory.findTerm("http://wikipedia.org/taxon/fossilRange");
     termTrend = termFactory.findTerm("http://wikipedia.org/taxon/trend");
     taxobox = termFactory.findTerm("http://wikipedia.org/taxobox");
-    soundRowtype = termFactory.findTerm("http://wikipedia.org/Sound");
   }
 
   @Override
   public void process(WikiArticle page, Siteinfo siteinfo) {
     wikiModel.reset();
     // ignore categories, templates, etc. Only process main articles
-    if (page.isMain() && !REDIRECT.matcher(page.getText()).find()) {
+    if (page.isMain() && page.getText() != null && !REDIRECT.matcher(page.getText()).find()) {
       LinkedHashMap<String, String> sections = splitPage(page);
 
       if (wikiModel.isSpeciesPage()) {
@@ -152,8 +141,8 @@ public class TaxonboxHandler implements IArticleFilter {
       // discover vernacular name links
       extractVernacularNames(body);
 
-    } catch (IOException e) {
-      LOG.error("Failed to parse sections for {}", title, e);
+    } catch (Exception e) {
+      LOG.error("Failed to parse section {}", title, e);
     }
   }
 
@@ -252,6 +241,7 @@ public class TaxonboxHandler implements IArticleFilter {
       if (!StringUtils.isBlank(image.getUrl())) {
         imgScraper.scrape(image);
         row = Maps.newHashMap();
+        row.put(DcTerm.type, "StillImage");
         row.put(DcTerm.identifier, WikipediaUtils.getImageLink(image.getUrl()));
         row.put(DcTerm.references, WikipediaUtils.getImageWikiLink(image.getUrl()));
         row.put(DcTerm.title, image.getTitle());
@@ -261,7 +251,7 @@ public class TaxonboxHandler implements IArticleFilter {
         row.put(DcTerm.publisher, image.getPublisher());
         row.put(DcTerm.source, image.getSource());
         row.put(DcTerm.description, image.getDescription());
-        writer.addExtensionRecord(GbifTerm.Image, row);
+        writer.addExtensionRecord(GbifTerm.Multimedia, row);
       }
     }
 
@@ -270,6 +260,7 @@ public class TaxonboxHandler implements IArticleFilter {
       if (!StringUtils.isBlank(sound.getUrl())) {
         imgScraper.scrape(sound);
         row = Maps.newHashMap();
+        row.put(DcTerm.type, "Sound");
         row.put(DcTerm.identifier, WikipediaUtils.getImageLink(sound.getUrl()));
         row.put(DcTerm.references, WikipediaUtils.getImageWikiLink(sound.getUrl()));
         row.put(DcTerm.title, sound.getTitle());
@@ -279,7 +270,7 @@ public class TaxonboxHandler implements IArticleFilter {
         row.put(DcTerm.publisher, sound.getPublisher());
         row.put(DcTerm.source, sound.getSource());
         row.put(DcTerm.description, sound.getDescription());
-        writer.addExtensionRecord(soundRowtype, row);
+        writer.addExtensionRecord(GbifTerm.Multimedia, row);
       }
     }
 

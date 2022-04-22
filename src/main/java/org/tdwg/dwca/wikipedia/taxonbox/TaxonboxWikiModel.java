@@ -1,20 +1,10 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Functions;
 import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
+import info.bliki.extensions.scribunto.ScribuntoException;
 import info.bliki.htmlcleaner.TagToken;
 import info.bliki.wiki.filter.ITextConverter;
 import info.bliki.wiki.filter.ParsedPageName;
@@ -29,6 +19,15 @@ import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.WikipediaConfig;
 import org.tdwg.dwca.wikipedia.bliki.TaxonConfiguration;
 import org.tdwg.dwca.wikipedia.bliki.TaxonTag;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Wiki model that is aware of most taxonomic templates plus the major citation and fossil/palaeo templates.
@@ -45,6 +44,7 @@ public class TaxonboxWikiModel extends WikiModel {
     "longfossilrange");
   private final static Set<String> SPECIES_LIST_TEMPLATES = Sets.newHashSet("specieslist", "taxonlist");
   private final static Set<String> PLAIN_LIST_TEMPLATES = Sets.newHashSet("plainlist", "flatlist");
+  private final static Set<String> QUOTE_TEMPLATES = Sets.newHashSet("quote");
 
   private static final Pattern REPL_REF_TAG = Pattern.compile("< *ref[a-zA-Z0-9 =\"\'_-]*>[^<>]+</ *ref *>", Pattern.CASE_INSENSITIVE);
   private static final Pattern IS_EXTINCT = Pattern.compile("[†‡]");
@@ -139,8 +139,17 @@ public class TaxonboxWikiModel extends WikiModel {
           }
           return "";
 
+        } else if (QUOTE_TEMPLATES.contains(templateName)) {
+          processQuote(templateParameters, writer);
+
         } else if (templateName.equalsIgnoreCase("convert")) {
           processConvert(templateParameters, writer);
+
+        } else if (templateName.equalsIgnoreCase("taxonbar")) {
+          processTaxonBar(templateParameters);
+
+        } else if (templateName.equalsIgnoreCase("dagger")) {
+          return "†";
 
         } else if (templateName.equalsIgnoreCase("collapsiblelist")) {
           processCollapsibleList(templateParameters, writer);
@@ -172,10 +181,23 @@ public class TaxonboxWikiModel extends WikiModel {
     return null;
   }
 
+  /**
+   * TODO: Parses alternative ids by reading wikidata
+   * taxonbar -> {from=Q161577}
+   */
+  private void processTaxonBar(Map<String, String> templateParameters) {
+
+  }
+
   @Override
   public String render(ITextConverter converter, String rawWikiText, boolean templateTopic) throws IOException {
-    String text = super.render(converter, rawWikiText, templateTopic);
-    return text == null ? null : text.trim();
+    try {
+      String text = super.render(converter, rawWikiText, templateTopic);
+      return text == null ? null : text.trim();
+    } catch (Exception e) {
+      LOG.error("Render problem for {}: {}", rawWikiText.substring(0, Math.min(100,rawWikiText.length())), e.getMessage());
+      return null;
+    }
   }
 
   @Override
@@ -196,6 +218,33 @@ public class TaxonboxWikiModel extends WikiModel {
       writer.append(unit);
     } catch (Exception e) {
       // ignore
+    }
+  }
+
+  /**
+   * quote -> {1=By the time that an animal had reached, after numberless generations, the deepest recesses, disuse will on this view have more or less perfectly obliterated its eyes, and natural selection will often have effected other changes, such as an increase in the length of antennae or palpi, as compensation for blindness., 2=Charles Darwin, 3=Origin of Species (1859)}
+   */
+  private void processQuote(Map<String, String> parameterMap, Appendable writer) {
+    if (parameterMap.containsKey("1")) {
+      try {
+        String quote = parameterMap.get("1");
+        String author = parameterMap.get("2");
+        String work = parameterMap.get("3");
+        writer.append(" \"");
+        writer.append(quote);
+        writer.append("\"");
+        if (author != null) {
+          writer.append(" (");
+          writer.append(author);
+          if (work != null) {
+            writer.append(" in ");
+            writer.append(work);
+          }
+          writer.append(")");
+        }
+      } catch (IOException e) {
+        // ignore
+      }
     }
   }
 

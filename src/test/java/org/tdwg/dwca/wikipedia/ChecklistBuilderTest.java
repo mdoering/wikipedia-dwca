@@ -1,16 +1,16 @@
 package org.tdwg.dwca.wikipedia;
 
-import org.gbif.api.vocabulary.Language;
-
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import com.google.common.io.Resources;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.gbif.api.vocabulary.Language;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class ChecklistBuilderTest {
 
@@ -28,7 +28,7 @@ public class ChecklistBuilderTest {
       FileUtils.forceMkdir(tmp.getParentFile());
       tmp.createNewFile();
     }
-    try (InputStream in = Resources.getResource("enwiki-latest-pages-articles1.xml.bz2").openStream();
+    try (InputStream in = Resources.getResource("enwiki-20220420-pages-articles11.xml.bz2").openStream();
          OutputStream out = FileUtils.openOutputStream(tmp)
     ) {
       IOUtils.copyLarge(in, out);

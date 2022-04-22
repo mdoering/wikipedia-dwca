@@ -1,26 +1,22 @@
 package org.tdwg.dwca.wikipedia;
 
+import info.bliki.wiki.dump.WikiArticle;
 import org.gbif.api.vocabulary.Language;
+import org.gbif.dwc.DwcaWriter;
 import org.gbif.dwc.terms.DwcTerm;
-import org.gbif.dwca.io.DwcaWriter;
 import org.gbif.utils.file.FileUtils;
 import org.gbif.utils.file.InputStreamUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedHashMap;
-
-import info.bliki.wiki.dump.WikiArticle;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.tdwg.dwca.wikipedia.taxonbox.Rank;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
 import org.xml.sax.SAXException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+
+import static org.junit.Assert.*;
 
 public class TaxonboxHandlerTest {
 
@@ -45,7 +41,7 @@ public class TaxonboxHandlerTest {
     DwcaWriter writer = new DwcaWriter(DwcTerm.Taxon, tmpDir);
     WikipediaConfig cfg = new WikipediaConfig();
     cfg.lang = lang;
-    return new TaxonboxHandler(cfg, writer, null);
+    return new TaxonboxHandler(cfg, null, writer, null);
   }
 
   @Test

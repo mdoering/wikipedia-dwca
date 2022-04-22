@@ -16,14 +16,13 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 import org.gbif.api.vocabulary.Kingdom;
 import org.gbif.api.vocabulary.Language;
 
 import java.util.Map;
 import java.util.Set;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Sets;
 
 /**
  * Support for various english wikipedia taxobox formats.

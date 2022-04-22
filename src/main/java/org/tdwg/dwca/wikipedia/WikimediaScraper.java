@@ -1,14 +1,10 @@
 package org.tdwg.dwca.wikipedia;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Map;
-
 import com.beust.jcommander.internal.Maps;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import org.gbif.utils.ExtendedResponse;
+import org.gbif.utils.HttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,19 +13,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.taxonbox.Media;
 
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Map;
+
 public class WikimediaScraper {
   private static final Logger LOG = LoggerFactory.getLogger(WikimediaScraper.class);
+  private final HttpClient http;
   private final Map<String, String> licenses = Maps.newHashMap();
   private Writer noLicenses;
 
-  public WikimediaScraper(File noLicenseFile) throws IOException {
-    this();
+  public WikimediaScraper(HttpClient http, File noLicenseFile) throws IOException {
+    this(http);
     if (noLicenseFile != null) {
       noLicenses = new FileWriter(noLicenseFile);
     }
   }
 
-  public WikimediaScraper() {
+  public WikimediaScraper(HttpClient http) {
+    this.http = http;
     licenses.put("pd", "Public Domain");
     licenses.put("pd-self", "Public Domain");
     licenses.put("pd-us-nps", "Public Domain images from the U.S. National Park Service");
@@ -88,8 +91,23 @@ public class WikimediaScraper {
     }
   }
 
-  private void parse(String url, Media img) throws IOException {
-    Document doc = Jsoup.connect(url).get();
+  private void parse(String url, Media img) throws IOException, URISyntaxException {
+    Document doc = null;
+    try {
+    ExtendedResponse resp = null;
+      resp = http.get(url);
+      if (resp.getStatusCode() / 100 == 2) {
+        doc = Jsoup.parse(resp.getContent());
+      } else {
+        LOG.warn("Failed to retrieve media object {}. HTTP {}", url, resp.getStatusCode());
+        return;
+      }
+    } catch (URISyntaxException | IllegalArgumentException e) {
+      LOG.debug("Failed to retrieve media object {}. Try again with plain URL connection: {}", url, e.getMessage());
+      // try with plain URL connection which avoids URI instances that refuse some wikipedia URLs having quotes
+      InputStream stream = new URL(url).openStream();
+      doc = Jsoup.parse(stream, null, WikipediaUtils.WIKI_BASE);
+    }
 
     Element summary = doc.getElementById("mw-imagepage-content");
     if(summary!=null){

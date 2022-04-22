@@ -1,7 +1,5 @@
 package org.tdwg.dwca.wikipedia.taxonbox;
 
-import java.io.IOException;
-
 import com.google.common.base.Strings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,6 +8,8 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.WikipediaUtils;
+
+import java.io.IOException;
 
 public class AutomaticTaxonomyScraper {
   private static final String PREFIX = "http://en.wikipedia.org/wiki/Template:Taxonomy/";

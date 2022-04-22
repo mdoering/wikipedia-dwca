@@ -1,10 +1,10 @@
 <configuration scan="true">
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>wikipedia-parser.log</file>
+        <file>wikipedia-dwca.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>wikipedia-parser.%i.log.zip</fileNamePattern>
+            <fileNamePattern>wikipedia-dwca.%i.log.zip</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>2</maxIndex>
         </rollingPolicy>
@@ -19,19 +19,19 @@
         </encoder>
     </appender>
 
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
-  by default -->
-    <encoder>
-      <pattern>%-5level %msg%n
-      </pattern>
-    </encoder>
-  </appender>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+      by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss} %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
 
-  <logger name="org.tdwg.dwca" level="DEBUG"/>
-
+    <logger name="org.tdwg.dwca" level="DEBUG"/>
+    <logger name="org.apache.http" level="ERROR"/>
 
     <root level="INFO">
-      <appender-ref ref="CONSOLE" />
+        <appender-ref ref="CONSOLE" />
     </root>
 </configuration>

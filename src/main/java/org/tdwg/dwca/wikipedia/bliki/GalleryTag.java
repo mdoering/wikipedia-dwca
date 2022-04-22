@@ -1,9 +1,5 @@
 package org.tdwg.dwca.wikipedia.bliki;
 
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import info.bliki.htmlcleaner.ContentToken;
 import info.bliki.wiki.filter.PlainTextConverter;
 import org.slf4j.Logger;
@@ -11,6 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.tdwg.dwca.wikipedia.taxonbox.Image;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonInfo;
 import org.tdwg.dwca.wikipedia.taxonbox.TaxonboxWikiModel;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**

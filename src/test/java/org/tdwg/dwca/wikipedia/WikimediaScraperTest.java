@@ -1,19 +1,24 @@
 package org.tdwg.dwca.wikipedia;
 
-import java.util.List;
-
 import com.beust.jcommander.internal.Lists;
+import org.gbif.utils.HttpUtil;
+import org.junit.Before;
 import org.junit.Test;
 import org.tdwg.dwca.wikipedia.taxonbox.Image;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class WikimediaScraperTest {
-
+  WikimediaScraper scraper;
+  @Before
+  public void init() {
+    scraper = new WikimediaScraper(HttpUtil.newSinglethreadedClient(20000));
+  }
   @Test
   public void testScrape() throws Exception {
-    WikimediaScraper scraper = new WikimediaScraper();
     Image img = new Image();
 
     img.setUrl("Puma_Sleeping.jpg");
@@ -42,6 +47,8 @@ public class WikimediaScraperTest {
   @Test
   public void testScrapeLicenses() throws Exception {
     List<String> files = Lists.newArrayList(
+        "\"Biman_Bangladesh_Airlines,Boeing_777-3E9ER.jpg",
+
       "Eichhörnchen_Düsseldorf_Hofgarten_edit.jpg",
       "Sciurus-vulgaris_hernandeangelis_stockholm_2008-06-04.jpg",
       "Ab_sciurus_vulgaris.jpg",
@@ -51,7 +58,6 @@ public class WikimediaScraperTest {
       "\"_in_São_Paulo_(By_Felipe_Mostarda).jpg"
     );
 
-    WikimediaScraper scraper = new WikimediaScraper();
     for (String f : files) {
       Image img = new Image();
       img.setUrl(f);

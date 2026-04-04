@@ -1,3 +1,8 @@
+# Deprecated
+This software is deprecated over a newer ColDP generator for Wikidata and Wikispecies: https://github.com/CatalogueOfLife/coldp-generator
+
+-----
+
 A Wikipedia Parser generating a [Darwin Core Archive](https://rs.tdwg.org/dwc/terms/guides/text/index.htm) 
 for species pages using the [taxobox](https://en.wikipedia.org/wiki/Template:Taxobox) 
 or [speciesbox](https://en.wikipedia.org/wiki/Template:Speciesbox/doc) template and their derivates. 
